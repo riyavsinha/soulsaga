@@ -1,8 +1,5 @@
-import AppBar from '@material-ui/core/AppBar';
 import AddEventForm from './AddEventForm.js';
 import TimelineEvent from './TimelineEvent.js';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
@@ -28,22 +25,11 @@ export class DefaultPage extends Component {
 
   render() {
     return (
-      <div>
-
-        <AppBar className="timeline-add-event-dialog__app-bar">
-          <Toolbar>
-            <Typography variant="title" color="inherit" className="timeline-add-event-dialog__app-bar-text">
-              SoulSaga
-            </Typography>
-          </Toolbar>
-        </AppBar>
-
-        <div className="timeline-default-page">
-          <div className="timeline-default-page__card-container">
-            {this.renderEvents()}
-          </div>
-          <AddEventForm />
+      <div className="timeline-default-page">
+        <div className="timeline-default-page__card-container">
+          {this.renderEvents()}
         </div>
+        <AddEventForm />
       </div>
     );
   }
