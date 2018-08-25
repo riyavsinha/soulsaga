@@ -18,9 +18,7 @@ export function signIn() {
           (res) => {
             dispatch({
               type: COMMON_SIGN_IN_SUCCESS,
-              name: res.user.displayName,
-              photoUrl: res.user.photoURL,
-              id: res.user.uid,
+              user: res.user
             });
             resolve(res);
           },

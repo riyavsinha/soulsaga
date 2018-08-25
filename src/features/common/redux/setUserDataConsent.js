@@ -6,22 +6,26 @@ import {
 } from './constants';
 import {database, DATA_CONSENT} from 'common/firebase';
 
-export function setUserDataConsent(name, uid, storeData, texts) {
+export function setUserDataConsent(user, storeData, texts) {
   return (dispatch) => { // optionally you can have getState as the second argument
     dispatch({
       type: COMMON_SET_USER_DATA_CONSENT_BEGIN,
     });
 
     const promise = new Promise((resolve, reject) => {
+      const id = user.id;
+      console.log(id);
       const dataLoad = {
-        name: name,
-        uid: uid,
+        name: user.displayName,
+        email: user.email,
+        uid: user.uid,
         consent: storeData,
         shownTexts: texts,
         timestamp: Date.now(),
       }
+      const db = database.ref(DATA_CONSENT + user.uid);
+      console.log(db);
       console.log(dataLoad);
-      const db = database.ref(DATA_CONSENT + uid)
       Promise.all([db.push(dataLoad), db.child('currentState').set(storeData)])
         .then(
           (res) => {

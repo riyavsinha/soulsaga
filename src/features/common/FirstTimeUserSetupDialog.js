@@ -37,8 +37,7 @@ export class FirstTimeUserSetupDialog extends Component {
 
   handleClose = () => {
     this.props.actions.setUserDataConsent(
-      this.props.common.user.name,
-      this.props.common.user.id,
+      this.props.common.user,
       this.state.value === "true",
       [
         this.state.dataSettingDialogTitle,

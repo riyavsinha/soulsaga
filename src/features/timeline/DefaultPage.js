@@ -2,6 +2,7 @@ import AddEventForm from './AddEventForm.js';
 import TimelineEvent from './TimelineEvent.js';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from "react-router-dom";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
@@ -24,6 +25,11 @@ export class DefaultPage extends Component {
   }
 
   render() {
+    if (this.props.common.signInState === null) {
+      return <div/>;
+    } else if (this.props.common.signInState === false) {
+      return <Redirect to="/" />;
+    }
     return (
       <div className="timeline-default-page">
         <div className="timeline-default-page__card-container">
@@ -38,6 +44,7 @@ export class DefaultPage extends Component {
 /* istanbul ignore next */
 function mapStateToProps(state) {
   return {
+    common: state.common,
     timeline: state.timeline,
   };
 }

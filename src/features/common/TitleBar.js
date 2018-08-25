@@ -23,7 +23,6 @@ export class TitleBar extends Component {
 
   state = {
     profileMenuAnchorEl: null,
-    signInComplete: false,
   }
 
   /**
@@ -36,8 +35,10 @@ export class TitleBar extends Component {
       if (user) {
         this.props.actions.populateUser(user);
         this.populateConsentState(user.uid)
-          .then(() => this.setState({ signInComplete: true }));
-      } 
+          .then(() => this.props.actions.populateSignInState(true));
+      } else {
+        this.props.actions.populateSignInState(false);
+      }
     });
   };
 
@@ -49,7 +50,7 @@ export class TitleBar extends Component {
   initiateSignIn = () => {
     this.props.actions.signIn()
       .then(() => this.populateConsentState())
-      .then(() => this.setState({ signInComplete: true }));
+      .then(() => this.props.actions.populateSignInState(true));
   }
 
   /**
@@ -77,13 +78,14 @@ export class TitleBar extends Component {
    */
   handleSignOut = () => {
     this.handleMenuClose();
-    this.props.actions.signOut();
+    this.props.actions.signOut()
+      .then(() => this.props.actions.populateSignInState(false));
   }
 
   /** RENDERS */
 
   renderSetupDialog = () => {
-    if (this.state.signInComplete &&
+    if (this.props.common.signInState &&
         this.props.common.storeUserData === null) {
       return (<FirstTimeUserSetupDialog/>);
     }
@@ -95,7 +97,7 @@ export class TitleBar extends Component {
         {this.renderSetupDialog()}
         <IconButton>
           <Avatar 
-            src={this.props.common.user.photoUrl}
+            src={this.props.common.user.photoURL}
             className="title-bar__user-info-avatar"
             onClick={this.handleMenuOpen} />
         </IconButton>

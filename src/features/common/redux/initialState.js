@@ -8,6 +8,7 @@
 
 const initialState = {
   user: null,
+  signInState: null,
   signInPending: false,
   signInError: null,
   signOutPending: false,
