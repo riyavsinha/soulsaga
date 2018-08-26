@@ -4,6 +4,10 @@ import {
   TIMELINE_ADD_EVENT_FAILURE,
   TIMELINE_ADD_EVENT_DISMISS_ERROR,
 } from './constants';
+import {
+  database,
+  TIMELINE
+} from 'common/firebase';
 
 /**
  * Action to save a new event.
@@ -11,22 +15,21 @@ import {
  * @param e {!EventProto} The event object
  */
 export function addEvent(e) {
-  return (dispatch) => { // optionally you can have getState as the second argument
+  return (dispatch, getState) => { // optionally you can have getState as the second argument
+    console.log(getState());
     dispatch({
       type: TIMELINE_ADD_EVENT_BEGIN,
     });
 
-    // Return a promise so that you could control UI flow without states in the store.
-    // For example: after submit a form, you need to redirect the page to another when succeeds or show some errors message if fails.
-    // It's hard to use state to manage it, but returning a promise allows you to easily achieve it.
-    // e.g.: handleSubmit() { this.props.actions.submitForm(data).then(()=> {}).catch(() => {}); }
     const promise = new Promise((resolve, reject) => {
-      // doRequest is a placeholder Promise. You should replace it with your own logic.
-      // See the real-word example at:  https://github.com/supnate/rekit/blob/master/src/features/home/redux/fetchRedditReactjsList.js
-      // args.error here is only for test coverage purpose.
-      const doRequest = Promise.resolve();
-      doRequest.then(
+      const ref = database.ref(TIMELINE + getState().common.user.uid);
+      const reqPromise = getState().common.storeUserData ?
+        ref.push(e) : Promise.resolve();
+      reqPromise.then(
         (res) => {
+          if (res) {
+            e.ref = res.key;
+          }
           dispatch({
             type: TIMELINE_ADD_EVENT_SUCCESS,
             event: e

@@ -9,10 +9,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import {auth} from 'common/firebase';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { database, DATA_CONSENT } from 'common/firebase';
+import { auth, database, DATA_CONSENT } from 'common/firebase';
 import * as actions from './redux/actions';
 
 export class TitleBar extends Component {

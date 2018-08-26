@@ -166,7 +166,8 @@ export class AddEventForm extends Component {
       // Delete editingEvent if exists
       if (this.props.timeline.editingEvent != null) {
         this.props.actions.deleteEvent(
-          this.props.timeline.editingEvent.id);
+          this.props.timeline.editingEvent.id,
+          this.props.timeline.editingEvent.ref);
       }
       // (Re)add current event
       this.props.actions.addEvent(this.buildEventProto());

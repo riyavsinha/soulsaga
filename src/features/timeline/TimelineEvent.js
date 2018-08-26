@@ -79,7 +79,9 @@ export class TimelineEvent extends Component {
 
   handleDelete = () => {
     this.handleClose();
-    this.props.actions.deleteEvent(this.props.event.id);
+    this.props.actions.deleteEvent(
+      this.props.event.id,
+      this.props.event.ref);
   }
 
   renderImg() {

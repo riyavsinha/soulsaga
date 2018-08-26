@@ -17,6 +17,7 @@ export const auth = firebase.auth();
 
 /** REALTIME DATABASE */
 export const DATA_CONSENT = 'dataConsent/';
+export const TIMELINE = "timeline/";
 export const database  = firebase.database();
 
 export default firebase;
