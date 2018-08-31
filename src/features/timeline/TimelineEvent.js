@@ -12,6 +12,7 @@ import {
   HeartIcon,
   HomeIcon,
   HospitalIcon,
+  LockIcon,
   PaletteIcon,
   PineTreeIcon,
   SchoolIcon,
@@ -46,6 +47,7 @@ const CATEGORY_ICON_MAP = {
   "Nature": <PineTreeIcon/>,
   "Personal": <AccountIcon/>,
   "Science": <AtomIcon/>,
+  "Security": <LockIcon/>,
   "Social": <AccountGroupIcon/>,
   "Spiritual": <CreationIcon/>,
   "Travel": <EarthIcon/>,
@@ -104,6 +106,20 @@ export class TimelineEvent extends Component {
     }
   }
 
+  renderMenu() {
+    return (
+      <Menu
+        id="simple-menu"
+        anchorEl={this.state.anchorEl}
+        open={Boolean(this.state.anchorEl)}
+        onClose={this.handleClose}
+      >
+        <MenuItem onClick={this.handleEdit}>Edit</MenuItem>
+        <MenuItem onClick={this.handleDelete}>Delete</MenuItem>
+      </Menu>
+    );
+  }
+
   render() {
     let dayString = this.props.event.day ? this.props.event.day + ", " : "";
     let yearString = parseInt(this.props.event.year, 10) < 0
@@ -128,15 +144,7 @@ export class TimelineEvent extends Component {
         />
         {this.renderImg()}
         {this.renderDesc()}
-        <Menu
-          id="simple-menu"
-          anchorEl={this.state.anchorEl}
-          open={Boolean(this.state.anchorEl)}
-          onClose={this.handleClose}
-        >
-          <MenuItem onClick={this.handleEdit}>Edit</MenuItem>
-          <MenuItem onClick={this.handleDelete}>Delete</MenuItem>
-        </Menu>
+        {this.renderMenu()}
       </Card>
     );
   }

@@ -138,9 +138,14 @@ export class TitleBar extends Component {
       <div>
         <AppBar className="title-bar__app-bar">
           <Toolbar>
-            <Typography variant="title" color="inherit" className="title-bar__app-bar-text">
-              SoulSaga
-            </Typography>
+            <div className="title-bar__app-bar-text">
+              <Typography variant="title" color="inherit">
+                SoulSaga
+              </Typography>
+              <Typography variant="subheading" color="inherit" className="title-bar__app-bar-alpha">
+                Alpha
+              </Typography>
+            </div>
             {this.renderButton()}
           </Toolbar>
         </AppBar>
