@@ -17,7 +17,7 @@ export class DefaultPage extends Component {
 
   generateTimelineInfoEvents = () => {
     const e = new EventProto({
-      category: "Personal",
+      category: "Spiritual",
       title: "Visualize your life",
       desc: `SoulSaga lets you build beautiful events to visualize
         your life, so you can remember and reflect on every step of your
@@ -30,7 +30,7 @@ export class DefaultPage extends Component {
       category: "Security",
       title: "Your data is yours",
       desc: `SoulSaga offers you the option to store your own data if you'd
-        like. The only thing we'll remember is to remember nothing of yours.`,
+        like. The only thing we'll remember is to remember nothing of yours :)`,
       month: "",
       year: "2018",
       ref: "asdf",
@@ -45,11 +45,21 @@ export class DefaultPage extends Component {
       year: "2018",
       ref: "asdf",
     });
+    const h = new EventProto({
+      category: "Personal",
+      title: "Your eyes only",
+      desc: `We're NOT a social platform. Your profile is a space for you to
+        explore your own life. No ads, no sharing, just you.`,
+      month: "",
+      year: "2018",
+      ref: "asdf",
+    });
     return (
       <div className="landing-page__event_intro">
         <TimelineEvent event={e} />
         <TimelineEvent event={f} />
         <TimelineEvent event={g} />
+        <TimelineEvent event={h} />>
       </div>
     );
   }
