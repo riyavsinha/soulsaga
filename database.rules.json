@@ -9,7 +9,8 @@
     "timeline": {
       "$uid": {
         ".read": "$uid == auth.uid",
-        ".write": "$uid == auth.uid"
+        ".write": "$uid == auth.uid",
+        ".indexOn": ["ms"],
       }
     },
     ".read": false,

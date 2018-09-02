@@ -191,12 +191,36 @@ export class AddEventForm extends Component {
     e.category = this.state.eventCategory;
     e.title = this.state.eventTitle;
     e.desc = this.state.eventDesc;
-    e.year = this.state.eventYear;
+    e.year = this.state.eventYear.replace(/^[0]+/g,"");
     e.month = this.state.eventMonth;
-    e.day = this.state.eventDay;
+    e.day = this.state.eventDay.replace(/^[0]+/g,"");
     e.img = img;
     e.id = id;
+    e.ms = this.buildDateTime(e.day, e.month, e.year);
     return e
+  }
+
+  buildDateTime = (d, m, y) => {
+    const MONTHS = { 
+      "January" : 1, "February" : 2, "March" : 3, "April" : 4, "May" : 5,
+      "June" : 6, "July" : 7, "August" : 8, "September" : 9, "October" : 10,
+      "November" : 11, "December" : 12
+    }
+    console.log(d, m, y);
+    var date = new Date();
+    if (d !== "") {
+      date.setDate(parseInt(d, 10));
+    } else {
+      date.setDate(1);
+    }
+    if (m !== "") {
+      date.setMonth(MONTHS[m]-1);
+    } else {
+      date.setMonth(0);
+    }
+    date.setFullYear(parseInt(y, 10));
+    console.log(date.getTime());
+    return date.getTime();
   }
 
   render() {

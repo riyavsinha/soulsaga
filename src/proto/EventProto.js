@@ -10,6 +10,7 @@ export default class EventProto {
       this.img = "";
       this.id = "";
       this.ref = "";
+      this.ms = 0;
     } else {
       this.category = e.category;
       this.title = e.title;
@@ -20,6 +21,7 @@ export default class EventProto {
       this.img = e.img;
       this.id = e.id;
       this.ref = e.ref;
+      this.ms = e.ms;
     }
   }
 

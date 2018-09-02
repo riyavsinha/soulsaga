@@ -44,12 +44,14 @@ export default class DatePicker extends Component {
    */
   isInvalidDate = (y, m, d, includeYearError) => {
     let noYear = !y;
+    let yearDecimal = y.includes(".");
     let dayNoMonth = !!(y && d && !m)
     let dayOutOfBounds =
       !!(y && d && m && (d > new Date(y, MONTHS.indexOf(m)+1, 0).getDate() || d < 1));
+    let dayDecimal = d.includes(".");
     return includeYearError
-      ? noYear || dayNoMonth || dayOutOfBounds
-      : dayNoMonth || dayOutOfBounds;
+      ? noYear || yearDecimal || dayNoMonth || dayOutOfBounds || dayDecimal
+      : yearDecimal || dayNoMonth || dayOutOfBounds || dayDecimal;
   }
 
   handleMonthChange = e => {

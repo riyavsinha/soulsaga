@@ -18,14 +18,16 @@ export class DefaultPage extends Component {
   componentDidMount = () => {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        const ref = database.ref(TIMELINE + this.props.common.user.uid);
+        const ref = database
+          .ref(TIMELINE + this.props.common.user.uid)
+          .orderByChild("ms");
         ref.once('value', (snapshot) => {
-          const events = snapshot.val();
-          for (var k in events) {
-            let e = new EventProto(events[k]);
-            e.ref = k;
+          snapshot.forEach(child => {
+            let e = new EventProto(child.val());
+            console.log(e.ms);
+            e.ref = child.key;
             this.props.actions.populateEvents(e);
-          }
+          })
         })
       }
     });

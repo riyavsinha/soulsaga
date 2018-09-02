@@ -8,6 +8,7 @@ import {
   database,
   TIMELINE
 } from 'common/firebase';
+import binfind from 'common/util/binfind';
 
 /**
  * Action to save a new event.
@@ -71,11 +72,14 @@ export function reducer(state, action) {
 
     case TIMELINE_ADD_EVENT_SUCCESS:
       // The request is success
+      let ind = binfind(action.event.ms, state.events, "ms");
+      console.log(ind, state.events);
       return {
         ...state,
         events: [
-          ...state.events.slice(),
-          action.event
+          ...state.events.slice(0, ind),
+          action.event,
+          ...state.events.slice(ind)
         ],
         addEventPending: false,
         addEventError: null,
