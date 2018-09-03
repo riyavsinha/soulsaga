@@ -9,7 +9,7 @@ import {
 export function populateEvents(e) {
   return {
     type: TIMELINE_POPULATE_EVENTS,
-    event: e,
+    events: e,
   };
 }
 
@@ -19,8 +19,7 @@ export function reducer(state, action) {
       return {
         ...state,
         events: [
-          ...state.events.slice(),
-          action.event,
+          ...action.events,
         ]
       };
 

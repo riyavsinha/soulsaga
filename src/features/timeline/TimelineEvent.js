@@ -99,7 +99,7 @@ export class TimelineEvent extends Component {
     if (this.props.event.desc) {
       return (
         <CardContent>
-          <Typography component="p">
+          <Typography component="p" className="timeline-timeline-event__desc">
             {this.props.event.desc}
           </Typography>
         </CardContent>);

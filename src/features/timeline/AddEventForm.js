@@ -208,17 +208,25 @@ export class AddEventForm extends Component {
     }
     console.log(d, m, y);
     var date = new Date();
-    if (d !== "") {
-      date.setDate(parseInt(d, 10));
-    } else {
-      date.setDate(1);
-    }
-    if (m !== "") {
-      date.setMonth(MONTHS[m]-1);
-    } else {
+    if (d === "" && m === "") {
+      date.setFullYear(parseInt(y, 10)+1);
       date.setMonth(0);
+      date.setDate(0);
+      date.setHours(23);
+      date.setMinutes(59);
+    } else if (d === "") {
+      date.setFullYear(parseInt(y, 10));
+      date.setMonth(MONTHS[m])
+      date.setDate(0);
+      date.setHours(23);
+      date.setMinutes(0);
+    } else {
+      date.setFullYear(parseInt(y, 10));
+      date.setMonth(MONTHS[m]-1);
+      date.setDate(parseInt(d, 10));
+      date.setHours(1);
+      date.setMinutes(0);
     }
-    date.setFullYear(parseInt(y, 10));
     console.log(date.getTime());
     return date.getTime();
   }

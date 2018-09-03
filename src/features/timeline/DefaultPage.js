@@ -1,6 +1,7 @@
-import AddEventForm from './AddEventForm.js';
+import AddEventForm from './AddEventForm';
 import EventProto from 'proto/EventProto'
-import TimelineEvent from './TimelineEvent.js';
+import TimelineDisplay from './TimelineDisplay';
+import TimelineEvent from './TimelineEvent';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from "react-router-dom";
@@ -22,26 +23,16 @@ export class DefaultPage extends Component {
           .ref(TIMELINE + this.props.common.user.uid)
           .orderByChild("ms");
         ref.once('value', (snapshot) => {
+          let events = [];
           snapshot.forEach(child => {
             let e = new EventProto(child.val());
-            console.log(e.ms);
             e.ref = child.key;
-            this.props.actions.populateEvents(e);
+            events.push(e);
           })
+          this.props.actions.populateEvents(events);
         })
       }
     });
-  }
-
-  renderEvents = () => {
-    const events = [];
-    let event;
-    for (var i in this.props.timeline.events) {
-      event = this.props.timeline.events[i];
-      events.push(
-        <TimelineEvent event={event} key={event.id} />);
-    }
-    return events;
   }
 
   render() {
@@ -53,9 +44,7 @@ export class DefaultPage extends Component {
 
     return (
       <div className="timeline-default-page">
-        <div className="timeline-default-page__card-container">
-          {this.renderEvents()}
-        </div>
+        <TimelineDisplay events={this.props.timeline.events} />
         <AddEventForm />
       </div>
     );
