@@ -59,7 +59,7 @@ export class DefaultPage extends Component {
         <TimelineEvent event={e} />
         <TimelineEvent event={f} />
         <TimelineEvent event={g} />
-        <TimelineEvent event={h} />>
+        <TimelineEvent event={h} />
       </div>
     );
   }
