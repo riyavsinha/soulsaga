@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RGL, { WidthProvider } from "react-grid-layout";
 import TimelineEvent from './TimelineEvent';
+import Typography from '@material-ui/core/Typography';
 import 'react-grid-layout/css/styles.css' 
 import 'react-resizable/css/styles.css' 
 
@@ -32,6 +33,15 @@ export default class TimelineDisplay extends Component {
       // If day, only add to index if necessary and increment yInd
       if (event.day !== "") {
         if (!(event.year in dateIndex)) {
+          let headerKey = event.year + "gi";
+          layout.push({i: headerKey, x: 0, y: yInd, w:1, h:1, static: true});
+          yInd++;
+          gridItems.push(
+            <div key={headerKey} className="timeline-timeline-display__year-header">
+              <Typography variant="display1">
+                {event.year}
+              </Typography>
+            </div>);
           dateIndex[event.year] = new Map();
           dateIndex[event.year].set("year", yInd);
         }
@@ -45,6 +55,15 @@ export default class TimelineDisplay extends Component {
         if (event.month !== "") {
           // Ensure year index initialized
           if (!(event.year in dateIndex)) {
+            let headerKey = event.year + "gi";
+            layout.push({i: headerKey, x: 0, y: yInd, w:1, h:1, static: true});
+            yInd++;
+            gridItems.push(
+              <div key={headerKey} className="timeline-timeline-display__year-header">
+                <Typography variant="display1">
+                  {event.year}
+                </Typography>
+              </div>);
             dateIndex[event.year] = new Map();
             dateIndex[event.year].set("year", yInd);
           }
@@ -64,6 +83,15 @@ export default class TimelineDisplay extends Component {
           itemLayout = {i: key, x: col, y: ind, w: 1, h: 1, static: true};
         } else {
           if (!(event.year in dateIndex)) {
+            let headerKey = event.year + "gi";
+            layout.push({i: headerKey, x: 0, y: yInd, w:1, h:1, static: true});
+            yInd++;
+            gridItems.push(
+              <div key={headerKey} className="timeline-timeline-display__year-header">
+                <Typography variant="display1">
+                  {event.year}
+                </Typography>
+              </div>);
             dateIndex[event.year] = new Map();
             dateIndex[event.year].set("year", yInd);
           }
