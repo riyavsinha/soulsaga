@@ -16,6 +16,7 @@ export class DefaultPage extends Component {
     actions: PropTypes.object.isRequired,
   };
 
+  // load user events on page render
   componentDidMount = () => {
     auth.onAuthStateChanged((user) => {
       if (user) {
@@ -36,6 +37,7 @@ export class DefaultPage extends Component {
   }
 
   render() {
+    // ensure auth state
     if (this.props.common.signInState === null) {
       return <div/>;
     } else if (this.props.common.signInState === false) {

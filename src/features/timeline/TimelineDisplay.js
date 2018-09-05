@@ -20,6 +20,21 @@ export default class TimelineDisplay extends Component {
     monthIndex: {},
   }
 
+  newYearEncountered = (year, layout, gridItems, dateIndex, yInd) => {
+    let headerKey = year + "gi";
+    layout.push({i: headerKey, x: 0, y: yInd, w:1, h:2, static: true});
+    gridItems.push(
+      <div key={headerKey} className="timeline-timeline-display__year-header">
+        <Typography variant="display2">
+          {year}
+        </Typography>
+      </div>);
+    yInd += 2;
+    dateIndex[year] = new Map();
+    dateIndex[year].set("year", yInd);
+    return yInd;
+  }
+
   buildIndex = () => {
     // {"2015": ["year" => 5, "January" => 4], "March" => 5]], "2016": ["February" => 6]}
     var dateIndex = {};
@@ -29,78 +44,54 @@ export default class TimelineDisplay extends Component {
     this.props.events.forEach((event, ind) => {
       let key = event.id.toString() + "gi";
       let col = parseInt((event.day !== "") + (event.month !== ""), 10);
+      let numRows = 2;
+      if (event.img !== "") { numRows += 3 }
+      if (event.desc.length > 90) { numRows += 2 } else if (event.desc.length > 0) { numRows += 1 }
       let itemLayout = {};
       // If day, only add to index if necessary and increment yInd
       if (event.day !== "") {
         if (!(event.year in dateIndex)) {
-          let headerKey = event.year + "gi";
-          layout.push({i: headerKey, x: 0, y: yInd, w:1, h:1, static: true});
-          yInd++;
-          gridItems.push(
-            <div key={headerKey} className="timeline-timeline-display__year-header">
-              <Typography variant="display1">
-                {event.year}
-              </Typography>
-            </div>);
-          dateIndex[event.year] = new Map();
-          dateIndex[event.year].set("year", yInd);
+          yInd = this.newYearEncountered(event.year, layout, gridItems, dateIndex, yInd);
         }
         if (!(dateIndex[event.year].has(event.month))) {
           dateIndex[event.year].set(event.month, yInd);
         }
-        itemLayout = {i: key, x: col, y: yInd, w: 1, h: 1, static: true};
-        yInd++;
+        itemLayout = {i: key, x: col, y: yInd, w: 1, h: numRows, static: true};
+        yInd += numRows;
       } else {
         // If month, check index first, otherwise add to index
         if (event.month !== "") {
           // Ensure year index initialized
           if (!(event.year in dateIndex)) {
-            let headerKey = event.year + "gi";
-            layout.push({i: headerKey, x: 0, y: yInd, w:1, h:1, static: true});
-            yInd++;
-            gridItems.push(
-              <div key={headerKey} className="timeline-timeline-display__year-header">
-                <Typography variant="display1">
-                  {event.year}
-                </Typography>
-              </div>);
-            dateIndex[event.year] = new Map();
-            dateIndex[event.year].set("year", yInd);
+            yInd = this.newYearEncountered(event.year, layout, gridItems, dateIndex, yInd);
           }
           let ind;
+          let next;
           // Check if in index
           if (dateIndex[event.year].has(event.month)) {
             ind = dateIndex[event.year].get(event.month);
-            dateIndex[event.year].set(event.month, ind+1)
-            if (ind+1 > yInd) {
-              yInd++;
+            next = ind + numRows;
+            dateIndex[event.year].set(event.month, next)
+            if (next > yInd) {
+              yInd = next;
             }
           } else {
             ind = yInd;
             dateIndex[event.year].set(event.month, ind);
-            yInd++;
+            yInd += numRows;
           }
-          itemLayout = {i: key, x: col, y: ind, w: 1, h: 1, static: true};
+          itemLayout = {i: key, x: col, y: ind, w: 1, h: numRows, static: true};
         } else {
           if (!(event.year in dateIndex)) {
-            let headerKey = event.year + "gi";
-            layout.push({i: headerKey, x: 0, y: yInd, w:1, h:1, static: true});
-            yInd++;
-            gridItems.push(
-              <div key={headerKey} className="timeline-timeline-display__year-header">
-                <Typography variant="display1">
-                  {event.year}
-                </Typography>
-              </div>);
-            dateIndex[event.year] = new Map();
-            dateIndex[event.year].set("year", yInd);
+            yInd = this.newYearEncountered(event.year, layout, gridItems, dateIndex, yInd);
           }
           let ind = dateIndex[event.year].get("year");
-          dateIndex[event.year].set("year", ind+1);
-          if (ind+1 > yInd) {
-            yInd++;
+          let next = ind + numRows;
+          dateIndex[event.year].set("year", next);
+          if (next > yInd) {
+            yInd = next;
           }
-          itemLayout = {i: key, x: col, y: ind, w: 1, h: 1, static: true};        
+          itemLayout = {i: key, x: col, y: ind, w: 1, h: numRows, static: true};        
         }
       }
       layout.push(itemLayout);
@@ -116,7 +107,7 @@ export default class TimelineDisplay extends Component {
     let info = this.buildIndex();
     let layout = info[0], items = info[1];
     return (
-      <ReactGridLayout cols={3} rowHeight={100} layout={layout}>
+      <ReactGridLayout cols={3} rowHeight={45} layout={layout}>
         {items}
       </ReactGridLayout>
     );
