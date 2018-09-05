@@ -36,6 +36,7 @@ export default class TimelineDisplay extends Component {
   }
 
   buildIndex = () => {
+    console.log(this.props.events);
     // {"2015": ["year" => 5, "January" => 4], "March" => 5]], "2016": ["February" => 6]}
     var dateIndex = {};
     var gridItems = [];
@@ -77,7 +78,7 @@ export default class TimelineDisplay extends Component {
             }
           } else {
             ind = yInd;
-            dateIndex[event.year].set(event.month, ind);
+            dateIndex[event.year].set(event.month, ind+numRows);
             yInd += numRows;
           }
           itemLayout = {i: key, x: col, y: ind, w: 1, h: numRows, static: true};
