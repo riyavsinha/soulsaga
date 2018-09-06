@@ -4,6 +4,9 @@ import TimelineEvent from './TimelineEvent';
 import Typography from '@material-ui/core/Typography';
 import 'react-grid-layout/css/styles.css' 
 import 'react-resizable/css/styles.css' 
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actions from './redux/actions';
 
 const ReactGridLayout = WidthProvider(RGL);
 
@@ -12,12 +15,8 @@ export default class TimelineDisplay extends Component {
 
   };
 
-  state = {
-    dayEvents: [],
-    monthEvents: [],
-    yearEvents: [],
-    yearIndex: {},
-    monthIndex: {},
+  onEventClick = (e) => {
+    console.log(e);
   }
 
   newYearEncountered = (year, layout, gridItems, dateIndex, yInd) => {
@@ -36,7 +35,6 @@ export default class TimelineDisplay extends Component {
   }
 
   buildIndex = () => {
-    console.log(this.props.events);
     // {"2015": ["year" => 5, "January" => 4], "March" => 5]], "2016": ["February" => 6]}
     var dateIndex = {};
     var gridItems = [];

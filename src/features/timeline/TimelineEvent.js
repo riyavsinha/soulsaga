@@ -19,11 +19,9 @@ import {
   VectorCircleIcon} from 'mdi-react'
 import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -31,6 +29,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
+import { buildDateString } from './util';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
@@ -70,6 +69,10 @@ export class TimelineEvent extends Component {
   handleClick = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
+
+  handleViewEvent = () => {
+    this.props.actions.setViewingEvent(this.props.event);
+  }
 
   handleClose = () => {
     this.setState({ anchorEl: null });
@@ -123,13 +126,12 @@ export class TimelineEvent extends Component {
   }
 
   render() {
-    let dayString = this.props.event.day ? this.props.event.day + ", " : "";
-    let yearString = parseInt(this.props.event.year, 10) < 0
-      ? this.props.event.year.slice(1) + " BC"
-      : this.props.event.year;
-    let dateString = this.props.event.month + " " + dayString + yearString;
+    let dateString = buildDateString(
+        this.props.event.day,
+        this.props.event.month,
+        this.props.event.year);
     return (
-      <Card className="timeline-timeline-event__card">
+      <Card className="timeline-timeline-event__card" onClick={this.handleViewEvent}>
         <CardHeader
           avatar={
             <Avatar className="timeline-timeline-event__avatar">

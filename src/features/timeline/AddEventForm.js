@@ -206,7 +206,6 @@ export class AddEventForm extends Component {
       "June" : 6, "July" : 7, "August" : 8, "September" : 9, "October" : 10,
       "November" : 11, "December" : 12
     }
-    console.log(d, m, y);
     var date = new Date();
     if (d === "" && m === "") {
       date.setFullYear(parseInt(y, 10)+1);
@@ -227,7 +226,6 @@ export class AddEventForm extends Component {
       date.setHours(1);
       date.setMinutes(0);
     }
-    console.log(date.getTime());
     return date.getTime();
   }
 

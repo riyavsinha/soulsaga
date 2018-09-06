@@ -1,7 +1,7 @@
 import AddEventForm from './AddEventForm';
 import EventProto from 'proto/EventProto'
+import EventViewDialog from './EventViewDialog';
 import TimelineDisplay from './TimelineDisplay';
-import TimelineEvent from './TimelineEvent';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from "react-router-dom";
@@ -47,6 +47,7 @@ export class DefaultPage extends Component {
     return (
       <div className="timeline-default-page">
         <TimelineDisplay events={this.props.timeline.events} />
+        <EventViewDialog />
         <AddEventForm />
       </div>
     );

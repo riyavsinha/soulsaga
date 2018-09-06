@@ -17,7 +17,6 @@ import binfind from 'common/util/binfind';
  */
 export function addEvent(e) {
   return (dispatch, getState) => { // optionally you can have getState as the second argument
-    console.log(getState());
     dispatch({
       type: TIMELINE_ADD_EVENT_BEGIN,
     });
@@ -73,7 +72,6 @@ export function reducer(state, action) {
     case TIMELINE_ADD_EVENT_SUCCESS:
       // The request is success
       let ind = binfind(action.event.ms, state.events, "ms");
-      console.log(ind, state.events);
       return {
         ...state,
         events: [

@@ -12,6 +12,7 @@ import { reducer as deleteEventReducer } from './deleteEvent';
 import { reducer as toggleAddEventFormReducer } from './toggleAddEventForm';
 import { reducer as setEditingEventReducer } from './setEditingEvent';
 import { reducer as populateEventsReducer } from './populateEvents';
+import { reducer as setViewingEventReducer } from './setViewingEvent';
 
 const reducers = [
   addEventReducer,
@@ -19,6 +20,7 @@ const reducers = [
   toggleAddEventFormReducer,
   setEditingEventReducer,
   populateEventsReducer,
+  setViewingEventReducer,
 ];
 
 export default function reducer(state = initialState, action) {
