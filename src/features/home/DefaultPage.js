@@ -26,6 +26,10 @@ export class DefaultPage extends Component {
       month: "",
       year: "2018",
       ref: "asdf",
+      day: "",
+      img: "",
+      id: "",
+      ms: 0,
     });
     const f = new EventProto({
       category: "Security",
@@ -35,6 +39,10 @@ export class DefaultPage extends Component {
       month: "",
       year: "2018",
       ref: "asdf",
+      day: "",
+      img: "",
+      id: "",
+      ms: 0,
     });
     const g = new EventProto({
       category: "Love/Romance",
@@ -45,6 +53,10 @@ export class DefaultPage extends Component {
       month: "",
       year: "2018",
       ref: "asdf",
+      day: "",
+      img: "",
+      id: "",
+      ms: 0,
     });
     const h = new EventProto({
       category: "Personal",
@@ -54,6 +66,10 @@ export class DefaultPage extends Component {
       month: "",
       year: "2018",
       ref: "asdf",
+      day: "",
+      img: "",
+      id: "",
+      ms: 0,
     });
     return (
       <div className="landing-page__event_intro">
