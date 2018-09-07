@@ -9,6 +9,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import { Link, Redirect } from "react-router-dom";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { auth, database, DATA_CONSENT } from 'common/firebase';
@@ -114,7 +115,7 @@ export class TitleBar extends Component {
           open={Boolean(this.state.profileMenuAnchorEl)}
           onClose={this.handleMenuClose}
         >
-          <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
+          <MenuItem component={Link} to="/profile" onClick={this.handleMenuClose}>Profile</MenuItem>
           <MenuItem onClick={this.handleSignOut}>Sign out</MenuItem>
         </Menu>
       </div>
