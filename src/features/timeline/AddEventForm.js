@@ -1,21 +1,3 @@
-import {
-  AccountIcon,
-  AccountGroupIcon,
-  AtomIcon,
-  BookOpenIcon,
-  BriefcaseIcon,
-  CreationIcon,
-  CurrencyUsdIcon,
-  DumbbellIcon,
-  EarthIcon,
-  FoodIcon,
-  HeartIcon,
-  HomeIcon,
-  HospitalIcon,
-  PaletteIcon,
-  PineTreeIcon,
-  SchoolIcon,
-  VectorCircleIcon} from 'mdi-react'
 import AddIcon from '@material-ui/icons/Add';
 import AppBar from '@material-ui/core/AppBar';
 import DatePicker from './DatePicker';
@@ -39,6 +21,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import { PRIMARY_CATEGORIES, SECONDARY_CATEGORIES } from './eventiconmaps';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
@@ -46,29 +29,6 @@ import 'cropperjs/dist/cropper.css';
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
-}
-
-const PRIMARY_CATEGORIES = {
-  "Community": <VectorCircleIcon/>,
-  "Education": <SchoolIcon/>,
-  "Family": <HomeIcon/>,
-  "Financial": <CurrencyUsdIcon/>,
-  "Fitness": <DumbbellIcon/>,
-  "Intellectual": <BookOpenIcon/>,
-  "Love/Romance": <HeartIcon/>,
-  "Medical": <HospitalIcon/>,
-  "Personal": <AccountIcon/>,
-  "Social": <AccountGroupIcon/>,
-  "Spiritual": <CreationIcon/>,
-  "Travel": <EarthIcon/>,
-  "Work/Career": <BriefcaseIcon/>,
-}
-
-const SECONDARY_CATEGORIES = {
-  "Artistic": <PaletteIcon/>,
-  "Culinary": <FoodIcon/>,
-  "Nature": <PineTreeIcon/>,
-  "Science": <AtomIcon/>,
 }
 
 export class AddEventForm extends Component {

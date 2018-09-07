@@ -4,9 +4,6 @@ import TimelineEvent from './TimelineEvent';
 import Typography from '@material-ui/core/Typography';
 import 'react-grid-layout/css/styles.css' 
 import 'react-resizable/css/styles.css' 
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import * as actions from './redux/actions';
 
 const ReactGridLayout = WidthProvider(RGL);
 

@@ -1,5 +1,6 @@
 import AddEventForm from './AddEventForm';
-import EventProto from 'proto/EventProto'
+import EventProto from 'proto/EventProto';
+import EventDeleteDialog from './EventDeleteDialog';
 import EventViewDialog from './EventViewDialog';
 import TimelineDisplay from './TimelineDisplay';
 import React, { Component } from 'react';
@@ -48,6 +49,7 @@ export class DefaultPage extends Component {
       <div className="timeline-default-page">
         <TimelineDisplay events={this.props.timeline.events} />
         <EventViewDialog />
+        <EventDeleteDialog />
         <AddEventForm />
       </div>
     );

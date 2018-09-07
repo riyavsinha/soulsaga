@@ -1,11 +1,9 @@
-
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { CATEGORY_ICON_MAP } from './eventiconmaps';
@@ -21,6 +19,18 @@ export class EventViewDialog extends Component {
 
   handleClose = () => {
     this.props.actions.setViewingEvent(null);
+  }
+
+  handleEdit = () => {
+    this.props.actions.setEditingEvent(this.props.timeline.viewingEvent);
+    this.handleClose();
+    this.props.actions.toggleAddEventForm(true);
+  }
+
+  handleDelete = () => {
+    let e = this.props.timeline.viewingEvent;
+    this.handleClose();
+    this.props.actions.setDeletingEvent(e);
   }
 
   renderImg = () => {
@@ -58,8 +68,7 @@ export class EventViewDialog extends Component {
     return (
       <Dialog
           open={e !== null}
-          onClose={this.handleClose}
-          scroll="paper">
+          onClose={this.handleClose}>
         <div>
           <div className="timeline-view-event-dialog__header-container">
             <div>
@@ -80,10 +89,10 @@ export class EventViewDialog extends Component {
         {this.renderImg()}
         {this.renderDesc()}
         <DialogActions>
-          <Button onClick={this.handleClose} color="primary">
+          <Button onClick={this.handleEdit} color="primary">
             Edit
           </Button>
-          <Button onClick={this.handleClose} color="primary">
+          <Button onClick={this.handleDelete} color="primary">
             Delete
           </Button>
         </DialogActions>

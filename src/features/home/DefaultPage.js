@@ -16,6 +16,7 @@ export class DefaultPage extends Component {
   };
 
   generateTimelineInfoEvents = () => {
+    let nullFn = () => "";
     const e = new EventProto({
       category: "Spiritual",
       title: "Visualize your life",
@@ -56,10 +57,10 @@ export class DefaultPage extends Component {
     });
     return (
       <div className="landing-page__event_intro">
-        <TimelineEvent event={e} />
-        <TimelineEvent event={f} />
-        <TimelineEvent event={g} />
-        <TimelineEvent event={h} />
+        <TimelineEvent event={e} onClick={nullFn} isDisplay={true} />
+        <TimelineEvent event={f} onClick={nullFn} isDisplay={true} />
+        <TimelineEvent event={g} onClick={nullFn} isDisplay={true} />
+        <TimelineEvent event={h} onClick={nullFn} isDisplay={true} />
       </div>
     );
   }

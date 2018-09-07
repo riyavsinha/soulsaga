@@ -17,7 +17,7 @@ import {
   PineTreeIcon,
   SchoolIcon,
   VectorCircleIcon} from 'mdi-react';
-import React, { Component } from 'react';
+import React from 'react';
 
 const PRIMARY_CATEGORIES = {
   "Community": <VectorCircleIcon/>,
@@ -64,4 +64,4 @@ const CATEGORY_ICON_MAP = {
   "Other": "R",
 }
 
-export { CATEGORY_ICON_MAP };
+export { CATEGORY_ICON_MAP, PRIMARY_CATEGORIES, SECONDARY_CATEGORIES };

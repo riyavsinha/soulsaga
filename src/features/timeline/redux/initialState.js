@@ -8,6 +8,7 @@
 const initialState = {
   editingEvent: null,
   viewingEvent: null,
+  deletingEvent: null,
   isAddEventFormOpen: false,
   events: [],
   addEventPending: false,
