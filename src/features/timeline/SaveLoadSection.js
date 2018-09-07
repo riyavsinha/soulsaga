@@ -1,6 +1,8 @@
 import Button from '@material-ui/core/Button';
+import EventProto from 'proto/EventProto';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Snackbar from '@material-ui/core/Snackbar';
 import { DownloadIcon, UploadIcon } from 'mdi-react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -12,8 +14,17 @@ export class SaveLoadSection extends Component {
     actions: PropTypes.object.isRequired,
   };
 
+  state = { snackbarOpen: false };
+
+  handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({snackbarOpen: false});
+  };
+
   // https://gist.github.com/liabru/11263260
-  generateSaveUrl = () => {
+  saveEvents = () => {
     var events = this.props.timeline.events.map(e => {delete e.ref; return e;}),
     blob = new Blob([JSON.stringify(events)], { type: 'application/json' }),
     anchor = document.createElement('a');
@@ -24,16 +35,37 @@ export class SaveLoadSection extends Component {
     anchor.click();
   }
 
+  uploadEvents = e => {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+        try {
+          let events = JSON.parse(reader.result);
+          events = events.map(ev => new EventProto(ev));
+          this.props.actions.populateEvents(events);
+        } catch (e) {
+          console.log(e);
+          this.setState({ snackbarOpen: true});
+          return;
+        }
+      }, false);
+    reader.readAsText(e.target.files[0]);
+  }
+
   renderUpload() {
     if (!this.props.common.storeUserData) {
       return (
-        <Button 
-            variant="contained"
+        <Button
+            variant="raised"
+            component="label"
             color="primary"
-            className="timeline-save-load-section__upload"
-            onClick={this.generateSaveUrl}>
+            className="timeline-save-load-section__upload">
           Upload
           <UploadIcon className="timeline-save-load-section__icon"/>
+          <input
+              onChange={this.uploadEvents}
+              style={{ display: 'none' }}
+              type="file"
+            />
         </Button>
       );
     }
@@ -46,12 +78,23 @@ export class SaveLoadSection extends Component {
         <Button 
             variant="contained"
             color="primary"
-            onClick={this.generateSaveUrl}
+            onClick={this.saveEvents}
             disabled={disableDownload}>
           Download
           <DownloadIcon className="timeline-save-load-section__icon"/>
         </Button>
         {this.renderUpload()}
+
+        <Snackbar
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+            open={this.state.snackbarOpen}
+            autoHideDuration={2000}
+            onClose={this.handleSnackbarClose}
+            message={<span id="message-id">Please upload a valid event file</span>}
+          />
       </div>
     );
   }

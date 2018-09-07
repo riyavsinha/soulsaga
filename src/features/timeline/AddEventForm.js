@@ -117,7 +117,7 @@ export class AddEventForm extends Component {
       return;
     }
     this.setState({snackbarOpen: false});
-  };
+  }
 
   submitEvent = () => {
     if (!this.state.hasTitle || !this.state.validDate) {
