@@ -1,10 +1,13 @@
 import AddEventForm from './AddEventForm';
+import Button from '@material-ui/core/Button';
 import EventProto from 'proto/EventProto';
 import EventDeleteDialog from './EventDeleteDialog';
 import EventViewDialog from './EventViewDialog';
+import SaveLoadSection from './SaveLoadSection';
 import TimelineDisplay from './TimelineDisplay';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { DownloadIcon} from 'mdi-react';
 import { Redirect } from "react-router-dom";
 import { bindActionCreators } from 'redux';
 import { auth, database, TIMELINE} from 'common/firebase';
@@ -47,6 +50,7 @@ export class DefaultPage extends Component {
 
     return (
       <div className="timeline-default-page">
+        <SaveLoadSection />
         <TimelineDisplay events={this.props.timeline.events} />
         <EventViewDialog />
         <EventDeleteDialog />
