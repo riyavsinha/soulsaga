@@ -1,9 +1,14 @@
 import AppBar from '@material-ui/core/AppBar';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import Drawer from '@material-ui/core/Drawer';
 import FirstTimeUserSetupDialog from './FirstTimeUserSetupDialog';
 import IconButton from '@material-ui/core/IconButton';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
+import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -23,6 +28,7 @@ export class TitleBar extends Component {
 
   state = {
     profileMenuAnchorEl: null,
+    navDrawerOpen: false,
   }
 
   /**
@@ -82,6 +88,10 @@ export class TitleBar extends Component {
       .then(() => this.props.actions.populateSignInState(false));
   }
 
+  handleDrawerOpen = isOpen => () => {
+    this.setState({navDrawerOpen: isOpen});
+  }
+
   /** RENDERS */
 
   renderSetupDialog = () => {
@@ -122,7 +132,7 @@ export class TitleBar extends Component {
     );
   };
 
-  renderButton = () => {
+  renderProfileButton = () => {
     if (this.props.common.user == null) {
       return (
         <Button color="inherit" onClick={this.initiateSignIn}>
@@ -134,11 +144,33 @@ export class TitleBar extends Component {
     }
   };
 
+  renderNavItems = () => {
+    return (
+      <List component="nav">
+        <ListItem button component={Link} to="/">
+          <ListItemText>Home</ListItemText>
+        </ListItem>
+        <ListItem button component={Link} to="/">
+          <ListItemText>About</ListItemText>
+        </ListItem>
+        <ListItem button component={Link} to="/timeline">
+          <ListItemText>Timeline</ListItemText>
+        </ListItem>
+      </List>
+    )
+  }
+
   render() {
     return (
       <div>
         <AppBar className="title-bar__app-bar">
           <Toolbar>
+            <IconButton
+                color="inherit"
+                className="title-bar__menu-icon"
+                onClick={this.handleDrawerOpen(true)}>
+              <MenuIcon />
+            </IconButton>
             <div className="title-bar__app-bar-text">
               <Typography variant="title" color="inherit">
                 SoulSaga
@@ -147,9 +179,22 @@ export class TitleBar extends Component {
                 Alpha
               </Typography>
             </div>
-            {this.renderButton()}
+            {this.renderProfileButton()}
           </Toolbar>
         </AppBar>
+
+        <Drawer
+            open={this.state.navDrawerOpen}
+            onClose={this.handleDrawerOpen(false)}
+            className="title-bar__navigation-menu">
+          <div
+            role="button"
+            onClick={this.handleDrawerOpen(false)}
+            onKeyDown={this.handleDrawerOpen(false)}
+          >
+            {this.renderNavItems()}
+          </div>
+        </Drawer>
       </div>
     );
   }
