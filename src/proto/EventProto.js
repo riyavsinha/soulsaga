@@ -1,6 +1,6 @@
 export default class EventProto {
 
-  MAIN_KEYS = [
+  static MAIN_KEYS = [
     // Type of event
     'category',
     // Short summary
@@ -21,7 +21,7 @@ export default class EventProto {
     'ms'
   ];
 
-  ALL_KEYS = this.MAIN_KEYS.concat([
+  static ALL_KEYS = EventProto.MAIN_KEYS.concat([
     // Cloud reference key, only if user data being stored
     'ref'
   ]);
@@ -44,7 +44,7 @@ export default class EventProto {
       return;
     }
 
-    if (!this.isEvent(e)) {
+    if (!EventProto.isEvent(e)) {
       throw new Error("Invalid EventProto");
     }
 
@@ -64,10 +64,10 @@ export default class EventProto {
     }
   }
 
-  isEvent(e) {
+  static isEvent(e) {
     let eString = Object.keys(e).sort().join();
-    return eString === this.MAIN_KEYS.sort().join() ||
-        eString === this.ALL_KEYS.sort().join();
+    return eString === EventProto.MAIN_KEYS.sort().join() ||
+        eString === EventProto.ALL_KEYS.sort().join();
   }
 
   static copyOf(e) {
