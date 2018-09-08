@@ -4,7 +4,7 @@ import {
   TIMELINE_DELETE_EVENT_FAILURE,
   TIMELINE_DELETE_EVENT_DISMISS_ERROR,
 } from './constants';
-import {database, TIMELINE} from 'common/firebase'
+import {database, TIMELINE} from 'common/firebase';
 
 /**
  * Action to delete an event.

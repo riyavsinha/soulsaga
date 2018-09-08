@@ -4,6 +4,8 @@ import homeReducer from '../features/home/redux/reducer';
 import commonReducer from '../features/common/redux/reducer';
 import examplesReducer from '../features/examples/redux/reducer';
 import timelineReducer from '../features/timeline/redux/reducer';
+import profileReducer from '../features/profile/redux/reducer';
+import aboutReducer from '../features/about/redux/reducer';
 
 // NOTE 1: DO NOT CHANGE the 'reducerMap' name and the declaration pattern.
 // This is used for Rekit cmds to register new features, remove features, etc.
@@ -16,6 +18,8 @@ const reducerMap = {
   common: commonReducer,
   examples: examplesReducer,
   timeline: timelineReducer,
+  profile: profileReducer,
+  about: aboutReducer,
 };
 
 export default combineReducers(reducerMap);

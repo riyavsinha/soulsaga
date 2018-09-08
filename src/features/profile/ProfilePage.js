@@ -6,14 +6,14 @@ import * as actions from './redux/actions';
 
 export class ProfilePage extends Component {
   static propTypes = {
-    common: PropTypes.object.isRequired,
+    profile: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
   };
 
   render() {
     return (
-      <div className="common-profile-page">
-        Page Content: common/ProfilePage
+      <div className="profile-profile-page">
+        Page Content: profile/DefaultPage
       </div>
     );
   }
@@ -22,7 +22,7 @@ export class ProfilePage extends Component {
 /* istanbul ignore next */
 function mapStateToProps(state) {
   return {
-    common: state.common,
+    profile: state.profile,
   };
 }
 

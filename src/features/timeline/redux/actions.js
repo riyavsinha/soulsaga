@@ -5,3 +5,4 @@ export { setEditingEvent } from './setEditingEvent';
 export { populateEvents } from './populateEvents';
 export { setViewingEvent } from './setViewingEvent';
 export { setDeletingEvent } from './setDeletingEvent';
+export { deleteUserEvents, dismissDeleteUserEventsError } from './deleteUserEvents';

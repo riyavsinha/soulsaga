@@ -6,17 +6,6 @@
 
 // NOTE: initialState constant is necessary so that Rekit could auto add initial state when creating async actions.
 const initialState = {
-  editingEvent: null,
-  viewingEvent: null,
-  deletingEvent: null,
-  isAddEventFormOpen: false,
-  events: [],
-  addEventPending: false,
-  addEventError: null,
-  deleteEventPending: false,
-  deleteEventError: null,
-  deleteUserEventsPending: false,
-  deleteUserEventsError: null
 };
 
 export default initialState;

@@ -1,4 +1,10 @@
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import EventProto from 'proto/EventProto';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -14,7 +20,12 @@ export class SaveLoadSection extends Component {
     actions: PropTypes.object.isRequired,
   };
 
-  state = { snackbarOpen: false };
+  state = {
+    snackbarOpen: false,
+    uploadConfirmDialogOpen: false,
+    stageEvents: null,
+    writingEvents: false,
+  };
 
   handleSnackbarClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -22,6 +33,10 @@ export class SaveLoadSection extends Component {
     }
     this.setState({snackbarOpen: false});
   };
+
+  handleDialogClose = () => {
+    this.setState({ uploadConfirmDialogOpen: false });
+  }
 
   // https://gist.github.com/liabru/11263260
   saveEvents = () => {
@@ -35,39 +50,55 @@ export class SaveLoadSection extends Component {
     anchor.click();
   }
 
-  uploadEvents = e => {
+  readEvents = e => {
     const reader = new FileReader();
     reader.addEventListener('load', () => {
         try {
           let events = JSON.parse(reader.result);
           events = events.map(ev => new EventProto(ev));
-          this.props.actions.populateEvents(events);
-        } catch (e) {
-          console.log(e);
+          this.setState({ stageEvents: events });
+          if (this.props.timeline.events.length > 0) {
+            this.setState({ uploadConfirmDialogOpen: true});
+          } else {
+            this.commitEvents()
+                .then(() => this.setState({ writingEvents: false }));
+          }
+        } catch (err) {
+          console.log(err);
           this.setState({ snackbarOpen: true});
           return;
         }
       }, false);
     reader.readAsText(e.target.files[0]);
+    e.target.value = null;
   }
 
-  renderUpload() {
-    if (!this.props.common.storeUserData) {
+  commitEvents = () => {
+    if (this.state.stageEvents === null) {
+      throw new Error("no events to add")
+    }
+    const promises = [];
+    this.state.stageEvents.forEach(ev => {
+      promises.push(this.props.actions.addEvent(ev));
+    });
+    this.setState({ stageEvents: null, writingEvents: true });
+    return Promise.all(promises);
+  }
+
+  confirmOverwrite = () => {
+    this.props.actions.deleteUserEvents()
+      .then(() => this.commitEvents())
+      .then(() => {
+        this.handleDialogClose();
+        this.setState({ writingEvents: false });
+      });
+  }
+
+  renderLoadingCircle = () => {
+    if (this.state.writingEvents) {
       return (
-        <Button
-            variant="raised"
-            component="label"
-            color="primary"
-            className="timeline-save-load-section__upload">
-          Upload
-          <UploadIcon className="timeline-save-load-section__icon"/>
-          <input
-              onChange={this.uploadEvents}
-              style={{ display: 'none' }}
-              type="file"
-            />
-        </Button>
-      );
+        <CircularProgress
+            className="timeline-save-load-section__overwrite-progress" />);
     }
   }
 
@@ -83,7 +114,19 @@ export class SaveLoadSection extends Component {
           Download
           <DownloadIcon className="timeline-save-load-section__icon"/>
         </Button>
-        {this.renderUpload()}
+        <Button
+            variant="raised"
+            component="label"
+            color="primary"
+            className="timeline-save-load-section__upload">
+          Upload
+          <UploadIcon className="timeline-save-load-section__icon"/>
+          <input
+              onChange={this.readEvents}
+              style={{ display: 'none' }}
+              type="file"
+            />
+        </Button>
 
         <Snackbar
             anchorOrigin={{
@@ -95,6 +138,30 @@ export class SaveLoadSection extends Component {
             onClose={this.handleSnackbarClose}
             message={<span id="message-id">Please upload a valid event file</span>}
           />
+
+        <Dialog
+            open={this.state.uploadConfirmDialogOpen}
+            onClose={this.handleDialogClose}>
+          <DialogTitle>
+            Are you sure you would like to overwrite all your events?
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              You already have events loaded. Uploading a new set of events
+              will overwrite these permanently, including any events stored in
+              the cloud. Are you sure you would like to continue?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button color="primary" onClick={this.handleDialogClose}>
+              No
+            </Button>
+            <Button color="primary" onClick={this.confirmOverwrite}>
+              Yes
+            </Button>
+          </DialogActions>
+          {this.renderLoadingCircle()}
+        </Dialog>
       </div>
     );
   }

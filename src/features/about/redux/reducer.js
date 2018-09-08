@@ -7,24 +7,8 @@
 // https://medium.com/@nate_wang/a-new-approach-for-managing-redux-actions-91c26ce8b5da.
 
 import initialState from './initialState';
-import { reducer as addEventReducer } from './addEvent';
-import { reducer as deleteEventReducer } from './deleteEvent';
-import { reducer as toggleAddEventFormReducer } from './toggleAddEventForm';
-import { reducer as setEditingEventReducer } from './setEditingEvent';
-import { reducer as populateEventsReducer } from './populateEvents';
-import { reducer as setViewingEventReducer } from './setViewingEvent';
-import { reducer as setDeletingEventReducer } from './setDeletingEvent';
-import { reducer as deleteUserEventsReducer } from './deleteUserEvents';
 
 const reducers = [
-  addEventReducer,
-  deleteEventReducer,
-  toggleAddEventFormReducer,
-  setEditingEventReducer,
-  populateEventsReducer,
-  setViewingEventReducer,
-  setDeletingEventReducer,
-  deleteUserEventsReducer,
 ];
 
 export default function reducer(state = initialState, action) {

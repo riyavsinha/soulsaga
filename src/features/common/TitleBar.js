@@ -1,12 +1,21 @@
+import {
+  AccountIcon,
+  ChartLineVariantIcon,
+  HomeIcon,
+  InformationIcon,
+ } from 'mdi-react';
 import AppBar from '@material-ui/core/AppBar';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import FirstTimeUserSetupDialog from './FirstTimeUserSetupDialog';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -148,13 +157,33 @@ export class TitleBar extends Component {
     return (
       <List component="nav">
         <ListItem button component={Link} to="/">
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
           <ListItemText>Home</ListItemText>
         </ListItem>
-        <ListItem button component={Link} to="/">
+        <ListItem button component={Link} to="/about">
+          <ListItemIcon>
+            <InformationIcon />
+          </ListItemIcon>
           <ListItemText>About</ListItemText>
         </ListItem>
+        <Divider/>
+        <ListSubheader>
+          Tools
+        </ListSubheader>
         <ListItem button component={Link} to="/timeline">
+          <ListItemIcon>
+            <ChartLineVariantIcon />
+          </ListItemIcon>
           <ListItemText>Timeline</ListItemText>
+        </ListItem>
+        <Divider/>
+        <ListItem button component={Link} to="/profile">
+          <ListItemIcon>
+            <AccountIcon />
+          </ListItemIcon>
+          <ListItemText>Profile</ListItemText>
         </ListItem>
       </List>
     )
@@ -185,13 +214,12 @@ export class TitleBar extends Component {
 
         <Drawer
             open={this.state.navDrawerOpen}
-            onClose={this.handleDrawerOpen(false)}
-            className="title-bar__navigation-menu">
+            onClose={this.handleDrawerOpen(false)}>
           <div
-            role="button"
-            onClick={this.handleDrawerOpen(false)}
-            onKeyDown={this.handleDrawerOpen(false)}
-          >
+              role="button"
+              onClick={this.handleDrawerOpen(false)}
+              onKeyDown={this.handleDrawerOpen(false)}
+              className="title-bar__navigation-menu">
             {this.renderNavItems()}
           </div>
         </Drawer>
