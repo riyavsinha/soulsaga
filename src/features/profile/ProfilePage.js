@@ -1,5 +1,9 @@
+import Avatar from '@material-ui/core/Avatar';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import TimelineSettingsPanel from './TimelineSettingsPanel';
+import Typography from '@material-ui/core/Typography';
+import { Redirect } from "react-router-dom";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
@@ -11,9 +15,30 @@ export class ProfilePage extends Component {
   };
 
   render() {
+    // ensure auth state
+    if (this.props.common.signInState === null) {
+      return <div/>;
+    } else if (this.props.common.signInState === false) {
+      return <Redirect to="/" />;
+    }
+
     return (
       <div className="profile-profile-page">
-        Page Content: profile/DefaultPage
+        <div className="profile-profile-page__metadata-section">
+          <Avatar
+            alt="profilepicture"
+            src={this.props.common.user.photoURL}
+            className="profile-profile-page__avatar"
+          />
+        </div>
+        <div className="profile-profile-page__data-section">
+          <div className="profile-profile-page__name-container">
+            <Typography variant="display2" className="profile-profile-page__name">
+              {this.props.common.user.displayName}
+            </Typography>
+          </div>
+          <TimelineSettingsPanel />
+        </div>
       </div>
     );
   }
@@ -22,6 +47,7 @@ export class ProfilePage extends Component {
 /* istanbul ignore next */
 function mapStateToProps(state) {
   return {
+    common: state.common,
     profile: state.profile,
   };
 }

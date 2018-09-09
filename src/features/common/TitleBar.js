@@ -27,6 +27,7 @@ import { Link, Redirect } from "react-router-dom";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { auth, database, DATA_CONSENT } from 'common/firebase';
+import { populateEvents } from 'features/timeline/redux/actions'
 import * as actions from './redux/actions';
 
 export class TitleBar extends Component {
@@ -94,7 +95,10 @@ export class TitleBar extends Component {
   handleSignOut = () => {
     this.handleMenuClose();
     this.props.actions.signOut()
-      .then(() => this.props.actions.populateSignInState(false));
+      .then(() => {
+        this.props.actions.populateSignInState(false);
+        this.props.actions.populateEvents([]);
+      });
   }
 
   handleDrawerOpen = isOpen => () => {
@@ -179,6 +183,9 @@ export class TitleBar extends Component {
           <ListItemText>Timeline</ListItemText>
         </ListItem>
         <Divider/>
+        <ListSubheader>
+          Me
+        </ListSubheader>
         <ListItem button component={Link} to="/profile">
           <ListItemIcon>
             <AccountIcon />
@@ -238,7 +245,7 @@ function mapStateToProps(state) {
 /* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ ...actions }, dispatch)
+    actions: bindActionCreators({ ...actions, populateEvents }, dispatch)
   };
 }
 

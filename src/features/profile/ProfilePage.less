@@ -1,5 +1,36 @@
 @import '../../styles/mixins';
 
 .profile-profile-page {
+  display: flex;
+  margin: 16px;
+}
 
+.profile-profile-page__metadata-section {
+  flex: .2;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  max-width: 300px;
+}
+
+.profile-profile-page__data-section {
+  flex: .75;
+}
+
+.profile-profile-page__avatar {
+  height: 200px;
+  width: 200px;
+  max-width: 200px;
+  margin-right: 24px;
+}
+
+.profile-profile-page__name-container {
+  height: 200px;
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.profile-profile-page__name {
+  position: absolute;
+  bottom: 25%;
 }
