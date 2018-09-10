@@ -7,22 +7,8 @@
 // https://medium.com/@nate_wang/a-new-approach-for-managing-redux-actions-91c26ce8b5da.
 
 import initialState from './initialState';
-import { reducer as signInReducer } from './signIn';
-import { reducer as populateUserReducer } from './populateUser';
-import { reducer as signOutReducer } from './signOut';
-import { reducer as setUserDataConsentReducer } from './setUserDataConsent';
-import { reducer as populateDataConsentReducer } from './populateDataConsent';
-import { reducer as populateSignInStateReducer } from './populateSignInState';
-import { reducer as deleteUserReducer } from './deleteUser';
 
 const reducers = [
-  signInReducer,
-  populateUserReducer,
-  signOutReducer,
-  setUserDataConsentReducer,
-  populateDataConsentReducer,
-  populateSignInStateReducer,
-  deleteUserReducer,
 ];
 
 export default function reducer(state = initialState, action) {
@@ -33,6 +19,5 @@ export default function reducer(state = initialState, action) {
       newState = state;
       break;
   }
-  /* istanbul ignore next */
   return reducers.reduce((s, r) => r(s, action), newState);
 }

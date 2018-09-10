@@ -23,7 +23,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { auth, database, DATA_CONSENT } from 'common/firebase';
@@ -49,6 +49,7 @@ export class TitleBar extends Component {
   componentDidMount = () => {
     auth.onAuthStateChanged((user) => {
       if (user) {
+        console.log(user);
         this.props.actions.populateUser(user);
         this.populateConsentState(user.uid)
           .then(() => this.props.actions.populateSignInState(true));

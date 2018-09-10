@@ -1,13 +1,11 @@
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Button from '@material-ui/core/Button';
 import React, { Component } from 'react';
+import Panel from './Panel';
 import PropTypes from 'prop-types';
-import Switch from '@material-ui/core/Switch';
-import Typography from '@material-ui/core/Typography';
+import SimpleDialog from 'features/library/SimpleDialog';
+import SwitchSetting from './SwitchSetting';
 import { setUserDataConsent } from 'features/common/redux/actions';
+import { deleteUserEvents } from 'features/timeline/redux/actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
@@ -19,6 +17,7 @@ export class TimelineSettingsPanel extends Component {
   };
 
   state = {
+    dialogOpen: false,
     timelineDataSettingTitle: "Data Storage",
     timelineDataSettingSubtitle: `
       Allow SoulSaga to store my timeline events for me
@@ -35,40 +34,52 @@ export class TimelineSettingsPanel extends Component {
       ]);
   } 
 
+  handleDeleteButtonClick = () => this.setState({ dialogOpen: true })
+
+  handleDialogClose = () => this.setState({ dialogOpen: false })
+
+  deleteEvents = () => {
+    this.handleDialogClose();
+    this.props.actions.deleteUserEvents();
+  }
+
   render() {
     let settingText = this.props.common.storeUserData
         ? "We are helping you save your data"
-        : "We are not saving your data"
+        : "We are not saving your data";
+    let dialogTitleText = "Delete all your events?";
+    let dialogContentText = `This cannot be undone. If you would like
+       to save your data before erasing it, please do so with the
+       'Download' button on the Timeline page.`
     return (
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography
-                variant="title"
-                className="profile-profile-page__panel-title">
-              Timeline
-            </Typography>
-            <Typography variant="subheading">
-              {settingText}
-            </Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails className="profile-profile-page__panel-details">
-          <div className="profile-profile-page__toggle-setting-container">
-            <div className="profile-profile-page__toggle-setting-text">
-              <Typography variant="body2" className="profile-profile-page__toggle-setting-title">
-                {this.state.timelineDataSettingTitle}
-              </Typography>
-              <Typography>
-                {this.state.timelineDataSettingSubtitle}
-              </Typography>
-            </div>
-            <Switch
-              checked={this.props.common.storeUserData}
-              onChange={this.handleDataSettingChange}
-              value="timelineDataConsent"
-            />
-          </div>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+      <div>
+        <Panel 
+            title="Timeline"
+            settingText={settingText}>
+          <SwitchSetting
+            title={this.state.timelineDataSettingTitle}
+            subtitle={this.state.timelineDataSettingSubtitle}
+            checked={this.props.common.storeUserData}
+            onChange={this.handleDataSettingChange}
+            value="timelineDataConsent" />
+
+          <Button
+              color="primary"
+              className="profile-profile-page__timeline-delete-events-button"
+              onClick={this.handleDeleteButtonClick}>
+            Delete all my events
+          </Button>
+        </Panel>
+
+        <SimpleDialog 
+            open={this.state.dialogOpen}
+            onClose={this.handleDialogClose}
+            titleText={dialogTitleText}
+            contentText={dialogContentText}
+            cancelButtonText="Cancel"
+            nextButtonText="Delete"
+            nextButtonAction={this.deleteEvents}/>
+      </div>
     )
   }
 }
@@ -84,7 +95,7 @@ function mapStateToProps(state) {
 /* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ ...actions, setUserDataConsent }, dispatch)
+    actions: bindActionCreators({ ...actions, setUserDataConsent, deleteUserEvents }, dispatch)
   };
 }
 

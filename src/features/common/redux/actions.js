@@ -4,3 +4,4 @@ export { signOut, dismissSignOutError } from './signOut';
 export { setUserDataConsent, dismissSetUserDataConsentError } from './setUserDataConsent';
 export { populateDataConsent } from './populateDataConsent';
 export { populateSignInState } from './populateSignInState';
+export { deleteUser, dismissDeleteUserError } from './deleteUser';
