@@ -24,8 +24,6 @@ export function setUserDataConsent(user, storeData, texts) {
         timestamp: Date.now(),
       }
       const db = database.ref(DATA_CONSENT + user.uid);
-      console.log(db);
-      console.log(dataLoad);
       Promise.all([db.push(dataLoad), db.child('currentState').set(storeData)])
         .then(
           (res) => {

@@ -66,8 +66,7 @@ export class TitleBar extends Component {
    */
   initiateSignIn = () => {
     this.props.actions.signIn()
-      .then(() => this.populateConsentState())
-      .then(() => this.props.actions.populateSignInState(true));
+      .then(() => this.populateConsentState());
   }
 
   /**
@@ -96,10 +95,7 @@ export class TitleBar extends Component {
   handleSignOut = () => {
     this.handleMenuClose();
     this.props.actions.signOut()
-      .then(() => {
-        this.props.actions.populateSignInState(false);
-        this.props.actions.populateEvents([]);
-      });
+      .then(() => this.props.actions.populateEvents([]) );
   }
 
   handleDrawerOpen = isOpen => () => {

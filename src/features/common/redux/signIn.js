@@ -65,7 +65,8 @@ export function reducer(state, action) {
           name: action.name,
           photoUrl: action.photoUrl,
           id: action.id,
-        }
+        },
+        signInState: true,
       };
 
     case COMMON_SIGN_IN_FAILURE:

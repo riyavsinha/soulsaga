@@ -61,6 +61,7 @@ export function reducer(state, action) {
         signOutPending: false,
         signOutError: null,
         user: null,
+        signInState: false,
       };
 
     case COMMON_SIGN_OUT_FAILURE:

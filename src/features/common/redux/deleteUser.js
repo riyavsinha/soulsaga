@@ -4,7 +4,7 @@ import {
   COMMON_DELETE_USER_FAILURE,
   COMMON_DELETE_USER_DISMISS_ERROR,
 } from './constants';
-import { auth, provider } from 'common/firebase';
+import { auth } from 'common/firebase';
 
 export function deleteUser(args = {}) {
   return (dispatch) => { // optionally you can have getState as the second argument
@@ -13,28 +13,7 @@ export function deleteUser(args = {}) {
     });
 
     const promise = new Promise((resolve, reject) => {
-      let credential;
-      let user;
-      let curUser = auth.currentUser;
-      // let authPromise = auth.signInWithPopup(provider).then(
-      //   res => {
-      //     credential = provider.credential(res.credential.idToken);
-      //     user = res.user;
-      //     console.log(user.uid, curUser.uid)
-      //     if (user.uid !== curUser.uid) {
-      //       throw new Error("not same user");
-      //     }
-      //   }
-      // );
-      // let refreshRequest = authPromise.then(
-      //   () => curUser.reauthenticateAndRetrieveDataWithCredential(credential),
-      //   err => console.log(err)
-      // )
-      console.log(curUser);
-      let refreshRequest =
-          curUser.reauthenticateAndRetrieveDataWithCredential(
-              provider.credential(curUser.refreshToken))
-      let request = refreshRequest.then(() => console.log("success"));
+      const request = auth.currentUser.delete();
       request.then(
         (res) => {
           dispatch({
@@ -79,8 +58,8 @@ export function reducer(state, action) {
       // The request is success
       return {
         ...state,
-        //user: null,
-        //signInState: false,
+        user: null,
+        signInState: false,
         deleteUserPending: false,
         deleteUserError: null,
       };
