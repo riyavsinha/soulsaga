@@ -66,7 +66,13 @@ export class AboutPage extends Component {
         </Typography>
         <Typography className="about-about-page__p">
           Whatever you want! I initially designed it to only be about
-          events significant to personal growth
+          events significant to personal growth, but anything you want
+          to remember could be worth adding! (First time you watched
+          Hamilton? Ate at a good restaurant? Anything goes!)
+        </Typography>
+        <Typography className="about-about-page__p">
+          If you have any further categories you would like to see added,
+          I'd love to hear it!
         </Typography>
 
         <Typography variant="display1" className="about-about-page__d2">
@@ -97,7 +103,7 @@ export class AboutPage extends Component {
           Contact us
         </Typography>
         <Typography className="about-about-page__p">
-          I'd love to hear from you about any feedback, feature requests,
+          I'd love to hear from you about any questions, feedback, feature requests,
           or general thoughts you might have! You can reach me at
           riya.sinha@soulsaga.org
         </Typography>
