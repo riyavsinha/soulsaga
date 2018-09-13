@@ -86,6 +86,9 @@ export class AboutPage extends Component {
           [Major] Add 'Views' tool for people to record and track their
           views on various subjects and topics over time
         </RoadmapItem>
+        <RoadmapItem>
+          . . . and more!
+        </RoadmapItem>
         <Typography className="about-about-page__p">
           If you have other tools you'd like to see, please let me know!
         </Typography>
