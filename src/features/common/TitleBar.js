@@ -49,7 +49,6 @@ export class TitleBar extends Component {
   componentDidMount = () => {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        console.log(user);
         this.props.actions.populateUser(user);
         this.populateConsentState(user.uid)
           .then(() => this.props.actions.populateSignInState(true));
@@ -156,7 +155,7 @@ export class TitleBar extends Component {
 
   renderNavItems = () => {
     return (
-      <List component="nav">
+      <List component="nav" className="title-bar__navigation-list">
         <ListItem button component={Link} to="/">
           <ListItemIcon>
             <HomeIcon />
@@ -189,6 +188,13 @@ export class TitleBar extends Component {
           </ListItemIcon>
           <ListItemText>Profile</ListItemText>
         </ListItem>
+        <ListSubheader component={Link} to="/"
+            className="title-bar__legal-nav title-bar__legal-nav-first">
+          Privacy Policy
+        </ListSubheader>
+        <ListSubheader component={Link} to="/" className="title-bar__legal-nav">
+          Terms of Service
+        </ListSubheader>
       </List>
     )
   }
