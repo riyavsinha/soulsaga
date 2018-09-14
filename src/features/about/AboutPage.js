@@ -74,6 +74,14 @@ export class AboutPage extends Component {
           If you have any further categories you would like to see added,
           I'd love to hear it!
         </Typography>
+        <Typography variant="title" className="about-about-page__t">
+          Are there any plans to add other forms of sign-in?
+        </Typography>
+        <Typography className="about-about-page__p">
+          Possibly, though unfortunately not at the moment, as I prefer
+          building out new features to dealing with designing authentication
+          pages and interactions.
+        </Typography>
 
         <Typography variant="display1" className="about-about-page__d2">
           Roadmap

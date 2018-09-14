@@ -3,6 +3,7 @@
 
 import {
   AboutPage,
+  PrivacyPage,
 } from './';
 
 export default {
@@ -10,5 +11,6 @@ export default {
   name: 'About',
   childRoutes: [
     { path: 'about-page', name: 'About page', component: AboutPage, isIndex: true },
+    { path: '/privacy', name: 'Privacy page', component: PrivacyPage },
   ],
 };

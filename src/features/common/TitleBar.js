@@ -188,7 +188,7 @@ export class TitleBar extends Component {
           </ListItemIcon>
           <ListItemText>Profile</ListItemText>
         </ListItem>
-        <ListSubheader component={Link} to="/"
+        <ListSubheader component={Link} to="/privacy"
             className="title-bar__legal-nav title-bar__legal-nav-first">
           Privacy Policy
         </ListSubheader>
