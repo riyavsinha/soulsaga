@@ -68,10 +68,9 @@ export class PrivacyPage extends Component {
           How we use your data
         </Typography>
         <Typography className="about-about-page__p">
-          You stored data is used by SoulSaga only for purposes of
+          Your stored data is used by SoulSaga only for purposes of
           debugging the application for a better user experience, or
-          in order to help deliver more relevant services for our
-          users.
+          in order to help develop better services for you.
         </Typography>
 
         <Typography variant="title" className="about-about-page__t">
@@ -88,7 +87,7 @@ export class PrivacyPage extends Component {
           Data Retention
         </Typography>
         <Typography className="about-about-page__p">
-          We reserve the right to store any data you ask us to as long
+          We reserve the right to store any data you ask us to, for as long
           as your account is active. You reserve the right to clear
           your data or delete your account at any time. This can
           be done so from your Profile page.
