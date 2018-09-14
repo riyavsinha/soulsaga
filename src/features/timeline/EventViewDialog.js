@@ -36,9 +36,9 @@ export class EventViewDialog extends Component {
   renderImg = () => {
     let e = this.props.timeline.viewingEvent;
     if (e) {
-      if (e.img) {
+      if (e.i) {
         return (
-          <img src={e.img} alt="event" className="timeiline-view-event-dialog__img" />
+          <img src={e.i} alt="event" className="timeiline-view-event-dialog__img" />
         )
       } else {
         return (
@@ -50,12 +50,12 @@ export class EventViewDialog extends Component {
 
   renderDesc = () => {
     let e = this.props.timeline.viewingEvent;
-    if (e && e.desc) {
-      let condClass = e.img ? "timeline-view-event-dialog__desc" : "";
+    if (e && e.de) {
+      let condClass = e.i ? "timeline-view-event-dialog__desc" : "";
       return (
         <DialogContent className={condClass}>
           <DialogContentText>
-            {e.desc}
+            {e.de}
           </DialogContentText>
         </DialogContent>
       )
@@ -73,15 +73,15 @@ export class EventViewDialog extends Component {
           <div className="timeline-view-event-dialog__header-container">
             <div>
               <Avatar className="timeline-view-event-dialog__avatar">
-                {e ? CATEGORY_ICON_MAP[e.category] : "" }
+                {e ? CATEGORY_ICON_MAP[e.c] : "" }
               </Avatar>
             </div>
             <div className="timeline-view-event-dialog__date">
               <Typography variant="headline"> 
-                {e ? e.title : ""}
+                {e ? e.t : ""}
               </Typography>
               <Typography variant="subheading"> 
-                {e ? buildDateString(e.day, e.month, e.year) : ""}
+                {e ? buildDateString(e.d, e.m, e.y) : ""}
               </Typography>
             </div>
           </div>

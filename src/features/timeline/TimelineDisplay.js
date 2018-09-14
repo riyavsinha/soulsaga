@@ -39,51 +39,51 @@ export default class TimelineDisplay extends Component {
     var yInd = 0;
     this.props.events.forEach((event, ind) => {
       let key = event.id.toString() + "gi";
-      let col = parseInt((event.day !== "") + (event.month !== ""), 10);
+      let col = parseInt((event.d !== "") + (event.m !== ""), 10);
       let numRows = 2;
-      if (event.img !== "") { numRows += 3 }
-      if (event.desc.length > 90) { numRows += 2 } else if (event.desc.length > 0) { numRows += 1 }
+      if (event.i !== "") { numRows += 3 }
+      if (event.de.length > 90) { numRows += 2 } else if (event.de.length > 0) { numRows += 1 }
       let itemLayout = {};
       // If day, only add to index if necessary and increment yInd
-      if (event.day !== "") {
-        if (!(event.year in dateIndex)) {
-          yInd = this.newYearEncountered(event.year, layout, gridItems, dateIndex, yInd);
+      if (event.d !== "") {
+        if (!(event.y in dateIndex)) {
+          yInd = this.newYearEncountered(event.y, layout, gridItems, dateIndex, yInd);
         }
-        if (!(dateIndex[event.year].has(event.month))) {
-          dateIndex[event.year].set(event.month, yInd);
+        if (!(dateIndex[event.y].has(event.m))) {
+          dateIndex[event.y].set(event.m, yInd);
         }
         itemLayout = {i: key, x: col, y: yInd, w: 1, h: numRows, static: true};
         yInd += numRows;
       } else {
         // If month, check index first, otherwise add to index
-        if (event.month !== "") {
+        if (event.m !== "") {
           // Ensure year index initialized
-          if (!(event.year in dateIndex)) {
-            yInd = this.newYearEncountered(event.year, layout, gridItems, dateIndex, yInd);
+          if (!(event.y in dateIndex)) {
+            yInd = this.newYearEncountered(event.y, layout, gridItems, dateIndex, yInd);
           }
           let ind;
           let next;
           // Check if in index
-          if (dateIndex[event.year].has(event.month)) {
-            ind = dateIndex[event.year].get(event.month);
+          if (dateIndex[event.y].has(event.m)) {
+            ind = dateIndex[event.y].get(event.m);
             next = ind + numRows;
-            dateIndex[event.year].set(event.month, next)
+            dateIndex[event.y].set(event.m, next)
             if (next > yInd) {
               yInd = next;
             }
           } else {
             ind = yInd;
-            dateIndex[event.year].set(event.month, ind+numRows);
+            dateIndex[event.y].set(event.m, ind+numRows);
             yInd += numRows;
           }
           itemLayout = {i: key, x: col, y: ind, w: 1, h: numRows, static: true};
         } else {
-          if (!(event.year in dateIndex)) {
-            yInd = this.newYearEncountered(event.year, layout, gridItems, dateIndex, yInd);
+          if (!(event.y in dateIndex)) {
+            yInd = this.newYearEncountered(event.y, layout, gridItems, dateIndex, yInd);
           }
-          let ind = dateIndex[event.year].get("year");
+          let ind = dateIndex[event.y].get("year");
           let next = ind + numRows;
-          dateIndex[event.year].set("year", next);
+          dateIndex[event.y].set("year", next);
           if (next > yInd) {
             yInd = next;
           }

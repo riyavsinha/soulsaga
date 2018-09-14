@@ -6,3 +6,4 @@ export { populateEvents } from './populateEvents';
 export { setViewingEvent } from './setViewingEvent';
 export { setDeletingEvent } from './setDeletingEvent';
 export { deleteUserEvents, dismissDeleteUserEventsError } from './deleteUserEvents';
+export { setHasLoadedEvents } from './setHasLoadedEvents';

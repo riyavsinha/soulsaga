@@ -63,13 +63,13 @@ export class AddEventForm extends Component {
     if (this.props.timeline.editingEvent != null) {
       const e = this.props.timeline.editingEvent;
       this.setState({
-        eventCategory: e.category,
-        eventTitle: e.title,
-        eventDesc: e.desc,
-        eventMonth: e.month,
-        eventDay: e.day,
-        eventYear: e.year,
-        eventImg: e.img,
+        eventCategory: e.c,
+        eventTitle: e.t,
+        eventDesc: e.de,
+        eventMonth: e.m,
+        eventDay: e.d,
+        eventYear: e.y,
+        eventImg: e.i,
         eventId: e.id,
         hasTitle: true,
         validDate: true,
@@ -148,15 +148,15 @@ export class AddEventForm extends Component {
       : this.props.timeline.editingEvent.id;
 
     const e = new EventProto();
-    e.category = this.state.eventCategory;
-    e.title = this.state.eventTitle;
-    e.desc = this.state.eventDesc;
-    e.year = this.state.eventYear.replace(/^[0]+/g,"");
-    e.month = this.state.eventMonth;
-    e.day = this.state.eventDay.replace(/^[0]+/g,"");
-    e.img = img;
+    e.c = this.state.eventCategory;
+    e.t = this.state.eventTitle;
+    e.de = this.state.eventDesc;
+    e.y = this.state.eventYear.replace(/^[0]+/g,"");
+    e.m = this.state.eventMonth;
+    e.d = this.state.eventDay.replace(/^[0]+/g,"");
+    e.i = img;
     e.id = id;
-    e.ms = this.buildDateTime(e.day, e.month, e.year);
+    e.ms = this.buildDateTime(e.d, e.m, e.y);
     return e
   }
 

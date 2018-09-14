@@ -1,23 +1,23 @@
 export default class EventProto {
 
   static MAIN_KEYS = [
-    // Type of event
-    'category',
-    // Short summary
-    'title',
-    // Long description
-    'desc',
-    // Year of event
-    'year',
-    // Month of event
-    'month',
-    // Day of event
-    'day',
-    // Img associated
-    'img',
-    // Unique identifier, usually creation timestamp
+    // Category. Type of event
+    'c',
+    // Title. Short summary
+    't',
+    // Description. Long description
+    'de',
+    // Year. Year of event
+    'y',
+    // Month. Month of event
+    'm',
+    // Day. Day of event
+    'd',
+    // Image. Img associated
+    'i',
+    // Id. Unique identifier, usually creation timestamp
     'id',
-    // Millisecond date of event, using Y/M/D
+    // Ms. Millisecond date of event, using Y/M/D
     'ms'
   ];
 
@@ -31,13 +31,13 @@ export default class EventProto {
    */
   constructor(e = null) {
     if (e === null) {
-      this.category = "Other";
-      this.title = "";
-      this.desc = "";
-      this.year = "";
-      this.month = "";
-      this.day = "";
-      this.img = "";
+      this.c = "Other";
+      this.t = "";
+      this.de = "";
+      this.y = "";
+      this.m = "";
+      this.d = "";
+      this.i = "";
       this.id = "";
       this.ref = "";
       this.ms = 0;
@@ -48,13 +48,13 @@ export default class EventProto {
       throw new Error("Invalid EventProto");
     }
 
-    this.category = e.category;
-    this.title = e.title;
-    this.desc = e.desc;
-    this.year = e.year;
-    this.month = e.month;
-    this.day = e.day;
-    this.img = e.img;
+    this.c = e.c;
+    this.t = e.t;
+    this.de = e.de;
+    this.y = e.y;
+    this.m = e.m;
+    this.d = e.d;
+    this.i = e.i;
     this.id = e.id;
     this.ms = e.ms;
     if (e.hasOwnProperty('ref')) {

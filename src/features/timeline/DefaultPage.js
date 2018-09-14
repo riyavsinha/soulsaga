@@ -21,7 +21,7 @@ export class DefaultPage extends Component {
   // load user events on page render
   componentDidMount = () => {
     auth.onAuthStateChanged((user) => {
-      if (user) {
+      if (user && !this.props.timeline.hasLoadedEvents) {
         const ref = database
           .ref(TIMELINE + this.props.common.user.uid)
           .orderByChild("ms");
@@ -33,7 +33,7 @@ export class DefaultPage extends Component {
             events.push(e);
           })
           this.props.actions.populateEvents(events);
-        })
+        }).then(() => this.props.actions.setHasLoadedEvents(true));
       }
     });
   }

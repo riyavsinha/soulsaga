@@ -18,56 +18,56 @@ export class DefaultPage extends Component {
   generateTimelineInfoEvents = () => {
     let nullFn = () => "";
     const e = new EventProto({
-      category: "Spiritual",
-      title: "Visualize your life",
-      desc: `SoulSaga lets you build beautiful events to visualize
+      c: "Spiritual",
+      t: "Visualize your life",
+      de: `SoulSaga lets you build beautiful events to visualize
         your life, so you can remember and reflect on every step of your
         journey.`,
-      month: "",
-      year: "2018",
+      m: "",
+      y: "2018",
       ref: "asdf",
-      day: "",
-      img: "",
+      d: "",
+      i: "",
       id: "",
       ms: 0,
     });
     const f = new EventProto({
-      category: "Security",
-      title: "Your data is yours",
-      desc: `SoulSaga offers you the option to store your own data if you'd
+      c: "Security",
+      t: "Your data is yours",
+      de: `SoulSaga offers you the option to store your own data if you'd
         like. The only thing we'll remember is to remember nothing of yours :)`,
-      month: "",
-      year: "2018",
+      m: "",
+      y: "2018",
       ref: "asdf",
-      day: "",
-      img: "",
+      d: "",
+      i: "",
       id: "",
       ms: 0,
     });
     const g = new EventProto({
-      category: "Love/Romance",
-      title: "Built by thinkers, for thinkers",
-      desc: `Here at SoulSaga, we believe that understanding your personal
+      c: "Love/Romance",
+      t: "Built by thinkers, for thinkers",
+      de: `Here at SoulSaga, we believe that understanding your personal
         past is the only way forward. We'll always be adding new tools
         to help you do so.`,
-      month: "",
-      year: "2018",
+      m: "",
+      y: "2018",
       ref: "asdf",
-      day: "",
-      img: "",
+      d: "",
+      i: "",
       id: "",
       ms: 0,
     });
     const h = new EventProto({
-      category: "Personal",
-      title: "Your eyes only",
-      desc: `We're NOT a social platform. Your profile is a space for you to
+      c: "Personal",
+      t: "Your eyes only",
+      de: `We're NOT a social platform. Your profile is a space for you to
         explore your own life. No ads, no sharing, just you.`,
-      month: "",
-      year: "2018",
+      m: "",
+      y: "2018",
       ref: "asdf",
-      day: "",
-      img: "",
+      d: "",
+      i: "",
       id: "",
       ms: 0,
     });

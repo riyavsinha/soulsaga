@@ -23,21 +23,21 @@ export class TimelineEvent extends Component {
   }
 
   renderImg() {
-    if (this.props.event.img) {
+    if (this.props.event.i) {
       return (
         <CardMedia
           className="timeline-timeline-event__media"
-          image={this.props.event.img}/>);
+          image={this.props.event.i}/>);
     }
   }
 
   renderDesc() {
     let limitLength = this.props.isDisplay ? "" : "timeline-timeline-event__desc";
-    if (this.props.event.desc) {
+    if (this.props.event.de) {
       return (
         <CardContent className="timeline-timeline-event__desc-container">
           <Typography component="p" className={limitLength}>
-            {this.props.event.desc}
+            {this.props.event.de}
           </Typography>
         </CardContent>);
     }
@@ -45,9 +45,9 @@ export class TimelineEvent extends Component {
 
   render() {
     let dateString = buildDateString(
-        this.props.event.day,
-        this.props.event.month,
-        this.props.event.year);
+        this.props.event.d,
+        this.props.event.m,
+        this.props.event.y);
     return (
       <Card
           className="timeline-timeline-event__card"
@@ -55,10 +55,10 @@ export class TimelineEvent extends Component {
         <CardHeader
           avatar={
             <Avatar className="timeline-timeline-event__avatar">
-              {CATEGORY_ICON_MAP[this.props.event.category]}
+              {CATEGORY_ICON_MAP[this.props.event.c]}
             </Avatar>
           }
-          title={this.props.event.title}
+          title={this.props.event.t}
           subheader={dateString}
         />
         {this.renderImg()}
