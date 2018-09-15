@@ -45,7 +45,7 @@ export class TimelineSettingsPanel extends Component {
   }
 
   render() {
-    let settingText = this.props.common.storeUserData
+    let settingText = this.props.common.timelineConsent
         ? "We are helping you save your data"
         : "We are not saving your data";
     let dialogTitleText = "Delete all your events?";

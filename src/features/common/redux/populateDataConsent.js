@@ -20,7 +20,7 @@ export function reducer(state, action) {
       return {
         ...state,
         privacyTermsConsent: action.privacyConsentState,
-        timelineDataConsent: action.timelineConsentState
+        timelineConsent: action.timelineConsentState
       };
 
     default:

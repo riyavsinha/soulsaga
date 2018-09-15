@@ -109,7 +109,11 @@ export class AddEventForm extends Component {
   handleEventImgChange = e => {
     const reader = new FileReader();
     reader.addEventListener('load', () => this.setState({eventImg: reader.result}), false);
-    reader.readAsDataURL(e.target.files[0]);
+    if (e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0]);
+    } else {
+      this.setState({eventImg: ""});
+    }
   }
 
   handleSnackbarClose = (event, reason) => {
@@ -187,6 +191,20 @@ export class AddEventForm extends Component {
       date.setMinutes(0);
     }
     return date.getTime();
+  }
+
+  renderCropper = () => {
+    if (this.state.eventImg) {
+      return (
+        <Cropper
+            ref="cropper"
+            src={this.state.eventImg}
+            style={{width: 640, height: 360}}
+            aspectRatio={16 / 9}
+            guides={true}
+            dragMode="move"/>
+      );
+    }
   }
 
   render() {
@@ -312,13 +330,7 @@ export class AddEventForm extends Component {
                 Upload an image to remember the event
               </FormHelperText>
             </FormControl>
-            <Cropper
-              ref="cropper"
-              src={this.state.eventImg}
-              style={{width: 640, height: 360}}
-              aspectRatio={16 / 9}
-              guides={true}
-              dragMode="move"/>
+            {this.renderCropper()}
 
           </form>
 
