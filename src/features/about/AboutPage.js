@@ -16,9 +16,9 @@ export class AboutPage extends Component {
     return (
       <div className="about-about-page__roadmap-item">
         <Checkbox disabled checked={props.checked === true} />
-        <p>
+        <Typography>
           {props.children}
-        </p>
+        </Typography>
       </div>)
   }
 
@@ -39,9 +39,18 @@ export class AboutPage extends Component {
         <Typography className="about-about-page__p">
           For the past 2 years, I've kept a spreadsheet of all the
           significant events in my life, everything that helped me
-          grow into the person I am today. At some point, I had enough
-          events that I just wished I could add a bit more detail to each, 
-          that I could arrange them beautifully, etc. 
+          grow into the person I am today. Since then, I've also
+          tried various other tools and techniques to reflect on my
+          personal journey. I didn't have a way to unify all of these
+          though, or a single place I could go to utilize these in
+          synchrony.
+        </Typography>
+        <Typography className="about-about-page__p">
+          For the Timeline especially, I didn't want it to be a
+          normal timeline with events spaced out relative to
+          time. I wanted it to feel natural, as if you were literally
+          writing down your life on cards and arranging them on a wall
+          or on the floor.
         </Typography>
         <Typography className="about-about-page__p">
           So here we are! It's a work in progress, but I hope many
@@ -80,6 +89,23 @@ export class AboutPage extends Component {
           Possibly, though unfortunately not at the moment, as I prefer
           building out new features to dealing with designing authentication
           pages and interactions.
+        </Typography>
+        <Typography variant="title" className="about-about-page__t">
+          I'd like to know more about your tech stack. What technologies
+          do you use?
+        </Typography>
+        <Typography className="about-about-page__p">
+          Great question! We use <a href="https://reactjs.org/">React.js</a>
+          &nbsp;on the frontend, with <a href="https://material-ui.com/">
+          Material UI</a> as our UI library. We use&nbsp;
+          <a href="https://firebase.google.com/products/auth/">
+          Firebase Authentication</a> for user sign-up/sign-in, and
+          finally <a href="https://firebase.google.com/products/realtime-database/">
+          Firebase Database</a> for reliable storage. A shoutout
+          goes to <a href="https://materialdesignicons.com/">Material
+          Design Icons</a> as well, for providing a very comprehensive
+          set of icons for the various Timeline categories we wanted
+          to represent.
         </Typography>
 
         <Typography variant="display1" className="about-about-page__d2">
