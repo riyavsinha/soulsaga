@@ -18,7 +18,7 @@ export class PrivacyPage extends Component {
           Privacy Policy
         </Typography>
         <Typography variant="title" className="about-about-page__t">
-          Posted: September 14, 2018
+          Posted: September 15, 2018
         </Typography>
         <Typography className="about-about-page__p">
           SoulSaga ("Service") is a web application built by Riya Sinha. This

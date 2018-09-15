@@ -18,7 +18,7 @@ export class TermsPage extends Component {
           Terms of Service
         </Typography>
         <Typography variant="title" className="about-about-page__t">
-          Posted: September 14, 2018
+          Posted: September 15, 2018
         </Typography>
         <Typography className="about-about-page__p">
           Thank you for using SoulSaga! These Terms of Service ("Terms") are a
