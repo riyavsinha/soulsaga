@@ -81,12 +81,10 @@ export class TitleBar extends Component {
       promises.push(
         topRef.child(consentTypes[i]).child('currentState').once("value"));
     }
-    console.log(promises);
     return Promise.all(promises).then(
       snapshots => {
-        console.log(snapshots.map(s => s.val()));
         this.props.actions.populateDataConsent(
-        snapshots.map(s => s.val()))
+            snapshots.map(s => s.val()))
       });
     // const ref = database.ref(DATA_CONSENT + uid).child('currentState')
     // return ref.once("value")
