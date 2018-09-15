@@ -1,9 +1,4 @@
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import SimpleDialog from 'features/library/SimpleDialog';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
@@ -28,28 +23,21 @@ export class EventDeleteDialog extends Component {
 
   render() {
     let e = this.props.timeline.deletingEvent;
+    let etitle = e ? e.t : "";
+    let title = "Are you sure you want to delete this event?";
+    let content = `Deleting an event is permananent and is not
+        recoverable. Are you sure you want to delete the event:
+        "` + etitle + '"';
+
     return (
-      <Dialog
-          open={e != null}
-          onClose={this.handleClose}>
-        <DialogTitle>
-          Are you sure you want to delete this event?
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Deleting an event is permananent and is not recoverable. Are you
-            sure you want to delete the event: "{e ? e.title : ""}"?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button color="primary" onClick={this.handleClose}>
-            Cancel
-          </Button>
-          <Button color="primary" onClick={this.handleDelete}>
-            Delete
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <SimpleDialog 
+            open={e != null}
+            onClose={this.handleClose}
+            titleText={title}
+            contentText={content}
+            cancelButtonText="Cancel"
+            nextButtonText="Delete"
+            nextButtonAction={this.handleDelete}/>
     );
   }
 }

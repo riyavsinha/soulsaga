@@ -192,7 +192,8 @@ export class TitleBar extends Component {
             className="title-bar__legal-nav title-bar__legal-nav-first">
           Privacy Policy
         </ListSubheader>
-        <ListSubheader component={Link} to="/" className="title-bar__legal-nav">
+        <ListSubheader component={Link} to="/terms"
+            className="title-bar__legal-nav">
           Terms of Service
         </ListSubheader>
       </List>
