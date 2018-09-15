@@ -12,6 +12,9 @@ export default class SimpleDialog extends Component {
   };
 
   render() {
+    let content = this.props.contentText ? this.props.contentText : this.props.children;
+    let cancelAction = this.props.cancelButtonAction ?
+      this.props.cancelButtonAction : this.props.handleClose;
     return (
       <Dialog
           open={this.props.open}
@@ -21,11 +24,11 @@ export default class SimpleDialog extends Component {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {this.props.contentText}
+            {content}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button color="primary" onClick={this.props.handleClose}>
+          <Button color="primary" onClick={cancelAction}>
             {this.props.cancelButtonText}
           </Button>
           <Button color="primary" onClick={this.props.nextButtonAction}>

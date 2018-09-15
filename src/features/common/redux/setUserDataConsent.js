@@ -6,7 +6,7 @@ import {
 } from './constants';
 import {database, DATA_CONSENT} from 'common/firebase';
 
-export function setUserDataConsent(user, storeData, texts) {
+export function setUserDataConsent(user, consentType, state, texts) {
   return (dispatch) => { // optionally you can have getState as the second argument
     dispatch({
       type: COMMON_SET_USER_DATA_CONSENT_BEGIN,
@@ -19,17 +19,18 @@ export function setUserDataConsent(user, storeData, texts) {
         name: user.displayName,
         email: user.email,
         uid: user.uid,
-        consent: storeData,
+        consent: state,
         shownTexts: texts,
         timestamp: Date.now(),
       }
-      const db = database.ref(DATA_CONSENT + user.uid);
-      Promise.all([db.push(dataLoad), db.child('currentState').set(storeData)])
+      const db = database.ref(DATA_CONSENT + user.uid).child(consentType);
+      Promise.all([db.push(dataLoad), db.child('currentState').set(state)])
         .then(
           (res) => {
             dispatch({
               type: COMMON_SET_USER_DATA_CONSENT_SUCCESS,
-              storeUserData: storeData,
+              consentType: consentType,
+              state: state,
             });
             resolve(res);
           },
@@ -68,12 +69,22 @@ export function reducer(state, action) {
 
     case COMMON_SET_USER_DATA_CONSENT_SUCCESS:
       // The request is success
-      return {
-        ...state,
-        setUserDataConsentPending: false,
-        setUserDataConsentError: null,
-        storeUserData: action.storeUserData,
-      };
+      if (action.consentType === "privacyTerms") {
+        return {
+          ...state,
+          setUserDataConsentPending: false,
+          setUserDataConsentError: null,
+          privacyTermsConsent: action.state,
+        };
+      } else if (action.consentType === "timeline") {
+        return {
+          ...state,
+          setUserDataConsentPending: false,
+          setUserDataConsentError: null,
+          timelineConsent: action.state,
+        };
+      }
+      break;
 
     case COMMON_SET_USER_DATA_CONSENT_FAILURE:
       // The request is failed

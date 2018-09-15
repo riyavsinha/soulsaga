@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import TimelineEvent from 'features/timeline/TimelineEvent';
 import Typography from '@material-ui/core/Typography';
 import { bindActionCreators } from 'redux';
+import { CloseIcon } from 'mdi-react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as actions from './redux/actions';
@@ -14,6 +15,8 @@ export class DefaultPage extends Component {
     home: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
   };
+
+  state = { showTermsPopup: true }
 
   generateTimelineInfoEvents = () => {
     let nullFn = () => "";
@@ -97,6 +100,23 @@ export class DefaultPage extends Component {
     }
   }
 
+  closeTerms = () => this.setState({ showTermsPopup: false })
+
+  TermsNotification = () => {
+    if (!this.props.common.user && this.state.showTermsPopup) {
+      return (
+        <div className="landing-page__privacy-popup">
+          <Typography className="landing-page__privacy-popup-text">
+            By continuing to use this site, you agree to our <a href="/privacy">
+            Privacy Policy</a> and <a href="/terms">Terms of Service</a>.
+          </Typography>
+          <CloseIcon className="landing-page__privacy-popup-close-icon"
+              onClick={this.closeTerms}/>
+        </div>)
+    }
+    return null;
+  }
+
   render() {
     return (
       <div className="home-default-page">
@@ -105,6 +125,7 @@ export class DefaultPage extends Component {
         </Typography>
         {this.generateTimelineInfoEvents()}
         {this.renderTimelineButton()}
+        <this.TermsNotification />
       </div>
     );
   }

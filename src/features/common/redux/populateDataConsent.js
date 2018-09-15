@@ -6,10 +6,11 @@ import {
   COMMON_POPULATE_DATA_CONSENT,
 } from './constants';
 
-export function populateDataConsent(consentState) {
+export function populateDataConsent(consentStates) {
   return {
     type: COMMON_POPULATE_DATA_CONSENT,
-    consentState: consentState,
+    privacyConsentState: consentStates[0],
+    timelineConsentState: consentStates[1]
   };
 }
 
@@ -18,7 +19,8 @@ export function reducer(state, action) {
     case COMMON_POPULATE_DATA_CONSENT:
       return {
         ...state,
-        storeUserData: action.consentState,
+        privacyTermsConsent: action.privacyConsentState,
+        timelineDataConsent: action.timelineConsentState
       };
 
     default:

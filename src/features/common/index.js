@@ -1,3 +1,4 @@
 export { default as PageNotFound } from './PageNotFound';
 export { default as TitleBar } from './TitleBar';
-export { default as FirstTimeUserSetupDialog } from './FirstTimeUserSetupDialog';
+export { default as GeneralStorageSettingsDialog } from './GeneralStorageSettingsDialog';
+export { default as PrivacyTermsAgreementDialog } from './PrivacyTermsAgreementDialog';

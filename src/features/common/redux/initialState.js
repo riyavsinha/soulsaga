@@ -10,6 +10,8 @@ const initialState = {
   user: null,
   signInState: null,
   storeUserData: null,
+  privacyTermsConsent: null,
+  timelineConsent: null,
   
   signInPending: false,
   signInError: null,

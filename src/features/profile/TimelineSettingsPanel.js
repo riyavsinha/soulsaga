@@ -27,6 +27,7 @@ export class TimelineSettingsPanel extends Component {
   handleDataSettingChange = e => {
     this.props.actions.setUserDataConsent(
       this.props.common.user,
+      "timeline",
       e.target.checked,
       [
         this.state.timelineDataSettingTitle,
@@ -59,7 +60,7 @@ export class TimelineSettingsPanel extends Component {
           <SwitchSetting
             title={this.state.timelineDataSettingTitle}
             subtitle={this.state.timelineDataSettingSubtitle}
-            checked={this.props.common.storeUserData}
+            checked={this.props.common.timelineConsent}
             onChange={this.handleDataSettingChange}
             value="timelineDataConsent" />
 

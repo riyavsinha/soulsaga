@@ -19,7 +19,7 @@ export function deleteEvent(id, ref = "") {
 
     const promise = new Promise((resolve, reject) => {
       let reqPromise;
-      if (getState().common.storeUserData) {
+      if (getState().common.timelineConsent) {
         if (ref === "") {
           throw new Error("ref required when data storage setting on.");
         }

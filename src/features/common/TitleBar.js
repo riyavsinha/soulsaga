@@ -9,7 +9,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
-import FirstTimeUserSetupDialog from './FirstTimeUserSetupDialog';
+import GeneralStorageSettingsDialog from './GeneralStorageSettingsDialog';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -19,6 +19,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import PrivacyTermsAgreementDialog from './PrivacyTermsAgreementDialog';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -73,9 +74,23 @@ export class TitleBar extends Component {
    * @return {!Promise}
    */
   populateConsentState = (uid = this.props.common.user.uid) => {
-    const ref = database.ref(DATA_CONSENT + uid).child('currentState')
-    return ref.once("value")
-      .then(snapshot => this.props.actions.populateDataConsent(snapshot.val()));
+    const consentTypes = ['privacyTerms', 'timeline'];
+    let promises = [];
+    const topRef = database.ref(DATA_CONSENT + uid);
+    for (var i in consentTypes) {
+      promises.push(
+        topRef.child(consentTypes[i]).child('currentState').once("value"));
+    }
+    console.log(promises);
+    return Promise.all(promises).then(
+      snapshots => {
+        console.log(snapshots.map(s => s.val()));
+        this.props.actions.populateDataConsent(
+        snapshots.map(s => s.val()))
+      });
+    // const ref = database.ref(DATA_CONSENT + uid).child('currentState')
+    // return ref.once("value")
+    //   .then(snapshot => this.props.actions.populateDataConsent(snapshot.val()));
   }
 
   /**
@@ -105,8 +120,11 @@ export class TitleBar extends Component {
 
   renderSetupDialog = () => {
     if (this.props.common.signInState &&
-        this.props.common.storeUserData === null) {
-      return (<FirstTimeUserSetupDialog/>);
+        this.props.common.privacyTermsConsent === null) {
+      return (<PrivacyTermsAgreementDialog />);
+    } else if (this.props.common.signInState &&
+        this.props.common.timelineDataConsent === null) {
+      return (<GeneralStorageSettingsDialog/>);
     }
   }
 

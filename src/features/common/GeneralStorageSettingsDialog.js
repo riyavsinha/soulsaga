@@ -14,7 +14,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 
-export class FirstTimeUserSetupDialog extends Component {
+export class GeneralStorageSettingsDialog extends Component {
   static propTypes = {
     common: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
@@ -31,13 +31,14 @@ export class FirstTimeUserSetupDialog extends Component {
       this setting at any time from my Profile page.`,
     noSaveRadioLabel: `I'll save my own data. I understand I am
       responsible for saving and storing any data I create here, and that
-      in order to use this application, I provide the data file each time.`,
+      in order to use this application, I must provide the data file each time.`,
     dataSettingDialogButtonText: "Save",
   }
 
   handleClose = () => {
     this.props.actions.setUserDataConsent(
       this.props.common.user,
+      "timeline",
       this.state.value === "true",
       [
         this.state.dataSettingDialogTitle,
@@ -102,4 +103,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(FirstTimeUserSetupDialog);
+)(GeneralStorageSettingsDialog);

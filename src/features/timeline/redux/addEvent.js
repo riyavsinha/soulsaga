@@ -23,7 +23,7 @@ export function addEvent(e) {
 
     const promise = new Promise((resolve, reject) => {
       const ref = database.ref(TIMELINE + getState().common.user.uid);
-      const reqPromise = getState().common.storeUserData ?
+      const reqPromise = getState().common.timelineConsent ?
         ref.push(e) : Promise.resolve();
       reqPromise.then(
         (res) => {
