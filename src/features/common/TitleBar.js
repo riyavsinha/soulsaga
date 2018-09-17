@@ -1,24 +1,11 @@
-import {
-  AccountIcon,
-  ChartLineVariantIcon,
-  HomeIcon,
-  InformationIcon,
- } from 'mdi-react';
 import AppBar from '@material-ui/core/AppBar';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
 import GeneralStorageSettingsDialog from './GeneralStorageSettingsDialog';
 import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import NavigationMenu from './NavigationMenu';
 import PrivacyTermsAgreementDialog from './PrivacyTermsAgreementDialog';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -37,10 +24,7 @@ export class TitleBar extends Component {
     actions: PropTypes.object.isRequired,
   };
 
-  state = {
-    profileMenuAnchorEl: null,
-    navDrawerOpen: false,
-  }
+  state = { profileMenuAnchorEl: null }
 
   /**
    * @override
@@ -86,9 +70,6 @@ export class TitleBar extends Component {
         this.props.actions.populateDataConsent(
             snapshots.map(s => s.val()))
       });
-    // const ref = database.ref(DATA_CONSENT + uid).child('currentState')
-    // return ref.once("value")
-    //   .then(snapshot => this.props.actions.populateDataConsent(snapshot.val()));
   }
 
   /**
@@ -108,10 +89,6 @@ export class TitleBar extends Component {
     this.handleMenuClose();
     this.props.actions.signOut()
       .then(() => this.props.actions.populateEvents([]) );
-  }
-
-  handleDrawerOpen = isOpen => () => {
-    this.setState({navDrawerOpen: isOpen});
   }
 
   /** RENDERS */
@@ -169,64 +146,12 @@ export class TitleBar extends Component {
     }
   };
 
-  renderNavItems = () => {
-    return (
-      <List component="nav" className="title-bar__navigation-list">
-        <ListItem button component={Link} to="/">
-          <ListItemIcon>
-            <HomeIcon />
-          </ListItemIcon>
-          <ListItemText>Home</ListItemText>
-        </ListItem>
-        <ListItem button component={Link} to="/about">
-          <ListItemIcon>
-            <InformationIcon />
-          </ListItemIcon>
-          <ListItemText>About</ListItemText>
-        </ListItem>
-        <Divider/>
-        <ListSubheader>
-          Tools
-        </ListSubheader>
-        <ListItem button component={Link} to="/timeline">
-          <ListItemIcon>
-            <ChartLineVariantIcon />
-          </ListItemIcon>
-          <ListItemText>Timeline</ListItemText>
-        </ListItem>
-        <Divider/>
-        <ListSubheader>
-          Me
-        </ListSubheader>
-        <ListItem button component={Link} to="/profile">
-          <ListItemIcon>
-            <AccountIcon />
-          </ListItemIcon>
-          <ListItemText>Profile</ListItemText>
-        </ListItem>
-        <ListSubheader component={Link} to="/privacy"
-            className="title-bar__legal-nav title-bar__legal-nav-first">
-          Privacy Policy
-        </ListSubheader>
-        <ListSubheader component={Link} to="/terms"
-            className="title-bar__legal-nav">
-          Terms of Service
-        </ListSubheader>
-      </List>
-    )
-  }
-
   render() {
     return (
       <div>
         <AppBar className="title-bar__app-bar">
           <Toolbar>
-            <IconButton
-                color="inherit"
-                className="title-bar__menu-icon"
-                onClick={this.handleDrawerOpen(true)}>
-              <MenuIcon />
-            </IconButton>
+            <NavigationMenu menuButtonClassName="title-bar__menu-icon" />
             <div className="title-bar__app-bar-text">
               <Typography variant="title" color="inherit">
                 SoulSaga
@@ -238,18 +163,6 @@ export class TitleBar extends Component {
             {this.renderProfileButton()}
           </Toolbar>
         </AppBar>
-
-        <Drawer
-            open={this.state.navDrawerOpen}
-            onClose={this.handleDrawerOpen(false)}>
-          <div
-              role="button"
-              onClick={this.handleDrawerOpen(false)}
-              onKeyDown={this.handleDrawerOpen(false)}
-              className="title-bar__navigation-menu">
-            {this.renderNavItems()}
-          </div>
-        </Drawer>
       </div>
     );
   }
