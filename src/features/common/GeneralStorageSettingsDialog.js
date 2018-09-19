@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
+import {TIMELINE_CONSENT} from 'common/firebase';
 
 export class GeneralStorageSettingsDialog extends Component {
   static propTypes = {
@@ -38,7 +39,7 @@ export class GeneralStorageSettingsDialog extends Component {
   handleClose = () => {
     this.props.actions.setUserDataConsent(
       this.props.common.user,
-      "timeline",
+      TIMELINE_CONSENT,
       this.state.value === "true",
       [
         this.state.dataSettingDialogTitle,

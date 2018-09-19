@@ -21,6 +21,8 @@ const initialState = {
   setUserDataConsentError: null,
   deleteUserPending: false,
   deleteUserError: null,
+  fetchDataConsentPending: false,
+  fetchDataConsentError: null,
 };
 
 export default initialState;

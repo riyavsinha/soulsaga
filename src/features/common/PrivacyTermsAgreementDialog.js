@@ -4,6 +4,7 @@ import SimpleDialog from 'features/library/SimpleDialog';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
+import { PRIVACY_CONSENT } from 'common/firebase';
 
 export class PrivacyTermsAgreementDialog extends Component {
   static propTypes = {
@@ -25,7 +26,7 @@ export class PrivacyTermsAgreementDialog extends Component {
   consentPrivacy = () => {
     this.props.actions.setUserDataConsent(
       this.props.common.user,
-      "privacyTerms",
+      PRIVACY_CONSENT,
       true,
       [ 
         this.state.titleText,

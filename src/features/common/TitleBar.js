@@ -14,7 +14,14 @@ import Typography from '@material-ui/core/Typography';
 import { Link } from "react-router-dom";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { auth, database, DATA_CONSENT } from 'common/firebase';
+import { auth,
+         provider,
+         database,
+         API_KEY,
+         GDRIVE_DISCOVERY_DOCS,
+         CLIENT_ID,
+         GDRIVE_APP_SCOPE,
+         DATA_CONSENT } from 'common/firebase';
 import { populateEvents } from 'features/timeline/redux/actions'
 import * as actions from './redux/actions';
 
@@ -32,10 +39,11 @@ export class TitleBar extends Component {
    * user info and saved consent state.
    */
   componentDidMount = () => {
+    window.gapi.load("client", this.initClient)
     auth.onAuthStateChanged((user) => {
       if (user) {
         this.props.actions.populateUser(user);
-        this.populateConsentState(user.uid)
+        this.props.actions.fetchDataConsent()
           .then(() => this.props.actions.populateSignInState(true));
       } else {
         this.props.actions.populateSignInState(false);
@@ -43,33 +51,31 @@ export class TitleBar extends Component {
     });
   };
 
+  initClient = () => {
+    window.gapi.client.init({
+      apiKey: API_KEY,
+      discoveryDocs: [GDRIVE_DISCOVERY_DOCS],
+      clientId: CLIENT_ID,
+      scope: GDRIVE_APP_SCOPE,
+    }).then(() => {
+      console.log(window.gapi.auth2.getAuthInstance().isSignedIn.get())
+    }).catch(e => console.log(e))
+  }
+
+  loadKey = () => {
+    console.log('OMG YESSSS')
+  }
+
   /** ACTIONS */
 
   /**
    * Opens sign-in OAuth popup and populates saved consent state.
    */
   initiateSignIn = () => {
-    this.props.actions.signIn()
-      .then(() => this.populateConsentState());
-  }
-
-  /**
-   * Helper method to populate an input user's saved consent state.
-   * @return {!Promise}
-   */
-  populateConsentState = (uid = this.props.common.user.uid) => {
-    const consentTypes = ['privacyTerms', 'timeline'];
-    let promises = [];
-    const topRef = database.ref(DATA_CONSENT + uid);
-    for (var i in consentTypes) {
-      promises.push(
-        topRef.child(consentTypes[i]).child('currentState').once("value"));
-    }
-    return Promise.all(promises).then(
-      snapshots => {
-        this.props.actions.populateDataConsent(
-            snapshots.map(s => s.val()))
-      });
+    window.gapi.auth2.getAuthInstance().signIn()
+      .then(user =>
+        auth.signInAndRetrieveDataWithCredential(
+          provider.credential(null, user.getAuthResponse(true).access_token)))
   }
 
   /**
@@ -98,7 +104,7 @@ export class TitleBar extends Component {
         this.props.common.privacyTermsConsent === null) {
       return (<PrivacyTermsAgreementDialog />);
     } else if (this.props.common.signInState &&
-        this.props.common.timelineDataConsent === null) {
+        this.props.common.timelineConsent === null) {
       return (<GeneralStorageSettingsDialog/>);
     }
   }

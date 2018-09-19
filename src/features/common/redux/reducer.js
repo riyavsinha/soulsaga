@@ -11,18 +11,18 @@ import { reducer as signInReducer } from './signIn';
 import { reducer as populateUserReducer } from './populateUser';
 import { reducer as signOutReducer } from './signOut';
 import { reducer as setUserDataConsentReducer } from './setUserDataConsent';
-import { reducer as populateDataConsentReducer } from './populateDataConsent';
 import { reducer as populateSignInStateReducer } from './populateSignInState';
 import { reducer as deleteUserReducer } from './deleteUser';
+import { reducer as fetchDataConsentReducer } from './fetchDataConsent';
 
 const reducers = [
   signInReducer,
   populateUserReducer,
   signOutReducer,
   setUserDataConsentReducer,
-  populateDataConsentReducer,
   populateSignInStateReducer,
   deleteUserReducer,
+  fetchDataConsentReducer,
 ];
 
 export default function reducer(state = initialState, action) {
