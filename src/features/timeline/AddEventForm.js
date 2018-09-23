@@ -22,6 +22,9 @@ import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { PRIMARY_CATEGORIES, SECONDARY_CATEGORIES } from './eventiconmaps';
+import { 
+  dataOperationSnackbarFailed,
+  dataOperationSnackbarSucceeded } from 'features/common/redux/actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
@@ -134,7 +137,9 @@ export class AddEventForm extends Component {
           this.props.timeline.editingEvent.ref);
       }
       // (Re)add current event
-      this.props.actions.addEvent(this.buildEventProto());
+      this.props.actions.addEvent(this.buildEventProto())
+        .then(() => this.props.actions.dataOperationSnackbarSucceeded())
+        .catch(() => this.props.actions.dataOperationSnackbarFailed());
       this.handleClose();
     }
   }
@@ -362,7 +367,7 @@ function mapStateToProps(state) {
 /* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ ...actions }, dispatch)
+    actions: bindActionCreators({ ...actions, dataOperationSnackbarFailed, dataOperationSnackbarSucceeded }, dispatch)
   };
 }
 

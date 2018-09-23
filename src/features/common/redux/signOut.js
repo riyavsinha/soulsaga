@@ -6,14 +6,15 @@ import {
 } from './constants';
 import {auth} from 'common/firebase';
 
-export function signOut(args = {}) {
+export function signOut(gapi) {
   return (dispatch) => { // optionally you can have getState as the second argument
     dispatch({
       type: COMMON_SIGN_OUT_BEGIN,
     });
 
     const promise = new Promise((resolve, reject) => {
-      auth.signOut()
+      gapi.auth2.getAuthInstance().signOut()
+        .then(() => auth.signOut())
         .then(
           (res) => {
             dispatch({

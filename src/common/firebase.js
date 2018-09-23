@@ -16,6 +16,9 @@ export const CLIENT_ID = "74523654997-1kdsgd6qj5esjklbetqugemt3gd7nht5.apps.goog
 export const GDRIVE_DISCOVERY_DOCS = "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"
 export const GDRIVE_APP_SCOPE = "https://www.googleapis.com/auth/drive.appdata"
 
+/** GAPI */
+export const CRAL = "AES-CBC";
+
 /** AUTH */
 export const provider = new firebase.auth.GoogleAuthProvider();
 provider.addScope(GDRIVE_APP_SCOPE);

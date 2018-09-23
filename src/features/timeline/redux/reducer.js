@@ -16,6 +16,7 @@ import { reducer as setViewingEventReducer } from './setViewingEvent';
 import { reducer as setDeletingEventReducer } from './setDeletingEvent';
 import { reducer as deleteUserEventsReducer } from './deleteUserEvents';
 import { reducer as setHasLoadedEventsReducer } from './setHasLoadedEvents';
+import { reducer as fetchEventsReducer } from './fetchEvents';
 
 const reducers = [
   addEventReducer,
@@ -27,6 +28,7 @@ const reducers = [
   setDeletingEventReducer,
   deleteUserEventsReducer,
   setHasLoadedEventsReducer,
+  fetchEventsReducer,
 ];
 
 export default function reducer(state = initialState, action) {

@@ -8,6 +8,9 @@ import { setUserDataConsent } from 'features/common/redux/actions';
 import { deleteUserEvents } from 'features/timeline/redux/actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { 
+  dataOperationSnackbarFailed,
+  dataOperationSnackbarSucceeded } from 'features/common/redux/actions';
 import * as actions from './redux/actions';
 
 export class TimelineSettingsPanel extends Component {
@@ -32,7 +35,9 @@ export class TimelineSettingsPanel extends Component {
       [
         this.state.timelineDataSettingTitle,
         this.state.timelineDataSettingSubtitle
-      ]);
+      ])
+        .then(() => this.props.actions.dataOperationSnackbarSucceeded())
+        .catch(() => this.props.actions.dataOperationSnackbarFailed());
   } 
 
   handleDeleteButtonClick = () => this.setState({ dialogOpen: true })
@@ -41,7 +46,9 @@ export class TimelineSettingsPanel extends Component {
 
   deleteEvents = () => {
     this.handleDialogClose();
-    this.props.actions.deleteUserEvents();
+    this.props.actions.deleteUserEvents()
+        .then(() => this.props.actions.dataOperationSnackbarSucceeded())
+        .catch(() => this.props.actions.dataOperationSnackbarFailed());
   }
 
   render() {
@@ -96,7 +103,12 @@ function mapStateToProps(state) {
 /* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ ...actions, setUserDataConsent, deleteUserEvents }, dispatch)
+    actions: bindActionCreators(
+      { ...actions,
+       setUserDataConsent,
+        deleteUserEvents,
+        dataOperationSnackbarFailed,
+        dataOperationSnackbarSucceeded }, dispatch)
   };
 }
 

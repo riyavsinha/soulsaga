@@ -6,8 +6,10 @@ import {
 } from './constants';
 import {
   database,
-  TIMELINE
+  TIMELINE,
+  CRAL
 } from 'common/firebase';
+import { str2ab, ab2str } from 'common/util/strbuffer';
 import binfind from 'common/util/binfind';
 
 /**
@@ -22,9 +24,8 @@ export function addEvent(e) {
     });
 
     const promise = new Promise((resolve, reject) => {
-      const ref = database.ref(TIMELINE + getState().common.user.uid);
       const reqPromise = getState().common.timelineConsent ?
-        ref.push(e) : Promise.resolve();
+        pushEvent(e, getState) : Promise.resolve();
       reqPromise.then(
         (res) => {
           if (res) {
@@ -49,6 +50,30 @@ export function addEvent(e) {
 
     return promise;
   };
+}
+
+async function pushEvent(e, getState) {
+  // const eventStr = JSON.stringify(e);
+  // const ecomp = snappy.compressSync(eventStr);
+  // console.log(ecomp);
+  const ref = database.ref(TIMELINE + getState().common.user.uid);
+  const iv = window.crypto.getRandomValues(new Uint8Array(16));
+  const eventData = str2ab(JSON.stringify(e));
+  const encrypted = await crypto.subtle.encrypt(
+    {
+      name: CRAL,
+      iv: iv
+    },
+    getState().common.userKey,
+    eventData
+  );
+  console.log(encrypted);
+  const pushData = {
+    data: Array.from(new Uint8Array(iv)).concat(
+      Array.from(new Uint8Array(encrypted))).join('-'),
+    ms: e.ms
+  };
+  return ref.push(pushData);
 }
 
 // Async action saves request error by default, this method is used to dismiss the error info.

@@ -5,3 +5,6 @@ export { setUserDataConsent, dismissSetUserDataConsentError } from './setUserDat
 export { populateSignInState } from './populateSignInState';
 export { deleteUser, dismissDeleteUserError } from './deleteUser';
 export { fetchDataConsent, dismissFetchDataConsentError } from './fetchDataConsent';
+export { fetchOrCreateKey, dismissFetchOrCreateKeyError } from './fetchOrCreateKey';
+export { dataOperationSnackbarSucceeded } from './dataOperationSnackbarSucceeded';
+export { dataOperationSnackbarFailed } from './dataOperationSnackbarFailed';

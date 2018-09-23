@@ -8,10 +8,14 @@
 
 const initialState = {
   user: null,
+  userKey: null,
   signInState: null,
   storeUserData: null,
   privacyTermsConsent: null,
   timelineConsent: null,
+
+  dataSaveSuccessSnackbarOpen: false,
+  dataSaveFailureSnackbarOpen: false,
   
   signInPending: false,
   signInError: null,
@@ -23,6 +27,8 @@ const initialState = {
   deleteUserError: null,
   fetchDataConsentPending: false,
   fetchDataConsentError: null,
+  fetchOrCreateKeyPending: false,
+  fetchOrCreateKeyError: null,
 };
 
 export default initialState;

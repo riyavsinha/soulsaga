@@ -6,14 +6,17 @@ import {
 } from './constants';
 import {auth, provider} from 'common/firebase';
 
-export function signIn() {
+export function signIn(gapi) {
   return (dispatch) => {
     dispatch({
       type: COMMON_SIGN_IN_BEGIN,
     });
 
     const promise = new Promise((resolve, reject) => {
-      auth.signInWithPopup(provider)
+       gapi.auth2.getAuthInstance().signIn()
+        .then(user =>
+          auth.signInAndRetrieveDataWithCredential(
+            provider.credential(null, user.getAuthResponse(true).access_token)))
         .then(
           (res) => {
             dispatch({

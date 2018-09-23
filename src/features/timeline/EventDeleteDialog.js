@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { 
+  dataOperationSnackbarFailed,
+  dataOperationSnackbarSucceeded } from 'features/common/redux/actions';
 import * as actions from './redux/actions';
 
 export class EventDeleteDialog extends Component {
@@ -18,7 +21,9 @@ export class EventDeleteDialog extends Component {
   handleDelete = () => {
     let e = this.props.timeline.deletingEvent;
     this.handleClose();
-    this.props.actions.deleteEvent(e.id, e.ref);
+    this.props.actions.deleteEvent(e.id, e.ref)
+        .then(() => this.props.actions.dataOperationSnackbarSucceeded())
+        .catch(() => this.props.actions.dataOperationSnackbarFailed());
   }
 
   render() {
@@ -52,7 +57,7 @@ function mapStateToProps(state) {
 /* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ ...actions }, dispatch)
+    actions: bindActionCreators({ ...actions, dataOperationSnackbarFailed, dataOperationSnackbarSucceeded }, dispatch)
   };
 }
 

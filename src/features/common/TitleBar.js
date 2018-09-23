@@ -1,6 +1,7 @@
 import AppBar from '@material-ui/core/AppBar';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import DataChangeSnackbars from './DataChangeSnackbars';
 import GeneralStorageSettingsDialog from './GeneralStorageSettingsDialog';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
@@ -15,13 +16,10 @@ import { Link } from "react-router-dom";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { auth,
-         provider,
-         database,
          API_KEY,
          GDRIVE_DISCOVERY_DOCS,
          CLIENT_ID,
-         GDRIVE_APP_SCOPE,
-         DATA_CONSENT } from 'common/firebase';
+         GDRIVE_APP_SCOPE} from 'common/firebase';
 import { populateEvents } from 'features/timeline/redux/actions'
 import * as actions from './redux/actions';
 
@@ -44,6 +42,7 @@ export class TitleBar extends Component {
       if (user) {
         this.props.actions.populateUser(user);
         this.props.actions.fetchDataConsent()
+          .then(() => this.props.actions.fetchOrCreateKey(window.gapi))
           .then(() => this.props.actions.populateSignInState(true));
       } else {
         this.props.actions.populateSignInState(false);
@@ -63,37 +62,24 @@ export class TitleBar extends Component {
   }
 
   loadKey = () => {
-    console.log('OMG YESSSS')
+    console.log(crypto.subtle.generateKey());
   }
 
   /** ACTIONS */
 
-  /**
-   * Opens sign-in OAuth popup and populates saved consent state.
-   */
-  initiateSignIn = () => {
-    window.gapi.auth2.getAuthInstance().signIn()
-      .then(user =>
-        auth.signInAndRetrieveDataWithCredential(
-          provider.credential(null, user.getAuthResponse(true).access_token)))
-  }
+  /** Opens sign-in OAuth popup */
+  initiateSignIn = () => this.props.actions.signIn(window.gapi)
 
-  /**
-   * Opens the User menu
-   */
+  /** Opens the User menu */
   handleMenuOpen = e => this.setState({profileMenuAnchorEl: e.currentTarget})
 
-  /**
-   * Closes the User menu
-   */
+  /** Closes the User menu */
   handleMenuClose = () => this.setState({profileMenuAnchorEl: null})
 
-  /**
-   * Signs out the user.
-   */
+  /** Signs out the user. */
   handleSignOut = () => {
     this.handleMenuClose();
-    this.props.actions.signOut()
+    this.props.actions.signOut(window.gapi)
       .then(() => this.props.actions.populateEvents([]) );
   }
 
@@ -136,6 +122,7 @@ export class TitleBar extends Component {
           <MenuItem component={Link} to="/profile" onClick={this.handleMenuClose}>Profile</MenuItem>
           <MenuItem onClick={this.handleSignOut}>Sign out</MenuItem>
         </Menu>
+        <DataChangeSnackbars />
       </div>
     );
   };

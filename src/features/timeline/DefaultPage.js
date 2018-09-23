@@ -22,18 +22,20 @@ export class DefaultPage extends Component {
   componentDidMount = () => {
     auth.onAuthStateChanged((user) => {
       if (user && !this.props.timeline.hasLoadedEvents) {
-        const ref = database
-          .ref(TIMELINE + this.props.common.user.uid)
-          .orderByChild("ms");
-        ref.once('value', (snapshot) => {
-          let events = [];
-          snapshot.forEach(child => {
-            let e = new EventProto(child.val());
-            e.ref = child.key;
-            events.push(e);
-          })
-          this.props.actions.populateEvents(events);
-        }).then(() => this.props.actions.setHasLoadedEvents(true));
+        // const ref = database
+        //   .ref(TIMELINE + this.props.common.user.uid)
+        //   .orderByChild("ms");
+        // ref.once('value', (snapshot) => {
+        //   let events = [];
+        //   snapshot.forEach(child => {
+        //     let e = new EventProto(child.val());
+        //     e.ref = child.key;
+        //     events.push(e);
+        //   })
+        //   this.props.actions.populateEvents(events);
+        console.log('hi');
+        this.props.actions.fetchEvents();
+        // }).then(() => this.props.actions.setHasLoadedEvents(true));
       }
     });
   }

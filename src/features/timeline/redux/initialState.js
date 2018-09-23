@@ -18,7 +18,9 @@ const initialState = {
   deleteEventPending: false,
   deleteEventError: null,
   deleteUserEventsPending: false,
-  deleteUserEventsError: null
+  deleteUserEventsError: null,
+  fetchEventsPending: false,
+  fetchEventsError: null
 };
 
 export default initialState;
