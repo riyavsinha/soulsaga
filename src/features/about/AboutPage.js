@@ -107,6 +107,28 @@ export class AboutPage extends Component {
           set of icons for the various Timeline categories we wanted
           to represent.
         </Typography>
+        <Typography variant="title" className="about-about-page__t">
+          Why do you require access to my Google Drive?
+        </Typography>
+        <Typography className="about-about-page__p">
+          <b> The app does not request access to any of your personal files.
+          The app simply requires the ability to create a hidden folder
+          in your Drive for your personal encryption key (just a few bytes) </b>&nbsp;
+          Every SoulSaga user has their own AES-128 encryption key,
+          which we store in a hidden
+          folder of your Google Drive. The key, and therefore your data,
+          is then inaccessible to anyone
+          who hacks our admin account (and even to the admins themselves),
+          meaning your data remains secure because YOU
+          will always be in sole possession of it. Since the
+          key storage is cloud-based, you can access your stored data from
+          any device. Also, because each user has their own key,
+          no one person's data security is dependent on other users!
+        </Typography>
+        <Typography className="about-about-page__p">
+          <b> WARNING: Clearing your data from SoulSaga in your Google Drive
+          will cause your data to be irrecoverable </b>
+        </Typography>
 
         <Typography variant="display1" className="about-about-page__d2">
           Roadmap
