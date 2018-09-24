@@ -15,23 +15,9 @@ export function fetchEvents(args = {}) {
     });
 
     const promise = new Promise((resolve, reject) => {
-      // const ref = database
-      //     .ref(TIMELINE + getState().common.user.uid)
-      //     .orderByChild("ms");
-      // const fetchPromise = ref.once('value', (snapshot) => {
-      //   let events = [];
-      //   snapshot.forEach(child => {
-      //     let e = decodeEvent(child.val(), getState);
-      //     e.ref = child.key;
-      //     events.push(e);
-      //   })
-      //   console.log(events);
-      //   return events;
-      // });
-      const fetchPromise = fetchEvents(getState);
+      const fetchPromise = performFetch(getState);
       fetchPromise.then(
         (res) => {
-          console.log(res);
           dispatch({
             type: TIMELINE_FETCH_EVENTS_SUCCESS,
             events: res,
@@ -53,45 +39,22 @@ export function fetchEvents(args = {}) {
   };
 }
 
-async function fetchEvents(getState) {
+async function performFetch(getState) {
   const ref = database
           .ref(TIMELINE + getState().common.user.uid)
           .orderByChild("ms");
   const fetchData = await ref.once('value');
-  console.log(fetchData);
   let events = [];
   let refs = [];
   fetchData.forEach(child => {
     events.push(child.val());
     refs.push(child.key);
   })
-  console.log(events);
   for (let i in events) {
     events[i] = await decodeEvent(events[i], getState);
     events[i].ref = refs[i];
   }
-  console.log(events);
   return events
-  // await fetchData.forEach(await (async child => {
-  //   let e = await decodeEvent(child.val(), getState);
-  //   console.log(e);
-  //   e.ref = child.key;
-  //   eventPromises.push(e);
-  // }));
-  // console.log(eventPromises)
-  // const events = await Promise.all(eventPromises);
-  // console.log(events);
-  // return events;
-  // (snapshot) => {
-  //   let events = [];
-  //   snapshot.forEach(child => {
-  //     let e = decodeEvent(child.val(), getState);
-  //     e.ref = child.key;
-  //     events.push(e);
-  //   })
-  //   console.log(events);
-  //   return events;
-  // });
 }
 
 async function decodeEvent(child, getState) {
@@ -106,7 +69,6 @@ async function decodeEvent(child, getState) {
     new Uint8Array(arr.slice(16)).buffer
   );
   const e = new EventProto(JSON.parse(ab2str(decrypted)));
-  console.log(e);
   return e;
 }
 

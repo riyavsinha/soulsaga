@@ -37,7 +37,9 @@ export class DefaultPage extends Component {
     const f = new EventProto({
       c: "Security",
       t: "Your data is yours",
-      de: `SoulSaga offers you the option to store your own data if you'd
+      de: `Each user has their own AES-128 encryption key, meaning no one but
+        you sees your data. But, SoulSaga offers you the option to store your
+        own data if you'd
         like. The only thing we'll remember is to remember nothing of yours :)`,
       m: "",
       y: "2018",
@@ -63,7 +65,7 @@ export class DefaultPage extends Component {
     });
     const h = new EventProto({
       c: "Personal",
-      t: "Your eyes only",
+      t: "Your mind only",
       de: `We're NOT a social platform. Your profile is a space for you to
         explore your own life. No ads, no sharing, just you.`,
       m: "",

@@ -25,7 +25,6 @@ export function fetchDataConsent() {
           db.child(TIMELINE_CONSENT).child('currentState').once("value");
       Promise.all([privacyConsentPromise, timelineConsentPromise]).then(
         (res) => {
-          console.log(res);
           dispatch({
             type: COMMON_FETCH_DATA_CONSENT_SUCCESS,
             privacyConsent: res[0].val(),

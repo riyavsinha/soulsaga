@@ -4,7 +4,6 @@ import {
   COMMON_FETCH_OR_CREATE_KEY_FAILURE,
   COMMON_FETCH_OR_CREATE_KEY_DISMISS_ERROR,
 } from './constants';
-import { ab2str, str2ab } from 'common/util/strbuffer';
 import { CRAL } from 'common/firebase';
 
 export function fetchOrCreateKey(gapi) {
@@ -19,7 +18,6 @@ export function fetchOrCreateKey(gapi) {
         fields: 'files(id, name)',
         pageSize: 5
       }).then(response => {
-        console.log(response.result.files);
         if (response.result.files.length === 0) {
           return createAndWriteKey(gapi);
         } else if (response.result.files.length === 1) {
@@ -76,7 +74,6 @@ async function createAndWriteKey(gapi) {
 async function readKey(filesResponse) {
   const fileName = filesResponse.result.files[0].name;
   const rawKey = new Uint8Array(fileName.split('-')).buffer;
-  console.log(rawKey);
   return crypto.subtle.importKey(
       "raw", rawKey, CRAL, false, ["encrypt", "decrypt"]);
 }

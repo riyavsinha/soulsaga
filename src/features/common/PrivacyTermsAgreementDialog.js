@@ -37,12 +37,16 @@ export class PrivacyTermsAgreementDialog extends Component {
     )
   }
 
+  cancelAndSignOut = () => {
+    this.props.actions.signOut(window.gapi);
+  }
+
   render() {
     return (
       <SimpleDialog open={this.state.open}
             titleText={this.state.titleText}
             cancelButtonText="Cancel"
-            cancelButtonAction={this.props.actions.signOut}
+            cancelButtonAction={this.cancelAndSignOut}
             nextButtonText="I Agree"
             nextButtonAction={this.consentPrivacy}>
         In order to use SoulSaga's services,

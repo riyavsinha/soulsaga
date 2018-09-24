@@ -9,7 +9,7 @@ import {
   TIMELINE,
   CRAL
 } from 'common/firebase';
-import { str2ab, ab2str } from 'common/util/strbuffer';
+import { str2ab } from 'common/util/strbuffer';
 import binfind from 'common/util/binfind';
 
 /**
@@ -53,9 +53,6 @@ export function addEvent(e) {
 }
 
 async function pushEvent(e, getState) {
-  // const eventStr = JSON.stringify(e);
-  // const ecomp = snappy.compressSync(eventStr);
-  // console.log(ecomp);
   const ref = database.ref(TIMELINE + getState().common.user.uid);
   const iv = window.crypto.getRandomValues(new Uint8Array(16));
   const eventData = str2ab(JSON.stringify(e));
@@ -67,7 +64,6 @@ async function pushEvent(e, getState) {
     getState().common.userKey,
     eventData
   );
-  console.log(encrypted);
   const pushData = {
     data: Array.from(new Uint8Array(iv)).concat(
       Array.from(new Uint8Array(encrypted))).join('-'),

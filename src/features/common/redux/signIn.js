@@ -19,6 +19,8 @@ export function signIn(gapi) {
             provider.credential(null, user.getAuthResponse(true).access_token)))
         .then(
           (res) => {
+            console.log(res);
+            console.log(res.user);
             dispatch({
               type: COMMON_SIGN_IN_SUCCESS,
               user: res.user
@@ -64,11 +66,7 @@ export function reducer(state, action) {
         ...state,
         signInPending: false,
         signInError: null,
-        user: {
-          name: action.name,
-          photoUrl: action.photoUrl,
-          id: action.id,
-        },
+        user: action.user,
         signInState: true,
       };
 

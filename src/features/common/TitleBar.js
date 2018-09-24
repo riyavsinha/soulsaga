@@ -57,7 +57,16 @@ export class TitleBar extends Component {
       clientId: CLIENT_ID,
       scope: GDRIVE_APP_SCOPE,
     }).then(() => {
-      console.log(window.gapi.auth2.getAuthInstance().isSignedIn.get())
+      // auth.onAuthStateChanged((user) => {
+      //   if (user) {
+      //     this.props.actions.populateUser(user);
+      //     this.props.actions.fetchDataConsent()
+      //       .then(() => this.props.actions.fetchOrCreateKey(window.gapi))
+      //       .then(() => this.props.actions.populateSignInState(true));
+      //   } else {
+      //     this.props.actions.populateSignInState(false);
+      //   }
+      // })
     }).catch(e => console.log(e))
   }
 

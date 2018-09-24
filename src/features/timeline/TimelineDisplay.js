@@ -12,10 +12,6 @@ export default class TimelineDisplay extends Component {
 
   };
 
-  onEventClick = (e) => {
-    console.log(e);
-  }
-
   newYearEncountered = (year, layout, gridItems, dateIndex, yInd) => {
     let headerKey = year + "gi";
     layout.push({i: headerKey, x: 0, y: yInd, w:1, h:2, static: true});

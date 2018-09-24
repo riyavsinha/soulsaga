@@ -1,14 +1,12 @@
 import AddEventForm from './AddEventForm';
-import EventProto from 'proto/EventProto';
 import EventDeleteDialog from './EventDeleteDialog';
 import EventViewDialog from './EventViewDialog';
 import SaveLoadSection from './SaveLoadSection';
-import TimelineDisplay from './TimelineDisplay';
+import TimelineDisplayWrapper from './TimelineDisplayWrapper';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from "react-router-dom";
 import { bindActionCreators } from 'redux';
-import { auth, database, TIMELINE} from 'common/firebase';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 
@@ -18,26 +16,10 @@ export class DefaultPage extends Component {
     actions: PropTypes.object.isRequired,
   };
 
-  // load user events on page render
-  componentDidMount = () => {
-    auth.onAuthStateChanged((user) => {
-      if (user && !this.props.timeline.hasLoadedEvents) {
-        // const ref = database
-        //   .ref(TIMELINE + this.props.common.user.uid)
-        //   .orderByChild("ms");
-        // ref.once('value', (snapshot) => {
-        //   let events = [];
-        //   snapshot.forEach(child => {
-        //     let e = new EventProto(child.val());
-        //     e.ref = child.key;
-        //     events.push(e);
-        //   })
-        //   this.props.actions.populateEvents(events);
-        console.log('hi');
-        this.props.actions.fetchEvents();
-        // }).then(() => this.props.actions.setHasLoadedEvents(true));
-      }
-    });
+  ConditionalDisplay = () => {
+    if (this.props.common.userKey) {
+      return <TimelineDisplayWrapper />
+    }
   }
 
   render() {
@@ -51,7 +33,7 @@ export class DefaultPage extends Component {
     return (
       <div className="timeline-default-page">
         <SaveLoadSection />
-        <TimelineDisplay events={this.props.timeline.events} />
+        <this.ConditionalDisplay />
         <EventViewDialog />
         <EventDeleteDialog />
         <AddEventForm />
