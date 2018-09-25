@@ -19,8 +19,6 @@ export function signIn(gapi) {
             provider.credential(null, user.getAuthResponse(true).access_token)))
         .then(
           (res) => {
-            console.log(res);
-            console.log(res.user);
             dispatch({
               type: COMMON_SIGN_IN_SUCCESS,
               user: res.user
