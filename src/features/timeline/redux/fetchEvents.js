@@ -7,6 +7,7 @@ import {
 import EventProto from 'proto/EventProto';
 import { database, CRAL, TIMELINE} from 'common/firebase';
 import { ab2str } from 'common/util/strbuffer';
+const _ = require('lodash');
 
 export function fetchEvents(args = {}) {
   return (dispatch, getState) => { // optionally you can have getState as the second argument
@@ -15,12 +16,15 @@ export function fetchEvents(args = {}) {
     });
 
     const promise = new Promise((resolve, reject) => {
-      const fetchPromise = performFetch(getState);
+      const fetchPromise = getState().common.timelineConsent ?
+        performFetch(getState) : Promise.resolve();
       fetchPromise.then(
         (res) => {
+          const tags = _.union(...res.map(e => e.tg.split(',')));
           dispatch({
             type: TIMELINE_FETCH_EVENTS_SUCCESS,
             events: res,
+            tags: tags,
           });
           resolve(res);
         },
@@ -97,6 +101,7 @@ export function reducer(state, action) {
         events: [
           ...action.events,
         ],
+        availableTags: action.tags,
         hasLoadedEvents: true,
         fetchEventsPending: false,
         fetchEventsError: null,

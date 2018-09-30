@@ -7,3 +7,4 @@ export { default as EventViewDialog } from './EventViewDialog';
 export { default as EventDeleteDialog } from './EventDeleteDialog';
 export { default as SaveLoadSection } from './SaveLoadSection';
 export { default as TimelineDisplayWrapper } from './TimelineDisplayWrapper';
+export { default as TagInput } from './TagInput';

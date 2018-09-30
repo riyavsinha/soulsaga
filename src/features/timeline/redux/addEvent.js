@@ -11,6 +11,7 @@ import {
 } from 'common/firebase';
 import { str2ab } from 'common/util/strbuffer';
 import binfind from 'common/util/binfind';
+const _ = require('lodash');
 
 /**
  * Action to save a new event.
@@ -100,6 +101,7 @@ export function reducer(state, action) {
           action.event,
           ...state.events.slice(ind)
         ],
+        availableTags: _.union([...state.availableTags], action.event.tg.split(',')),
         addEventPending: false,
         addEventError: null,
       };

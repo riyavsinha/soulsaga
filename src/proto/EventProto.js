@@ -1,3 +1,5 @@
+var _ = require('lodash');
+
 export default class EventProto {
 
   static MAIN_KEYS = [
@@ -7,6 +9,8 @@ export default class EventProto {
     't',
     // Description. Long description
     'de',
+    // Tags. Short user-generated event identifiers.
+    'tg',
     // Year. Year of event
     'y',
     // Month. Month of event
@@ -34,6 +38,7 @@ export default class EventProto {
       this.c = "Other";
       this.t = "";
       this.de = "";
+      this.tg = "";
       this.y = "";
       this.m = "";
       this.d = "";
@@ -51,6 +56,7 @@ export default class EventProto {
     this.c = e.c;
     this.t = e.t;
     this.de = e.de;
+    this.tg = e.tg;
     this.y = e.y;
     this.m = e.m;
     this.d = e.d;
@@ -65,9 +71,7 @@ export default class EventProto {
   }
 
   static isEvent(e) {
-    let eString = Object.keys(e).sort().join();
-    return eString === EventProto.MAIN_KEYS.sort().join() ||
-        eString === EventProto.ALL_KEYS.sort().join();
+    return _.difference(Object.keys(e), EventProto.ALL_KEYS).length === 0;
   }
 
   static copyOf(e) {

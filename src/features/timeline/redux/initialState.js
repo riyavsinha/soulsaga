@@ -11,6 +11,7 @@ const initialState = {
   deletingEvent: null,
   isAddEventFormOpen: false,
   events: [],
+  availableTags: [],
   hasLoadedEvents: false,
   
   addEventPending: false,

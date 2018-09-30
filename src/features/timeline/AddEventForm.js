@@ -18,6 +18,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Slide from '@material-ui/core/Slide';
 import Snackbar from '@material-ui/core/Snackbar';
+import TagInput from './TagInput';
 import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -29,6 +30,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 import 'cropperjs/dist/cropper.css';
+const _ = require('lodash');
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -44,6 +46,7 @@ export class AddEventForm extends Component {
     eventCategory: "Other",
     eventTitle: "",
     eventDesc: "",
+    eventTags: [],
     eventMonth: "",
     eventDay: "",
     eventYear: "",
@@ -69,6 +72,7 @@ export class AddEventForm extends Component {
         eventCategory: e.c,
         eventTitle: e.t,
         eventDesc: e.de,
+        eventTags: e.tg.split(','),
         eventMonth: e.m,
         eventDay: e.d,
         eventYear: e.y,
@@ -107,6 +111,11 @@ export class AddEventForm extends Component {
 
   handleEventDescChange = e => {
     this.setState({eventDesc: e.target.value});
+  }
+
+  handleEventTagChange = tags => {
+    console.log(tags)
+    this.setState({ eventTags: tags });
   }
 
   handleEventImgChange = e => {
@@ -149,6 +158,7 @@ export class AddEventForm extends Component {
    * Reuses ID of editingEvent if exists.
    */
   buildEventProto = () => {
+    console.log("BUILDING: " + this.state.eventTags);
     const img = this.refs.cropper != null
       ? this.refs.cropper.getCroppedCanvas().toDataURL()
       : "";
@@ -160,12 +170,14 @@ export class AddEventForm extends Component {
     e.c = this.state.eventCategory;
     e.t = this.state.eventTitle;
     e.de = this.state.eventDesc;
+    e.tg = this.state.eventTags.join(',');
     e.y = this.state.eventYear.replace(/^[0]+/g,"");
     e.m = this.state.eventMonth;
     e.d = this.state.eventDay.replace(/^[0]+/g,"");
     e.i = img;
     e.id = id;
     e.ms = this.buildDateTime(e.d, e.m, e.y);
+    console.log(e);
     return e
   }
 
@@ -323,6 +335,11 @@ export class AddEventForm extends Component {
               value={this.state.eventDesc}
               helperText="As long or short as you want!"
             />
+
+            <TagInput 
+                eventTags={this.state.eventTags}
+                availableTags={_.difference(this.props.timeline.availableTags, this.state.eventTags)}
+                onChange={this.handleEventTagChange} />
 
             {/** Image uploading and cropping */}
             <FormControl className="timeline-add-event-file-select">
