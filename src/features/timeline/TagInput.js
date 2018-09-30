@@ -43,8 +43,9 @@ export default class TagInput extends Component {
     }
   }
 
-  handleInputEnter = index => e => {
-    if (index === null && e.key === 'Enter') {
+  handleInputEnter = (isOpen, index) => e => {
+    console.log(isOpen, index);
+    if ((!isOpen || index === null) && e.key === 'Enter') {
       this.addTag(e.target.value);
     }
   }
@@ -68,7 +69,6 @@ export default class TagInput extends Component {
   getSuggestions = value => {
     const normalizeStr = s => deburr(s.trim()).toLowerCase();
     const inputValue = normalizeStr(value);
-    // console.log(this.props.availableTags);
 
     return this.props.availableTags.filter(
       item => normalizeStr(item).includes(inputValue));
@@ -117,13 +117,14 @@ export default class TagInput extends Component {
             highlightedIndex,
           }) => (
             <div>
-              <div>
+              <div className="timeline-tag-input__tag-chip-section">
                 {selectedItem.length > 0 &&
                   selectedItem.map(item => (
                     <Chip
                       key={item+"Chip"}
                       label={item}
                       onDelete={this.handleDelete(item)}
+                      className="timeline-tag-input__tag-chip"
                     />
                   ))}
               </div>
@@ -131,9 +132,10 @@ export default class TagInput extends Component {
               <TextField 
                 value={inputValue}
                 label="Tags"
+                className="timeline-tag-input__text-field"
                 InputProps={getInputProps({
                   onChange: this.handleInputChange,
-                  onKeyDown: this.handleInputEnter(highlightedIndex),
+                  onKeyDown: this.handleInputEnter(isOpen, highlightedIndex),
                   onClick: () => toggleMenu()
                 })}/>
               
