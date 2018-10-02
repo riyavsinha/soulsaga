@@ -1,5 +1,6 @@
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import Chip from '@material-ui/core/Chip';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -31,6 +32,21 @@ export class EventViewDialog extends Component {
     let e = this.props.timeline.viewingEvent;
     this.handleClose();
     this.props.actions.setDeletingEvent(e);
+  }
+
+  renderTags = () => {
+    let e = this.props.timeline.viewingEvent;
+    if (e && e.tg.length) {
+      return (
+        <DialogContent>
+          {e.tg.split(',').map(t =>
+            <Chip
+              label={t}
+              className="timeline-timeline-event__tag"
+              key={e.id+t+"ViewChip"} />)}
+        </DialogContent>
+      )
+    }
   }
 
   renderImg = () => {
@@ -86,6 +102,7 @@ export class EventViewDialog extends Component {
             </div>
           </div>
         </div>
+        {this.renderTags()}
         {this.renderImg()}
         {this.renderDesc()}
         <DialogActions>
