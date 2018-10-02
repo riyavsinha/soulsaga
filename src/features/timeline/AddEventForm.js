@@ -114,7 +114,6 @@ export class AddEventForm extends Component {
   }
 
   handleEventTagChange = tags => {
-    console.log(tags)
     this.setState({ eventTags: tags });
   }
 
@@ -158,7 +157,6 @@ export class AddEventForm extends Component {
    * Reuses ID of editingEvent if exists.
    */
   buildEventProto = () => {
-    console.log("BUILDING: " + this.state.eventTags);
     const img = this.refs.cropper != null
       ? this.refs.cropper.getCroppedCanvas().toDataURL()
       : "";
@@ -177,7 +175,6 @@ export class AddEventForm extends Component {
     e.i = img;
     e.id = id;
     e.ms = this.buildDateTime(e.d, e.m, e.y);
-    console.log(e);
     return e
   }
 

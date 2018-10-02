@@ -44,7 +44,6 @@ export default class TagInput extends Component {
   }
 
   handleInputEnter = (isOpen, index) => e => {
-    console.log(isOpen, index);
     if ((!isOpen || index === null) && e.key === 'Enter') {
       this.addTag(e.target.value);
     }

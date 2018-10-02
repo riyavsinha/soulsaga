@@ -27,7 +27,7 @@ export class AboutPage extends Component {
     return (
       <div className="about-about-page">
         <Typography variant="display1" className="about-about-page__d2">
-          Empowering everyone to discover and reflect on their self
+          Empowering anyone to discover and reflect on their self
         </Typography>
         <Typography variant="title" className="about-about-page__t">
           Our Story
