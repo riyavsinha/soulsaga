@@ -22,6 +22,7 @@ import TagInput from './TagInput';
 import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import UploadButton from 'features/library/UploadButton';
 import { PRIMARY_CATEGORIES, SECONDARY_CATEGORIES } from './eventiconmaps';
 import { 
   dataOperationSnackbarFailed,
@@ -127,6 +128,8 @@ export class AddEventForm extends Component {
     }
   }
 
+  handleEventImgClear = () => this.setState({eventImg: ""})
+
   handleSnackbarClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -210,6 +213,14 @@ export class AddEventForm extends Component {
   renderCropper = () => {
     if (this.state.eventImg) {
       return (
+        [
+          <IconButton
+              color="inherit"
+              onClick={this.handleEventImgClear}
+              aria-label="Close"
+              key="closeImgButton">
+            <CloseIcon />
+          </IconButton>,
         <Cropper
             ref="cropper"
             src={this.state.eventImg}
@@ -217,7 +228,9 @@ export class AddEventForm extends Component {
             aspectRatio={16 / 9}
             autoCropArea={1}
             guides={true}
-            dragMode="move"/>
+            dragMode="move"
+            key="imgCropper"/>
+        ]
       );
     }
   }
@@ -341,13 +354,11 @@ export class AddEventForm extends Component {
 
             {/** Image uploading and cropping */}
             <FormControl className="timeline-add-event-file-select">
-              <Input
-                type="file"
-                margin="dense"
-                onChange={this.handleEventImgChange}
-              />
+              <UploadButton onChange={this.handleEventImgChange} variant="outlined">
+                Select an Image
+              </UploadButton>
               <FormHelperText>
-                Upload an image to remember the event
+                (Optional) Upload an image to remember the event
               </FormHelperText>
             </FormControl>
             {this.renderCropper()}

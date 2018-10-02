@@ -14,7 +14,8 @@ export class TimelineDisplayWrapper extends Component {
 
   componentDidMount = () => {
     auth.onAuthStateChanged((user) => {
-      if (user && !this.props.timeline.hasLoadedEvents) {
+      if (user && this.props.common.timelineConsent && 
+          !this.props.timeline.hasLoadedEvents) {
         this.props.actions.fetchEvents();
       }
     });
@@ -28,6 +29,7 @@ export class TimelineDisplayWrapper extends Component {
 /* istanbul ignore next */
 function mapStateToProps(state) {
   return {
+    common: state.common,
     timeline: state.timeline,
   };
 }

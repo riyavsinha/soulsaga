@@ -9,6 +9,7 @@ import EventProto from 'proto/EventProto';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Snackbar from '@material-ui/core/Snackbar';
+import UploadButton from 'features/library/UploadButton';
 import { DownloadIcon, UploadIcon } from 'mdi-react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -114,19 +115,12 @@ export class SaveLoadSection extends Component {
           Download
           <DownloadIcon className="timeline-save-load-section__icon"/>
         </Button>
-        <Button
-            variant="raised"
-            component="label"
-            color="primary"
-            className="timeline-save-load-section__upload">
+        <UploadButton
+            className="timeline-save-load-section__upload"
+            onChange={this.readEvents}>
           Upload
           <UploadIcon className="timeline-save-load-section__icon"/>
-          <input
-              onChange={this.readEvents}
-              style={{ display: 'none' }}
-              type="file"
-            />
-        </Button>
+        </UploadButton>
 
         <Snackbar
             anchorOrigin={{
