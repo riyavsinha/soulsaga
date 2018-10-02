@@ -7,8 +7,35 @@
   margin-bottom: 16px;
 }
 
+.timeline-timeline-event__header-container {
+  padding-bottom: 0;
+}
+
 .timeline-timeline-event__avatar {
   background-color: #E91E63;
+}
+
+.timeline-timeline-event__tag-container {
+  margin: 4px 24px;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+}
+
+.timeline-timeline-event__tag-container__end {
+  margin-bottom: 24px;
+}
+
+.timeline-timeline-event__tag {
+  margin-right: 4px;
+  margin-bottom: 4px;
+}
+
+.timeline-timeline-event__tag > span > div {
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 80px;
 }
 
 .timeline-timeline-event__media {

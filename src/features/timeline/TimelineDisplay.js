@@ -27,6 +27,22 @@ export default class TimelineDisplay extends Component {
     return yInd;
   }
 
+  determineRowSize = e => {
+    let numRows = 2;
+    if (e.i !== "") { 
+      numRows += 3
+    }
+    if (e.tg.length && !e.de && !e.i) {
+        numRows += 1;
+    }
+    if (e.de.length > 90) { 
+      numRows += 2 
+    } else if (e.de.length > 0) {
+      numRows += 1
+    }
+    return numRows;
+  }
+
   buildIndex = () => {
     // {"2015": ["year" => 5, "January" => 4], "March" => 5]], "2016": ["February" => 6]}
     var dateIndex = {};
@@ -36,9 +52,7 @@ export default class TimelineDisplay extends Component {
     this.props.events.forEach((event, ind) => {
       let key = event.id.toString() + "gi";
       let col = parseInt((event.d !== "") + (event.m !== ""), 10);
-      let numRows = 2;
-      if (event.i !== "") { numRows += 3 }
-      if (event.de.length > 90) { numRows += 2 } else if (event.de.length > 0) { numRows += 1 }
+      let numRows = this.determineRowSize(event);
       let itemLayout = {};
       // If day, only add to index if necessary and increment yInd
       if (event.d !== "") {

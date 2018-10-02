@@ -56,7 +56,7 @@ export default class EventProto {
     this.c = e.c;
     this.t = e.t;
     this.de = e.de;
-    this.tg = e.tg;
+    this.tg = e.tg || "";
     this.y = e.y;
     this.m = e.m;
     this.d = e.d;

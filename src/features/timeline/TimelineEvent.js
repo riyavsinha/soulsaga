@@ -3,6 +3,7 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import Chip from '@material-ui/core/Chip';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
@@ -20,6 +21,22 @@ export class TimelineEvent extends Component {
 
   handleViewEvent = () => {
     this.props.actions.setViewingEvent(this.props.event);
+  }
+
+  renderTags() {
+    let isEnd = !this.props.event.de && !this.props.event.i ?
+      " timeline-timeline-event__tag-container__end" : "";
+    if (this.props.event.tg.length) {
+      return (
+        <div className={"timeline-timeline-event__tag-container"+isEnd}>
+          {this.props.event.tg.split(',').map(t =>
+            <Chip
+              label={(<div key={this.props.event.id+t+"ChipLabel"}>{t}</div>)}
+              className="timeline-timeline-event__tag"
+              key={this.props.event.id+t+"Chip"} />)}
+        </div>
+      )
+    }
   }
 
   renderImg() {
@@ -48,11 +65,14 @@ export class TimelineEvent extends Component {
         this.props.event.d,
         this.props.event.m,
         this.props.event.y);
+    let titleClass = this.props.event.tg && this.props.event.tg.length ?
+        "timeline-timeline-event__header-container" : "";
     return (
       <Card
           className="timeline-timeline-event__card"
           onClick={this.props.onClick ? this.props.onClick : this.handleViewEvent}>
         <CardHeader
+          className={titleClass}
           avatar={
             <Avatar className="timeline-timeline-event__avatar">
               {CATEGORY_ICON_MAP[this.props.event.c]}
@@ -61,6 +81,7 @@ export class TimelineEvent extends Component {
           title={this.props.event.t}
           subheader={dateString}
         />
+        {this.renderTags()}
         {this.renderImg()}
         {this.renderDesc()}
       </Card>
