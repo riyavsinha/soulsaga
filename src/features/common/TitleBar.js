@@ -37,17 +37,17 @@ export class TitleBar extends Component {
    * user info and saved consent state.
    */
   componentDidMount = () => {
-    window.gapi.load("client", this.initClient)
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        this.props.actions.populateUser(user);
-        this.props.actions.fetchDataConsent()
-          .then(() => this.props.actions.fetchOrCreateKey(window.gapi))
-          .then(() => this.props.actions.populateSignInState(true));
-      } else {
-        this.props.actions.populateSignInState(false);
-      }
-    });
+    window.gapi.load("client", this.initClient);
+    // auth.onAuthStateChanged((user) => {
+    //   if (user) {
+    //     this.props.actions.populateUser(user);
+    //     this.props.actions.fetchDataConsent()
+    //       .then(() => this.props.actions.fetchOrCreateKey(window.gapi))
+    //       .then(() => this.props.actions.populateSignInState(true));
+    //   } else {
+    //     this.props.actions.populateSignInState(false);
+    //   }
+    // });
   };
 
   initClient = () => {
@@ -57,16 +57,16 @@ export class TitleBar extends Component {
       clientId: CLIENT_ID,
       scope: GDRIVE_APP_SCOPE,
     }).then(() => {
-      // auth.onAuthStateChanged((user) => {
-      //   if (user) {
-      //     this.props.actions.populateUser(user);
-      //     this.props.actions.fetchDataConsent()
-      //       .then(() => this.props.actions.fetchOrCreateKey(window.gapi))
-      //       .then(() => this.props.actions.populateSignInState(true));
-      //   } else {
-      //     this.props.actions.populateSignInState(false);
-      //   }
-      // })
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          this.props.actions.populateUser(user);
+          this.props.actions.fetchDataConsent()
+            .then(() => this.props.actions.fetchOrCreateKey(window.gapi))
+            .then(() => this.props.actions.populateSignInState(true));
+        } else {
+          this.props.actions.populateSignInState(false);
+        }
+      })
     }).catch(e => console.log(e))
   }
 
