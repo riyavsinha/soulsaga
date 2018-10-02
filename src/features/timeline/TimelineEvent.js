@@ -75,7 +75,9 @@ export class TimelineEvent extends Component {
           className={titleClass}
           avatar={
             <Avatar className="timeline-timeline-event__avatar">
-              {CATEGORY_ICON_MAP[this.props.event.c]}
+              {this.props.event.c === "Other" ?
+                  this.props.common.user.displayName.slice(0, 1).toUpperCase() :
+                  CATEGORY_ICON_MAP[this.props.event.c]}
             </Avatar>
           }
           title={this.props.event.t}
@@ -92,6 +94,7 @@ export class TimelineEvent extends Component {
 /* istanbul ignore next */
 function mapStateToProps(state) {
   return {
+    common: state.common,
     timeline: state.timeline,
   };
 }

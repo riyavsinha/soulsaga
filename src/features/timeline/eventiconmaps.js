@@ -61,7 +61,6 @@ const CATEGORY_ICON_MAP = {
   "Spiritual": <CreationIcon/>,
   "Travel": <EarthIcon/>,
   "Work/Career": <BriefcaseIcon/>,
-  "Other": "R",
 }
 
 export { CATEGORY_ICON_MAP, PRIMARY_CATEGORIES, SECONDARY_CATEGORIES };
