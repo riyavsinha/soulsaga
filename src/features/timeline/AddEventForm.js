@@ -218,6 +218,7 @@ export class AddEventForm extends Component {
             src={this.state.eventImg}
             style={{width: 640, height: 360}}
             aspectRatio={16 / 9}
+            autoCropArea={1}
             guides={true}
             dragMode="move"/>
       );
