@@ -23,7 +23,6 @@ export function fetchEvents(args = {}) {
           const tags = getState().common.timelineConsent ?
               _.union(...res.map(e => e.tg.split(','))) :
               [];
-          console.log(tags);
           dispatch({
             type: TIMELINE_FETCH_EVENTS_SUCCESS,
             events: res,
