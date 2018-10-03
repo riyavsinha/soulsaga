@@ -1,0 +1,19 @@
+{
+  "rules": {
+    "dataConsent": {
+      "$uid": {
+        ".read": "$uid == auth.uid",
+        ".write": "$uid == auth.uid"
+      }
+    },
+    "timeline": {
+      "$uid": {
+        ".read": "$uid == auth.uid",
+        ".write": "$uid == auth.uid",
+        ".indexOn": ["ms"],
+      }
+    },
+    ".read": false,
+    ".write": false
+  }
+}
