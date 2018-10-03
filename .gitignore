@@ -16,6 +16,15 @@
 .env.test.local
 .env.production.local
 
+.env
+/.firebase
+.firebaserc
+.editorconfig
+.babelrc
+database.rules.json
+firebase.json
+/config
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
