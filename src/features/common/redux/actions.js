@@ -8,3 +8,4 @@ export { fetchDataConsent, dismissFetchDataConsentError } from './fetchDataConse
 export { fetchOrCreateKey, dismissFetchOrCreateKeyError } from './fetchOrCreateKey';
 export { dataOperationSnackbarSucceeded } from './dataOperationSnackbarSucceeded';
 export { dataOperationSnackbarFailed } from './dataOperationSnackbarFailed';
+export { deleteUserDataConsent, dismissDeleteUserDataConsentError } from './deleteUserDataConsent';

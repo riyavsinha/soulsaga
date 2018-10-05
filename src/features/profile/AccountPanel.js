@@ -6,7 +6,8 @@ import SimpleDialog from 'features/library/SimpleDialog';
 import SimpleSnackbar from 'features/library/SimpleSnackbar';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { deleteUser } from 'features/common/redux/actions';
+import { deleteUserEvents, resetTimelineData } from 'features/timeline/redux/actions';
+import { deleteUser, deleteUserDataConsent } from 'features/common/redux/actions';
 import * as actions from './redux/actions';
 
 export class AccountPanel extends Component {
@@ -30,9 +31,11 @@ export class AccountPanel extends Component {
 
   onSnackbarClose = () => this.setState({ deleteFailedSnackbarOpen: false });
 
-  deleteUser = () => {
+  deleteUser = async () => {
+    await this.props.actions.deleteUserEvents();
+    await this.props.actions.deleteUserDataConsent();
     this.props.actions.deleteUser()
-        .then()
+        .then(() => this.props.actions.resetTimelineData())
         .catch(err => {
             this.onDeleteFail();
             this.onDeleteConfirmDialogClose();
@@ -90,7 +93,12 @@ function mapStateToProps(state) {
 /* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ ...actions, deleteUser }, dispatch)
+    actions: bindActionCreators({ 
+      ...actions,
+      deleteUser,
+      deleteUserEvents,
+      deleteUserDataConsent,
+      resetTimelineData }, dispatch)
   };
 }
 

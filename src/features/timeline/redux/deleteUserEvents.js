@@ -4,7 +4,7 @@ import {
   TIMELINE_DELETE_USER_EVENTS_FAILURE,
   TIMELINE_DELETE_USER_EVENTS_DISMISS_ERROR,
 } from './constants';
-import {database, TIMELINE} from 'common/firebase';
+import {database, userStorage, TIMELINE} from 'common/firebase';
 
 // Rekit uses redux-thunk for async actions by default: https://github.com/gaearon/redux-thunk
 // If you prefer redux-saga, you can use rekit-plugin-redux-saga: https://github.com/supnate/rekit-plugin-redux-saga
@@ -14,9 +14,17 @@ export function deleteUserEvents(args = {}) {
       type: TIMELINE_DELETE_USER_EVENTS_BEGIN,
     });
 
-    const promise = new Promise((resolve, reject) => {
-      const reqPromise = database.ref(TIMELINE + getState().common.user.uid).remove();
-      reqPromise.then(
+    const promise = new Promise(async (resolve, reject) => {
+      const storagePromise = getState().timeline.events.map(
+          e => 
+            e.hi ?
+              userStorage.child(getState().common.user.uid).child(e.ref).delete() :
+              Promise.resolve());
+      await Promise.all(storagePromise);
+      const dbPromise = database.ref(TIMELINE + getState().common.user.uid).remove();
+      //const storagePromise = userStorage.child(getState().common.user.uid).delete();
+      //const reqPromise = Promise.all([dbPromise, storagePromise]);
+      dbPromise.then(
         (res) => {
           dispatch({
             type: TIMELINE_DELETE_USER_EVENTS_SUCCESS,

@@ -29,6 +29,8 @@ const initialState = {
   fetchDataConsentError: null,
   fetchOrCreateKeyPending: false,
   fetchOrCreateKeyError: null,
+  deleteUserDataConsentPending: false,
+  deleteUserDataConsentError: null,
 };
 
 export default initialState;
