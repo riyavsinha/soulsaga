@@ -58,7 +58,7 @@ export class AddEventForm extends Component {
     snackbarOpen: false,
   };
 
-  state = {...this.initState};
+  state = {...this.initState, eventTags: [...this.initState.eventTags]};
 
   /** DIALOG VISIBILITY EVENTS */
 
@@ -86,7 +86,7 @@ export class AddEventForm extends Component {
   }
 
   handleClose = () => {
-    this.setState({...this.initState});
+    this.setState({...this.initState, eventTags: [...this.initState.eventTags]});
     this.props.actions.toggleAddEventForm(false);
     this.props.actions.setEditingEvent(/* null */);
   };
@@ -176,8 +176,10 @@ export class AddEventForm extends Component {
     e.m = this.state.eventMonth;
     e.d = this.state.eventDay.replace(/^[0]+/g,"");
     e.i = img;
+    e.hi = !!img;
     e.id = id;
     e.ms = this.buildDateTime(e.d, e.m, e.y);
+    console.log(e);
     return e
   }
 

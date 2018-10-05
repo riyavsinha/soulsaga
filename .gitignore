@@ -25,6 +25,8 @@ database.rules.json
 firebase.json
 /config
 .prettierrc
+cors.json
+storage.rules
 
 npm-debug.log*
 yarn-debug.log*

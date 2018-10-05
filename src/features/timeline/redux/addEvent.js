@@ -4,8 +4,10 @@ import {
   TIMELINE_ADD_EVENT_FAILURE,
   TIMELINE_ADD_EVENT_DISMISS_ERROR,
 } from './constants';
+import EventProto from 'proto/EventProto';
 import {
   database,
+  userStorage,
   TIMELINE,
   CRAL
 } from 'common/firebase';
@@ -53,24 +55,51 @@ export function addEvent(e) {
   };
 }
 
-async function pushEvent(e, getState) {
-  const ref = database.ref(TIMELINE + getState().common.user.uid);
+async function pushEvent(event, getState) {
+  // Encryption
+  const e = EventProto.copyOf(event);
   const iv = window.crypto.getRandomValues(new Uint8Array(16));
-  const eventData = str2ab(JSON.stringify(e));
-  const encrypted = await crypto.subtle.encrypt(
+  const eventImgData = str2ab(e.i);
+  e.i = "";
+  const eventTextData = str2ab(JSON.stringify(e));
+  const encryptedText = await crypto.subtle.encrypt(
     {
       name: CRAL,
       iv: iv
     },
     getState().common.userKey,
-    eventData
+    eventTextData
   );
+  // DB Push
   const pushData = {
     data: Array.from(new Uint8Array(iv)).concat(
-      Array.from(new Uint8Array(encrypted))).join('-'),
+      Array.from(new Uint8Array(encryptedText))).join('-'),
     ms: e.ms
   };
-  return ref.push(pushData);
+  const ref = database.ref(TIMELINE + getState().common.user.uid);
+  const dbPushRef = await ref.push(pushData);
+  if (!eventImgData) {
+    return dbPushRef;
+  }
+  // Storage Push
+  const imgIv = window.crypto.getRandomValues(new Uint8Array(16));
+  let encryptedImg = await crypto.subtle.encrypt(
+    {
+      name: CRAL,
+      iv: imgIv
+    },
+    getState().common.userKey,
+    eventImgData
+  );
+  encryptedImg = new Uint8Array(encryptedImg);
+  const encryptedImgData = new Uint8Array(imgIv.length+encryptedImg.length);
+  encryptedImgData.set(imgIv);
+  encryptedImgData.set(encryptedImg, imgIv.length);
+  const storageRef = userStorage
+      .child(getState().common.user.uid)
+      .child(dbPushRef.key);
+  await storageRef.put(encryptedImgData);
+  return dbPushRef;
 }
 
 // Async action saves request error by default, this method is used to dismiss the error info.
