@@ -5,7 +5,7 @@ import {
   TIMELINE_FETCH_EVENTS_DISMISS_ERROR,
 } from './constants';
 import EventProto from 'proto/EventProto';
-import { database, CRAL, TIMELINE} from 'common/firebase';
+import { userStorage, database, CRAL, TIMELINE} from 'common/firebase';
 import { ab2str } from 'common/util/strbuffer';
 const _ = require('lodash');
 
@@ -28,7 +28,29 @@ export function fetchEvents(args = {}) {
             events: res,
             tags: tags,
           });
-          resolve(res);
+          return [res, tags];
+        },
+        // Use rejectHandler as the second argument so that render errors won't be caught.
+        (err) => {
+          dispatch({
+            type: TIMELINE_FETCH_EVENTS_FAILURE,
+            data: { error: err },
+          });
+          reject(err);
+        },
+      ).then(
+        res => {
+          let tags = res[1];
+          res = res[0]
+          const imgRefs = res.filter(e => e.hi).map(e => e.ref);
+          const decodedImgEvents = res.map(e => joinImage(e, getState));
+          Promise.all(decodedImgEvents).then(events => {
+            dispatch({
+              type: TIMELINE_FETCH_EVENTS_SUCCESS,
+              events: events,
+              tags: tags,
+            })
+          });
         },
         // Use rejectHandler as the second argument so that render errors won't be caught.
         (err) => {
@@ -78,6 +100,29 @@ async function decodeEvent(child, getState) {
   return e;
 }
 
+async function joinImage(e, getState) {
+  if (!e.hi) { 
+    return e;
+  }
+  const storageRef = userStorage
+      .child(getState().common.user.uid)
+      .child(e.ref);
+  const url = await storageRef.getDownloadURL();
+  const imgResponse = await fetch(url);
+  const encodedImg = await imgResponse.arrayBuffer();
+  const iv = new Uint8Array(encodedImg.slice(0, 16));
+  const decrypted = await crypto.subtle.decrypt(
+    {
+      name: CRAL,
+      iv: iv
+    },
+    getState().common.userKey,
+    new Uint8Array(encodedImg.slice(16)).buffer
+  );
+  e.i = ab2str(decrypted)
+  return e;
+}
+
 // Async action saves request error by default, this method is used to dismiss the error info.
 // If you don't want errors to be saved in Redux store, just ignore this method.
 export function dismissFetchEventsError() {
@@ -113,6 +158,7 @@ export function reducer(state, action) {
       // The request is failed
       return {
         ...state,
+        events: [],
         fetchEventsPending: false,
         fetchEventsError: action.data.error,
       };

@@ -24,6 +24,10 @@ export const provider = new firebase.auth.GoogleAuthProvider();
 provider.addScope(GDRIVE_APP_SCOPE);
 export const auth = firebase.auth();
 
+/** STORAGE */
+export const storage = firebase.storage().ref();
+export const userStorage = storage.child("users");
+
 /** REALTIME DATABASE */
 export const DATA_CONSENT = 'dataConsent/';
 export const PRIVACY_CONSENT = "privacyTerms";

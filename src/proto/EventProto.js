@@ -17,8 +17,10 @@ export default class EventProto {
     'm',
     // Day. Day of event
     'd',
-    // Image. Img associated
+    // Image. Img associated, stored in Storage, not Database
     'i',
+    // Has Image. Helps tell whether to fetch Image from Storage.
+    'hi',
     // Id. Unique identifier, usually creation timestamp
     'id',
     // Ms. Millisecond date of event, using Y/M/D
@@ -43,6 +45,7 @@ export default class EventProto {
       this.m = "";
       this.d = "";
       this.i = "";
+      this.hi = false;
       this.id = "";
       this.ref = "";
       this.ms = 0;
@@ -60,7 +63,8 @@ export default class EventProto {
     this.y = e.y;
     this.m = e.m;
     this.d = e.d;
-    this.i = e.i;
+    this.i = e.i || "";
+    this.hi = e.hi || false;
     this.id = e.id;
     this.ms = e.ms;
     if (e.hasOwnProperty('ref')) {
