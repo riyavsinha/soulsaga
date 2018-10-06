@@ -76,7 +76,7 @@ export class AccountPanel extends Component {
         <SimpleSnackbar
             open={this.state.deleteFailedSnackbarOpen}
             onClose={this.onSnackbarClose}>
-          Delete failed. Please re-login and try again.
+          Delete failed.
         </SimpleSnackbar>
 
       </Panel>
