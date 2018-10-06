@@ -8,3 +8,4 @@ export { setDeletingEvent } from './setDeletingEvent';
 export { deleteUserEvents, dismissDeleteUserEventsError } from './deleteUserEvents';
 export { setHasLoadedEvents } from './setHasLoadedEvents';
 export { fetchEvents, dismissFetchEventsError } from './fetchEvents';
+export { resetTimelineData } from './resetTimelineData';

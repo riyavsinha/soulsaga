@@ -10,7 +10,6 @@ import EventProto from '../../proto/EventProto.js'
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import IconButton from '@material-ui/core/IconButton';
-import Input from '@material-ui/core/Input';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -179,7 +178,6 @@ export class AddEventForm extends Component {
     e.hi = !!img;
     e.id = id;
     e.ms = this.buildDateTime(e.d, e.m, e.y);
-    console.log(e);
     return e
   }
 

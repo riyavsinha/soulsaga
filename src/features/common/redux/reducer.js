@@ -17,6 +17,7 @@ import { reducer as fetchDataConsentReducer } from './fetchDataConsent';
 import { reducer as fetchOrCreateKeyReducer } from './fetchOrCreateKey';
 import { reducer as dataOperationSnackbarSucceededReducer } from './dataOperationSnackbarSucceeded';
 import { reducer as dataOperationSnackbarFailedReducer } from './dataOperationSnackbarFailed';
+import { reducer as deleteUserDataConsentReducer } from './deleteUserDataConsent';
 
 const reducers = [
   signInReducer,
@@ -29,6 +30,7 @@ const reducers = [
   fetchOrCreateKeyReducer,
   dataOperationSnackbarSucceededReducer,
   dataOperationSnackbarFailedReducer,
+  deleteUserDataConsentReducer,
 ];
 
 export default function reducer(state = initialState, action) {

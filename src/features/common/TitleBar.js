@@ -20,7 +20,7 @@ import { auth,
          GDRIVE_DISCOVERY_DOCS,
          CLIENT_ID,
          GDRIVE_APP_SCOPE} from 'common/firebase';
-import { populateEvents } from 'features/timeline/redux/actions'
+import { resetTimelineData } from 'features/timeline/redux/actions'
 import * as actions from './redux/actions';
 
 export class TitleBar extends Component {
@@ -89,7 +89,7 @@ export class TitleBar extends Component {
   handleSignOut = () => {
     this.handleMenuClose();
     this.props.actions.signOut(window.gapi)
-      .then(() => this.props.actions.populateEvents([]) );
+      .then(() => this.props.actions.resetTimelineData() );
   }
 
   /** RENDERS */
@@ -180,7 +180,7 @@ function mapStateToProps(state) {
 /* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ ...actions, populateEvents }, dispatch)
+    actions: bindActionCreators({ ...actions, resetTimelineData }, dispatch)
   };
 }
 

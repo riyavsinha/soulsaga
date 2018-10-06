@@ -2,7 +2,6 @@ import { App } from '../features/home';
 import { PageNotFound } from '../features/common';
 import homeRoute from '../features/home/route';
 import commonRoute from '../features/common/route';
-import examplesRoute from '../features/examples/route';
 import timelineRoute from '../features/timeline/route';
 import profileRoute from '../features/profile/route';
 import aboutRoute from '../features/about/route';
@@ -13,7 +12,6 @@ import libraryRoute from '../features/library/route';
 const childRoutes = [
   homeRoute,
   commonRoute,
-  examplesRoute,
   timelineRoute,
   profileRoute,
   aboutRoute,

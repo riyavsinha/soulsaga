@@ -59,6 +59,7 @@ async function pushEvent(event, getState) {
   // Encryption
   const e = EventProto.copyOf(event);
   const iv = window.crypto.getRandomValues(new Uint8Array(16));
+  const eventImg = e.i;
   const eventImgData = str2ab(e.i);
   e.i = "";
   const eventTextData = str2ab(JSON.stringify(e));
@@ -78,7 +79,7 @@ async function pushEvent(event, getState) {
   };
   const ref = database.ref(TIMELINE + getState().common.user.uid);
   const dbPushRef = await ref.push(pushData);
-  if (!eventImgData) {
+  if (!eventImg) {
     return dbPushRef;
   }
   // Storage Push

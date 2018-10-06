@@ -4,7 +4,7 @@ import {
   TIMELINE_DELETE_EVENT_FAILURE,
   TIMELINE_DELETE_EVENT_DISMISS_ERROR,
 } from './constants';
-import {database, TIMELINE} from 'common/firebase';
+import {userStorage, database, TIMELINE} from 'common/firebase';
 
 /**
  * Action to delete an event.
@@ -24,7 +24,10 @@ export function deleteEvent(id, ref = "") {
           throw new Error("ref required when data storage setting on.");
         }
         const dbref = database.ref(TIMELINE + getState().common.user.uid);
-        reqPromise = dbref.child(ref).remove();
+        let dbPromise = dbref.child(ref).remove();
+        const storageRef = userStorage.child(getState().common.user.uid);
+        let storagePromise = storageRef.child(ref).delete();
+        reqPromise = Promise.all([dbPromise, storagePromise]);
       } else {
         reqPromise = Promise.resolve();
       }
