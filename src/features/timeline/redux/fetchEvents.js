@@ -42,7 +42,6 @@ export function fetchEvents(args = {}) {
         res => {
           let tags = res[1];
           res = res[0]
-          const imgRefs = res.filter(e => e.hi).map(e => e.ref);
           const decodedImgEvents = res.map(e => joinImage(e, getState));
           Promise.all(decodedImgEvents).then(events => {
             dispatch({

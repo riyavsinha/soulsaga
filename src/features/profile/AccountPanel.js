@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { deleteUserEvents, resetTimelineData } from 'features/timeline/redux/actions';
 import { deleteUser, deleteUserDataConsent } from 'features/common/redux/actions';
+import { provider } from 'common/firebase';
 import * as actions from './redux/actions';
 
 export class AccountPanel extends Component {
@@ -32,6 +33,7 @@ export class AccountPanel extends Component {
   onSnackbarClose = () => this.setState({ deleteFailedSnackbarOpen: false });
 
   deleteUser = async () => {
+    await this.props.common.user.reauthenticateWithPopup(provider);
     await this.props.actions.deleteUserEvents();
     await this.props.actions.deleteUserDataConsent();
     this.props.actions.deleteUser()
@@ -45,15 +47,14 @@ export class AccountPanel extends Component {
   render() {
     let titleText = "Permanently delete your account?"
     let contentText = (
-        <p>
+        <span>
           This cannot be undone. If you would like to save
           your data prior to deletion, please go to your Timeline and
           click 'Download'.
           <br/><br/>
-          <b>This may fail if you have not logged in
-          recently.</b> We understand this is inconvenient but please
-          log out and log in to try again.
-        </p>);
+          <b>This is a sensitive operation, and will require
+          reauthentication.</b>
+        </span>);
     return (
       <Panel title="My Account">
         <Button
@@ -87,6 +88,7 @@ export class AccountPanel extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
+    common: state.common
   };
 }
 

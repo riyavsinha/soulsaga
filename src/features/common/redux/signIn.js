@@ -13,7 +13,7 @@ export function signIn(gapi) {
     });
 
     const promise = new Promise((resolve, reject) => {
-       gapi.auth2.getAuthInstance().signIn()
+      gapi.auth2.getAuthInstance().signIn()
         .then(user =>
           auth.signInAndRetrieveDataWithCredential(
             provider.credential(null, user.getAuthResponse(true).access_token)))
