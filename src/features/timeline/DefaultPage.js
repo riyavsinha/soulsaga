@@ -1,4 +1,5 @@
 import AddEventForm from './AddEventForm';
+import ChronologicalOrderSelect from './ChronologicalOrderSelect';
 import EventDeleteDialog from './EventDeleteDialog';
 import EventViewDialog from './EventViewDialog';
 import SaveLoadSection from './SaveLoadSection';
@@ -32,7 +33,10 @@ export class DefaultPage extends Component {
 
     return (
       <div className="timeline-default-page">
-        <SaveLoadSection />
+        <div className="timeline-default-page__settings-bar-one">
+          <SaveLoadSection className="timeline-default-page__save-load-section" />
+          <ChronologicalOrderSelect />
+        </div>
         <this.ConditionalDisplay />
         <EventViewDialog />
         <EventDeleteDialog />

@@ -22,7 +22,7 @@ export class TimelineDisplayWrapper extends Component {
   }
 
   render() {
-    return <TimelineDisplay events={this.props.timeline.events} />
+    return <TimelineDisplay />
   }
 }
 

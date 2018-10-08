@@ -9,3 +9,4 @@ export { deleteUserEvents, dismissDeleteUserEventsError } from './deleteUserEven
 export { setHasLoadedEvents } from './setHasLoadedEvents';
 export { fetchEvents, dismissFetchEventsError } from './fetchEvents';
 export { resetTimelineData } from './resetTimelineData';
+export { setChronoOrder } from './setChronoOrder';
