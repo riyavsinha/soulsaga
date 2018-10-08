@@ -159,7 +159,7 @@ export class TitleBar extends Component {
                 SoulSaga
               </Typography>
               <Typography variant="subheading" color="inherit" className="title-bar__app-bar-alpha">
-                Alpha
+                Beta
               </Typography>
             </div>
             {this.renderProfileButton()}
