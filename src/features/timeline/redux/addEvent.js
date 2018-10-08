@@ -124,6 +124,8 @@ export function reducer(state, action) {
     case TIMELINE_ADD_EVENT_SUCCESS:
       // The request is success
       let ind = binfind(action.event.ms, state.events, "ms");
+      console.log(state.events.map(e => e.ms));
+      console.log(ind);
       return {
         ...state,
         events: [

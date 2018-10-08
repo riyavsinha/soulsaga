@@ -105,8 +105,9 @@ export class SaveLoadSection extends Component {
 
   render() {
     let disableDownload = this.props.timeline.events.length === 0;
+    let topClass = this.props.className ? this.props.className : "";
     return (
-      <div>
+      <div className={topClass}>
         <Button 
             variant="contained"
             color="primary"

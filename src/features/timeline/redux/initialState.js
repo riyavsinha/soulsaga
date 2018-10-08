@@ -13,6 +13,7 @@ const initialState = {
   events: [],
   availableTags: [],
   hasLoadedEvents: false,
+  eventOrdering: "forward",
   
   addEventPending: false,
   addEventError: null,

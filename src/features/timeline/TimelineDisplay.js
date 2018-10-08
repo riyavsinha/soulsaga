@@ -2,17 +2,32 @@ import React, { Component } from 'react';
 import RGL, { WidthProvider } from "react-grid-layout";
 import TimelineEvent from './TimelineEvent';
 import Typography from '@material-ui/core/Typography';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actions from './redux/actions';
 import 'react-grid-layout/css/styles.css' 
 import 'react-resizable/css/styles.css' 
 
 const ReactGridLayout = WidthProvider(RGL);
 
-export default class TimelineDisplay extends Component {
+export class TimelineDisplay extends Component {
   static propTypes = {
 
   };
 
-  newYearEncountered = (year, layout, gridItems, dateIndex, yInd) => {
+  getEvents = () => {
+    let events = this.props.timeline.events;
+    switch (this.props.timeline.eventOrdering) {
+      case "reverse":
+        return events.sort((x, y) => y.ms - x.ms)
+      case "forward":
+        return events.sort((x, y) => x.ms - y.ms)
+      default:
+        throw new Error("unsupported chronological ordering");
+    }
+  }
+
+  newYearEncountered = (year, layout, gridItems, yInd) => {
     let headerKey = year + "gi";
     layout.push({i: headerKey, x: 0, y: yInd, w:1, h:2, static: true});
     gridItems.push(
@@ -22,8 +37,6 @@ export default class TimelineDisplay extends Component {
         </Typography>
       </div>);
     yInd += 2;
-    dateIndex[year] = new Map();
-    dateIndex[year].set("year", yInd);
     return yInd;
   }
 
@@ -44,61 +57,88 @@ export default class TimelineDisplay extends Component {
   }
 
   buildIndex = () => {
-    // {"2015": ["year" => 5, "January" => 4], "March" => 5]], "2016": ["February" => 6]}
-    var dateIndex = {};
+    // Items in grid display
     var gridItems = [];
-    var layout = []
+    // Layout descriptors for each element in gridItems
+    var layout = [];
+    // Marker for current year
+    var curYear = null;
+    // Marker for current month
+    var curMonth = null;
+    // Index pointers for each column
     var yInd = 0;
-    this.props.events.forEach((event, ind) => {
+    var mInd = 0;
+    var dInd = 0;
+
+    this.getEvents().forEach((event, ind) => {
+      // Use ID as key
       let key = event.id.toString() + "gi";
+      // Boolean sum of present fields
       let col = parseInt((event.d !== "") + (event.m !== ""), 10);
+      // Height of grid item according to content.
       let numRows = this.determineRowSize(event);
+      // This item's layout descriptor
       let itemLayout = {};
-      // If day, only add to index if necessary and increment yInd
-      if (event.d !== "") {
-        if (!(event.y in dateIndex)) {
-          yInd = this.newYearEncountered(event.y, layout, gridItems, dateIndex, yInd);
-        }
-        if (!(dateIndex[event.y].has(event.m))) {
-          dateIndex[event.y].set(event.m, yInd);
-        }
-        itemLayout = {i: key, x: col, y: yInd, w: 1, h: numRows, static: true};
-        yInd += numRows;
-      } else {
-        // If month, check index first, otherwise add to index
-        if (event.m !== "") {
-          // Ensure year index initialized
-          if (!(event.y in dateIndex)) {
-            yInd = this.newYearEncountered(event.y, layout, gridItems, dateIndex, yInd);
-          }
-          let ind;
-          let next;
-          // Check if in index
-          if (dateIndex[event.y].has(event.m)) {
-            ind = dateIndex[event.y].get(event.m);
-            next = ind + numRows;
-            dateIndex[event.y].set(event.m, next)
-            if (next > yInd) {
-              yInd = next;
-            }
-          } else {
-            ind = yInd;
-            dateIndex[event.y].set(event.m, ind+numRows);
-            yInd += numRows;
-          }
-          itemLayout = {i: key, x: col, y: ind, w: 1, h: numRows, static: true};
+
+      // Handle Year
+      if (event.d === "" && event.m === "") {
+        curMonth = null;
+        // If in same year bloc, simply add on and increment columns
+        if (event.y === curYear) {
+          itemLayout = {i: key, x: col, y: yInd, w: 1, h: numRows, static: true};
+          yInd += numRows;
+        // Otherwise reset year bloc and all indices to next bloc index
         } else {
-          if (!(event.y in dateIndex)) {
-            yInd = this.newYearEncountered(event.y, layout, gridItems, dateIndex, yInd);
-          }
-          let ind = dateIndex[event.y].get("year");
-          let next = ind + numRows;
-          dateIndex[event.y].set("year", next);
-          if (next > yInd) {
-            yInd = next;
-          }
-          itemLayout = {i: key, x: col, y: ind, w: 1, h: numRows, static: true};        
+          curYear = event.y;
+          let next = this.newYearEncountered(
+              event.y, layout, gridItems, Math.max(yInd, mInd, dInd));
+          itemLayout = {i: key, x: col, y: next, w: 1, h: numRows, static: true};
+          yInd = next+numRows;
+          mInd = next;
+          dInd = next;
         }
+      // Handle Month
+      } else if (event.d === "") {
+        // If in different month bloc, fast-forward month/day indices
+        if (event.m !== curMonth) {
+          let nextMonthInd = Math.max(mInd, dInd);
+          mInd = nextMonthInd;
+          dInd = nextMonthInd;
+        }
+        // If same year add on, else reset year bloc and all indices
+        if (event.y === curYear) {
+          itemLayout = {i: key, x: col, y: mInd, w: 1, h: numRows, static: true};
+          mInd += numRows;
+        } else {
+          curYear = event.y;
+          let next = this.newYearEncountered(
+              event.y, layout, gridItems, Math.max(yInd, mInd, dInd));
+          itemLayout = {i: key, x: col, y: next, w: 1, h: numRows, static: true};
+          yInd = next;
+          mInd = next+numRows;
+          dInd = next;
+        }
+        curMonth = event.m;
+      // Handle Day
+      } else {
+        if (event.m !== curMonth) {
+          let nextMonthInd = Math.max(mInd, dInd);
+          mInd = nextMonthInd;
+          dInd = nextMonthInd;
+        }
+        if (event.y === curYear) {
+          itemLayout = {i: key, x: col, y: dInd, w: 1, h: numRows, static: true};
+          dInd += numRows;
+        } else {
+          curYear = event.y;
+          let next = this.newYearEncountered(
+              event.y, layout, gridItems, Math.max(yInd, mInd, dInd));
+          itemLayout = {i: key, x: col, y: next, w: 1, h: numRows, static: true};
+          yInd = next;
+          mInd = next;
+          dInd = next+numRows;
+        }
+        curMonth = event.m;
       }
       layout.push(itemLayout);
       gridItems.push(
@@ -119,3 +159,23 @@ export default class TimelineDisplay extends Component {
     );
   }
 }
+
+/* istanbul ignore next */
+function mapStateToProps(state) {
+  return {
+    common: state.common,
+    timeline: state.timeline,
+  };
+}
+
+/* istanbul ignore next */
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({ ...actions }, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TimelineDisplay);
