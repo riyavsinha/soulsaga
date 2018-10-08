@@ -12,27 +12,6 @@ export class ChronologicalOrderSelect extends Component {
     actions: PropTypes.object.isRequired,
   };
 
-  CHRONO_STATES = {
-    DEFAULT: "forward",
-    REVERSE: "reverse",
-  }
-
-  // changeEventOrder = e => {
-  //   let events = this.props.timeline.events;
-  //   switch (e.target.value) {
-  //     case this.CHRONO_STATES.REVERSE:
-  //       events.sort((x, y) => y.ms - x.ms)
-  //       break;
-  //     case this.CHRONO_STATES.DEFAULT:
-  //       events.sort((x, y) => x.ms - y.ms)
-  //       break;
-  //     default:
-  //       throw new Error("unsupported chronological ordering");
-  //   }
-  //   this.setState({ordering: e.target.value});
-  //   this.props.actions.populateEvents(events);
-  // }
-
   changeOrder = e => this.props.actions.setChronoOrder(e.target.value);
 
   render() {
@@ -45,8 +24,8 @@ export class ChronologicalOrderSelect extends Component {
             className="timeline-chronological-order-select"
             margin="normal"
           >
-            <MenuItem value={this.CHRONO_STATES.DEFAULT}>Forward</MenuItem>
-            <MenuItem value={this.CHRONO_STATES.REVERSE}>Reverse</MenuItem>
+            <MenuItem value="forward">Forward</MenuItem>
+            <MenuItem value="reverse">Reverse</MenuItem>
           </TextField>
     );
   }
