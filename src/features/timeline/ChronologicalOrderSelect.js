@@ -26,6 +26,7 @@ export class ChronologicalOrderSelect extends Component {
           >
             <MenuItem value="forward">Forward</MenuItem>
             <MenuItem value="reverse">Reverse</MenuItem>
+            <MenuItem value="year-reverse">Year Reverse</MenuItem>
           </TextField>
     );
   }
