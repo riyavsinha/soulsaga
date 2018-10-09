@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 import 'react-grid-layout/css/styles.css' 
 import 'react-resizable/css/styles.css' 
+var _ = require('lodash');
 
 const ReactGridLayout = WidthProvider(RGL);
 
@@ -16,12 +17,27 @@ export class TimelineDisplay extends Component {
   };
 
   getEvents = () => {
-    let events = this.props.timeline.events;
+    let events = [...this.props.timeline.events];
     switch (this.props.timeline.eventOrdering) {
       case "reverse":
-        return events.sort((x, y) => y.ms - x.ms)
+        return events.sort((x, y) => y.ms - x.ms);
       case "forward":
-        return events.sort((x, y) => x.ms - y.ms)
+        return events.sort((x, y) => x.ms - y.ms);
+      case "year-reverse":
+        let groups = []
+        let group = []
+        let curYear = events[0] ? events[0].y : null;
+        events.forEach(e => {
+          if (e.y === curYear) {
+            group.push(e)
+          } else {
+            curYear = e.y;
+            groups.push(group);
+            group = [e];
+          }
+        })
+        groups.push(group);
+        return _.flatten(_.reverse(groups));
       default:
         throw new Error("unsupported chronological ordering");
     }
@@ -45,7 +61,7 @@ export class TimelineDisplay extends Component {
     if (e.i !== "") { 
       numRows += 3
     }
-    if (e.tg.length && !e.de && !e.i) {
+    if (e.tg.length) {
         numRows += 1;
     }
     if (e.de.length > 90) { 
