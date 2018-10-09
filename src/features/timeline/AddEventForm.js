@@ -159,7 +159,8 @@ export class AddEventForm extends Component {
    * Reuses ID of editingEvent if exists.
    */
   buildEventProto = () => {
-    const img = this.refs.cropper != null
+    const img = this.refs.cropper !== null &&
+        this.refs.cropper.getCroppedCanvas() !== null
       ? this.refs.cropper.getCroppedCanvas().toDataURL()
       : "";
     const id = this.props.timeline.editingEvent == null
@@ -221,15 +222,15 @@ export class AddEventForm extends Component {
               key="closeImgButton">
             <CloseIcon />
           </IconButton>,
-        <Cropper
-            ref="cropper"
-            src={this.state.eventImg}
-            style={{width: 640, height: 360}}
-            aspectRatio={16 / 9}
-            autoCropArea={1}
-            guides={true}
-            dragMode="move"
-            key="imgCropper"/>
+          <Cropper
+              ref="cropper"
+              src={this.state.eventImg}
+              style={{width: 640, height: 360}}
+              aspectRatio={16 / 9}
+              autoCropArea={1}
+              guides={true}
+              dragMode="move"
+              key="imgCropper"/>
         ]
       );
     }
