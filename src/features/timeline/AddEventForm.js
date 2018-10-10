@@ -159,7 +159,7 @@ export class AddEventForm extends Component {
    * Reuses ID of editingEvent if exists.
    */
   buildEventProto = () => {
-    const img = this.refs.cropper !== null &&
+    const img = this.refs.cropper &&
         this.refs.cropper.getCroppedCanvas() !== null
       ? this.refs.cropper.getCroppedCanvas().toDataURL()
       : "";
