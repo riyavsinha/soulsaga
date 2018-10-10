@@ -72,7 +72,7 @@ export class AddEventForm extends Component {
         eventCategory: e.c,
         eventTitle: e.t,
         eventDesc: e.de,
-        eventTags: e.tg.split(','),
+        eventTags: e.tg ? e.tg.split(',') : [],
         eventMonth: e.m,
         eventDay: e.d,
         eventYear: e.y,

@@ -124,6 +124,11 @@ export function reducer(state, action) {
     case TIMELINE_ADD_EVENT_SUCCESS:
       // The request is success
       let ind = binfind(action.event.ms, state.events, "ms");
+      console.log(action.event.tg);
+      console.log(action.event.tg.split(','))
+      let tags = action.event.tg ?
+          _.union([...state.availableTags], action.event.tg.split(',')) :
+          [...state.availableTags]
       return {
         ...state,
         events: [
@@ -131,7 +136,7 @@ export function reducer(state, action) {
           action.event,
           ...state.events.slice(ind)
         ],
-        availableTags: _.union([...state.availableTags], action.event.tg.split(',')),
+        availableTags: tags,
         addEventPending: false,
         addEventError: null,
       };
