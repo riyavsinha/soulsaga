@@ -34,7 +34,10 @@ export class AboutPage extends Component {
         </Typography>
         <Typography className="about-about-page__p">
           Soulsaga is currently run by a team of one (me), working on this as a
-          hobby project.
+          hobby project. I intend for this to be an&nbsp;
+          <a href="https://github.com/riyavsinha/soulsaga">open-source</a> project
+          dedicated to providing tools for personal identity and growth
+          tracking.
         </Typography>
         <Typography className="about-about-page__p">
           For the past 2 years, I've kept a spreadsheet of all the
@@ -91,6 +94,13 @@ export class AboutPage extends Component {
           pages and interactions.
         </Typography>
         <Typography variant="title" className="about-about-page__t">
+          Are you open source?
+        </Typography>
+        <Typography className="about-about-page__p">
+          We are! Find us on GitHub&nbsp;
+          <a href="https://github.com/riyavsinha/soulsaga">here</a>! :)
+        </Typography>
+        <Typography variant="title" className="about-about-page__t">
           I'd like to know more about your tech stack. What technologies
           do you use?
         </Typography>
@@ -137,7 +147,7 @@ export class AboutPage extends Component {
           The following is a list of features I plan to add. These are subject
           to change, as well as the order in which these are addressed.
         </Typography>
-        <RoadmapItem>
+        <RoadmapItem checked={true}>
           [Minor] Add tags for events
         </RoadmapItem>
         <RoadmapItem>
