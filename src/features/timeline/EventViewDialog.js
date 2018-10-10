@@ -89,7 +89,9 @@ export class EventViewDialog extends Component {
           <div className="timeline-view-event-dialog__header-container">
             <div>
               <Avatar className="timeline-view-event-dialog__avatar">
-                {e ? CATEGORY_ICON_MAP[e.c] : "" }
+                {e ? (e.c === "Other" ?
+                  this.props.common.user.displayName.slice(0, 1).toUpperCase() :
+                  CATEGORY_ICON_MAP[e.c]) : ""}
               </Avatar>
             </div>
             <div className="timeline-view-event-dialog__date">
@@ -190,6 +192,7 @@ export class EventViewDialog extends Component {
 function mapStateToProps(state) {
   return {
     timeline: state.timeline,
+    common: state.common,
   };
 }
 
