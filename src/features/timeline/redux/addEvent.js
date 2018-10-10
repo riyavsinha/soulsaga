@@ -124,8 +124,6 @@ export function reducer(state, action) {
     case TIMELINE_ADD_EVENT_SUCCESS:
       // The request is success
       let ind = binfind(action.event.ms, state.events, "ms");
-      console.log(action.event.tg);
-      console.log(action.event.tg.split(','))
       let tags = action.event.tg ?
           _.union([...state.availableTags], action.event.tg.split(',')) :
           [...state.availableTags]

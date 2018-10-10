@@ -11,7 +11,7 @@ import {userStorage, database, TIMELINE} from 'common/firebase';
  * 
  * @param id {Number} The ID of the event to delete
  */
-export function deleteEvent(id, ref = "") {
+export function deleteEvent(id, ref = "", hasImage = false) {
   return (dispatch, getState) => { // optionally you can have getState as the second argument
     dispatch({
       type: TIMELINE_DELETE_EVENT_BEGIN,
@@ -26,7 +26,7 @@ export function deleteEvent(id, ref = "") {
         const dbref = database.ref(TIMELINE + getState().common.user.uid);
         let dbPromise = dbref.child(ref).remove();
         const storageRef = userStorage.child(getState().common.user.uid);
-        let storagePromise = storageRef.child(ref).delete();
+        let storagePromise = hasImage ? storageRef.child(ref).delete() : Promise.resolve();
         reqPromise = Promise.all([dbPromise, storagePromise]);
       } else {
         reqPromise = Promise.resolve();

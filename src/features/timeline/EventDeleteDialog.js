@@ -21,7 +21,7 @@ export class EventDeleteDialog extends Component {
   handleDelete = () => {
     let e = this.props.timeline.deletingEvent;
     this.handleClose();
-    this.props.actions.deleteEvent(e.id, e.ref)
+    this.props.actions.deleteEvent(e.id, e.ref, e.hi)
         .then(() => this.props.actions.dataOperationSnackbarSucceeded())
         .catch(() => this.props.actions.dataOperationSnackbarFailed());
   }
