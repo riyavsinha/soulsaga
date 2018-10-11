@@ -1,6 +1,7 @@
 import AddEventForm from './AddEventForm';
 import ChronologicalOrderSelect from './ChronologicalOrderSelect';
 import EventDeleteDialog from './EventDeleteDialog';
+import EventFilter from './EventFilter';
 import EventViewDialog from './EventViewDialog';
 import SaveLoadSection from './SaveLoadSection';
 import TimelineDisplayWrapper from './TimelineDisplayWrapper';
@@ -37,6 +38,7 @@ export class DefaultPage extends Component {
           <SaveLoadSection className="timeline-default-page__save-load-section" />
           <ChronologicalOrderSelect />
         </div>
+        <EventFilter />
         <this.ConditionalDisplay />
         <EventViewDialog />
         <EventDeleteDialog />

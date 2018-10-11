@@ -2,17 +2,14 @@ import AddIcon from '@material-ui/icons/Add';
 import AppBar from '@material-ui/core/AppBar';
 import DatePicker from './DatePicker';
 import Button from '@material-ui/core/Button';
+import CategorySelect from './CategorySelect';
 import CloseIcon from '@material-ui/icons/Close';
 import Cropper from 'react-cropper';
 import Dialog from '@material-ui/core/Dialog';
-import Divider from '@material-ui/core/Divider';
 import EventProto from '../../proto/EventProto.js'
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import IconButton from '@material-ui/core/IconButton';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MenuItem from '@material-ui/core/MenuItem';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Slide from '@material-ui/core/Slide';
@@ -22,7 +19,6 @@ import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import UploadButton from 'features/library/UploadButton';
-import { PRIMARY_CATEGORIES, SECONDARY_CATEGORIES } from './eventiconmaps';
 import { 
   dataOperationSnackbarFailed,
   dataOperationSnackbarSucceeded } from 'features/common/redux/actions';
@@ -276,44 +272,9 @@ export class AddEventForm extends Component {
           <form className="timeline-add-event-form__container">
 
             {/** Event Category Select */}
-            <TextField
-              select
-              label="Category"
-              value={this.state.eventCategory}
-              onChange={this.handleEventCategoryChange}
-              className="timeline-add-event__category-field"
-              margin="normal"
-              SelectProps={{
-                MenuProps: {
-                  className: "timeline-add-event__category-select-menu",
-                },
-              }}
-              InputProps={{
-                classes: {
-                  input: "timeline-add-event__category-select-input"
-                }
-              }}
-            >
-              <MenuItem value="Other"><em>Other</em></MenuItem>
-              <Divider/>
-              {Object.keys(PRIMARY_CATEGORIES).map(c => (
-                <MenuItem key={c} value={c}>
-                  <ListItemIcon>
-                    {PRIMARY_CATEGORIES[c]}
-                  </ListItemIcon>
-                  <ListItemText inset primary={c} />
-                </MenuItem>
-              ))}
-              <Divider/>
-              {Object.keys(SECONDARY_CATEGORIES).map(c => (
-                <MenuItem key={c} value={c}>
-                  <ListItemIcon>
-                    {SECONDARY_CATEGORIES[c]}
-                  </ListItemIcon>
-                  <ListItemText inset primary={c} />
-                </MenuItem>
-              ))}
-            </TextField>
+            <CategorySelect
+                category={this.state.eventCategory}
+                onChange={this.handleEventCategoryChange} />
 
             {/** Event Title */}
             <TextField

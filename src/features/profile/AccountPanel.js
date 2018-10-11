@@ -1,6 +1,6 @@
 import Button from '@material-ui/core/Button';
 import React, { Component } from 'react';
-import Panel from './Panel';
+import Panel from 'features/library/Panel';
 import PropTypes from 'prop-types';
 import SimpleDialog from 'features/library/SimpleDialog';
 import SimpleSnackbar from 'features/library/SimpleSnackbar';

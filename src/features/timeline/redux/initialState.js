@@ -14,6 +14,8 @@ const initialState = {
   availableTags: [],
   hasLoadedEvents: false,
   eventOrdering: "forward",
+  eventTagFilters: [],
+  eventCategoryFilters: [],
   
   addEventPending: false,
   addEventError: null,
