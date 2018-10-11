@@ -10,3 +10,5 @@ export { setHasLoadedEvents } from './setHasLoadedEvents';
 export { fetchEvents, dismissFetchEventsError } from './fetchEvents';
 export { resetTimelineData } from './resetTimelineData';
 export { setChronoOrder } from './setChronoOrder';
+export { setEventTagFilters } from './setEventTagFilters';
+export { setEventCategoryFilters } from './setEventCategoryFilters';

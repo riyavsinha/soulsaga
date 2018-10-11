@@ -19,6 +19,8 @@ import { reducer as setHasLoadedEventsReducer } from './setHasLoadedEvents';
 import { reducer as fetchEventsReducer } from './fetchEvents';
 import { reducer as resetTimelineDataReducer } from './resetTimelineData';
 import { reducer as setChronoOrderReducer } from './setChronoOrder';
+import { reducer as setEventTagFiltersReducer } from './setEventTagFilters';
+import { reducer as setEventCategoryFiltersReducer } from './setEventCategoryFilters';
 
 const reducers = [
   addEventReducer,
@@ -33,6 +35,8 @@ const reducers = [
   fetchEventsReducer,
   resetTimelineDataReducer,
   setChronoOrderReducer,
+  setEventTagFiltersReducer,
+  setEventCategoryFiltersReducer,
 ];
 
 export default function reducer(state = initialState, action) {

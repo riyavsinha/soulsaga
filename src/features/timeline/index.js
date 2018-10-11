@@ -9,3 +9,5 @@ export { default as SaveLoadSection } from './SaveLoadSection';
 export { default as TimelineDisplayWrapper } from './TimelineDisplayWrapper';
 export { default as TagInput } from './TagInput';
 export { default as ChronologicalOrderSelect } from './ChronologicalOrderSelect';
+export { default as EventFilter } from './EventFilter';
+export { default as CategorySelect } from './CategorySelect';

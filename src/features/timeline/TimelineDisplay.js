@@ -18,6 +18,14 @@ export class TimelineDisplay extends Component {
 
   getEvents = () => {
     let events = [...this.props.timeline.events];
+    if (this.props.timeline.eventTagFilters.length > 0) {
+      events = events.filter(e => {
+        return _.intersection(e.tg.split(','), this.props.timeline.eventTagFilters).length > 0})
+    }
+    if (this.props.timeline.eventCategoryFilters.length > 0) {
+      events = events.filter(e => {
+        return this.props.timeline.eventCategoryFilters.includes(e.c)})
+    }
     switch (this.props.timeline.eventOrdering) {
       case "reverse":
         return events.sort((x, y) => y.ms - x.ms);

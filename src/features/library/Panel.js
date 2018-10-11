@@ -12,18 +12,18 @@ export default class Panel extends Component {
 
   render() {
     return (
-      <ExpansionPanel className="profile-panel" >
+      <ExpansionPanel className="library-panel" >
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <Typography
                 variant="title"
-                className="profile-panel__title">
+                className="library-panel__title">
               {this.props.title}
             </Typography>
             <Typography variant="subheading">
               {this.props.settingText}
             </Typography>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails className="profile-panel__details">
+        <ExpansionPanelDetails className="library-panel__details">
           {this.props.children}
         </ExpansionPanelDetails>
       </ExpansionPanel>

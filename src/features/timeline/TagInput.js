@@ -100,6 +100,7 @@ export default class TagInput extends Component {
   // };
 
   render() {
+    let layoutClass = this.props.mode === "side" ? "timeline-tag-input__flex" : ""
     return (
       <div className="timeline-tag-input">
         <Downshift 
@@ -115,7 +116,7 @@ export default class TagInput extends Component {
             selectedItem,
             highlightedIndex,
           }) => (
-            <div>
+            <div className={layoutClass}>
               <div className="timeline-tag-input__tag-chip-section">
                 {selectedItem.length > 0 &&
                   selectedItem.map(item => (
