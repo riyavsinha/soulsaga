@@ -150,7 +150,7 @@ export class AboutPage extends Component {
         <RoadmapItem checked={true}>
           [Minor] Add tags for events
         </RoadmapItem>
-        <RoadmapItem>
+        <RoadmapItem checked={true}>
           [Minor] Add event filtering by category and tags
         </RoadmapItem>
         <RoadmapItem>
