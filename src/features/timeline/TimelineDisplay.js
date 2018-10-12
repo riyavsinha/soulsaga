@@ -20,7 +20,7 @@ export class TimelineDisplay extends Component {
     let events = [...this.props.timeline.events];
     if (this.props.timeline.eventTagFilters.length > 0) {
       events = events.filter(e => {
-        return _.intersection(e.tg.split(','), this.props.timeline.eventTagFilters).length > 0})
+        return _.intersection(e.tg, this.props.timeline.eventTagFilters).length > 0})
     }
     if (this.props.timeline.eventCategoryFilters.length > 0) {
       events = events.filter(e => {

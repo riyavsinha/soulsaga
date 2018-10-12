@@ -68,7 +68,7 @@ export class AddEventForm extends Component {
         eventCategory: e.c,
         eventTitle: e.t,
         eventDesc: e.de,
-        eventTags: e.tg ? e.tg.split(',') : [],
+        eventTags: e.tg,
         eventMonth: e.m,
         eventDay: e.d,
         eventYear: e.y,
@@ -168,7 +168,7 @@ export class AddEventForm extends Component {
     e.c = this.state.eventCategory;
     e.t = this.state.eventTitle;
     e.de = this.state.eventDesc;
-    e.tg = this.state.eventTags.join(',');
+    e.tg = this.state.eventTags;
     e.y = this.state.eventYear.replace(/^[0]+/g,"");
     e.m = this.state.eventMonth;
     e.d = this.state.eventDay.replace(/^[0]+/g,"");
