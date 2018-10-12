@@ -32,6 +32,7 @@ export class DefaultPage extends Component {
       d: "",
       i: "",
       id: "",
+      tg: [],
       ms: 0,
     });
     const f = new EventProto({
@@ -47,6 +48,7 @@ export class DefaultPage extends Component {
       d: "",
       i: "",
       id: "",
+      tg: [],
       ms: 0,
     });
     const g = new EventProto({
@@ -61,6 +63,7 @@ export class DefaultPage extends Component {
       d: "",
       i: "",
       id: "",
+      tg: [],
       ms: 0,
     });
     const h = new EventProto({
@@ -74,6 +77,7 @@ export class DefaultPage extends Component {
       d: "",
       i: "",
       id: "",
+      tg: [],
       ms: 0,
     });
     return (
