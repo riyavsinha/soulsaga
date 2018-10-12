@@ -21,7 +21,7 @@ export function fetchEvents(args = {}) {
       fetchPromise.then(
         (res) => {
           const tags = getState().common.timelineConsent ?
-              _.union(...res.map(e => e.tg ? e.tg.split(',') : [])) :
+              _.union(...res.map(e => e.tg)) :
               [];
           dispatch({
             type: TIMELINE_FETCH_EVENTS_SUCCESS,

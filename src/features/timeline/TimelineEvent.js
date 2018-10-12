@@ -29,7 +29,7 @@ export class TimelineEvent extends Component {
     if (this.props.event.tg.length) {
       return (
         <div className={"timeline-timeline-event__tag-container"+isEnd}>
-          {this.props.event.tg.split(',').map(t =>
+          {this.props.event.tg.map(t =>
             <Chip
               label={(<div key={this.props.event.id+t+"ChipLabel"}>{t}</div>)}
               className="timeline-timeline-event__tag"

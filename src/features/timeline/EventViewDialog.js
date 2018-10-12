@@ -39,7 +39,7 @@ export class EventViewDialog extends Component {
     if (e && e.tg.length) {
       return (
         <DialogContent>
-          {e.tg.split(',').map(t =>
+          {e.tg.map(t =>
             <Chip
               label={t}
               className="timeline-timeline-event__tag"

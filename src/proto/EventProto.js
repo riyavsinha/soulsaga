@@ -38,7 +38,7 @@ export default class EventProto {
   constructor(e = null) {
     if (e === null) {
       this.c = "Other";
-      this.t = "";
+      this.t = [];
       this.de = "";
       this.tg = "";
       this.y = "";
@@ -59,7 +59,7 @@ export default class EventProto {
     this.c = e.c;
     this.t = e.t;
     this.de = e.de;
-    this.tg = e.tg || "";
+    this.tg = typeof(e.tg) === "string" ? (e.tg.length ? e.tg.split(',') : []) : e.tg;
     this.y = e.y;
     this.m = e.m;
     this.d = e.d;

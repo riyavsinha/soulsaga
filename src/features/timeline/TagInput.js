@@ -118,8 +118,7 @@ export default class TagInput extends Component {
           }) => (
             <div className={layoutClass}>
               <div className="timeline-tag-input__tag-chip-section">
-                {selectedItem.length > 0 &&
-                  selectedItem.map(item => (
+                {selectedItem.map(item => (
                     <Chip
                       key={item+"Chip"}
                       label={item}
