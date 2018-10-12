@@ -135,6 +135,17 @@ export class AboutPage extends Component {
           any device. Also, because each user has their own key,
           no one person's data security is dependent on other users!
         </Typography>
+        <img 
+            className="about-about-page__encryption-img"
+            alt="Diagram of Encryption Method"
+            src="https://firebasestorage.googleapis.com/v0/b/soulsaga-93aed.appspot.com/o/app%2Fabout%2FScreen%20Shot%202018-10-10%20at%2011.01.59%20PM.png?alt=media&token=86e42292-cd76-4162-afee-c9f9b78e5c7d"/>
+        <Typography className="about-about-page__p">
+          If you're further interested in the details of how this works, and
+          why I chose this specific solution, you can read about it&nbsp;
+          <a href="https://medium.com/@riyavsinha/client-side-encryption-in-firebase-database-60dd55abadb2">
+            here
+          </a>, complete with diagrams :) 
+        </Typography>
         <Typography className="about-about-page__p">
           <b> WARNING: Clearing your data from SoulSaga in your Google Drive
           will cause your data to be irrecoverable </b>
