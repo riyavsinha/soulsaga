@@ -1,6 +1,6 @@
 ---
 name: Feature request for Existing Tool
-about: Suggest an idea for this project
+about: Suggest an idea for an existing feature
 
 ---
 
