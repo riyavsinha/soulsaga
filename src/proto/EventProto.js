@@ -56,9 +56,9 @@ export default class EventProto {
       throw new Error("Invalid EventProto");
     }
 
-    this.c = e.c;
-    this.t = e.t;
-    this.de = e.de;
+    this.c = e.c || "Other";
+    this.t = e.t || "";
+    this.de = e.de || "";
     this.tg = typeof(e.tg) === "string" ? (e.tg.length ? e.tg.split(',') : []) : e.tg;
     this.y = e.y;
     this.m = e.m;
