@@ -27,19 +27,15 @@ export class TimelineDisplay extends Component {
       events = events.filter(e => {
         return this.props.timeline.eventCategoryFilters.includes(e.c)})
     }
-    let groups;
-    let group;
-    let curYear;
     switch (this.props.timeline.eventOrdering) {
+      case "forward":
+        return events.sort((x, y) => x.ms - y.ms);
       case "reverse":
         return events.sort((x, y) => y.ms - x.ms);
-      case "forward":
-        events = events.sort((x, y) => x.ms - y.ms);
-        return events;
       case "year-reverse":
-        groups = []
-        group = []
-        curYear = events[0] ? events[0].y : null;
+        let groups = []
+        let group = []
+        let curYear = events[0] ? events[0].y : null;
         events.forEach(e => {
           if (e.y === curYear) {
             group.push(e)
@@ -50,7 +46,6 @@ export class TimelineDisplay extends Component {
           }
         })
         groups.push(group);
-        groups = groups.map(g => g.sort((x, y) => (!!x.m+!!x.d) - (!!y.m+!!y.d)));
         return _.flatten(_.reverse(groups));
       default:
         throw new Error("unsupported chronological ordering");
@@ -194,8 +189,6 @@ export class TimelineDisplay extends Component {
   render() {
     let info = this.buildIndex();
     let layout = info[0], mobileLayout = info[1], items = info[2];
-    // console.log(layout)
-    // console.log(mobileLayout);
     return (
       <ResponsiveGridLayout
           breakpoints={{normal:950,condensed:0}}
