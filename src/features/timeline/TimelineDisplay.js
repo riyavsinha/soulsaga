@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import RGL, { WidthProvider } from "react-grid-layout";
+import { Responsive, WidthProvider } from "react-grid-layout";
 import TimelineEvent from './TimelineEvent';
 import Typography from '@material-ui/core/Typography';
 import { bindActionCreators } from 'redux';
@@ -9,9 +9,10 @@ import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css' 
 var _ = require('lodash');
 
-const ReactGridLayout = WidthProvider(RGL);
+const ResponsiveGridLayout = WidthProvider(Responsive);
 
 export class TimelineDisplay extends Component {
+  
   static propTypes = {
 
   };
@@ -26,15 +27,19 @@ export class TimelineDisplay extends Component {
       events = events.filter(e => {
         return this.props.timeline.eventCategoryFilters.includes(e.c)})
     }
+    let groups;
+    let group;
+    let curYear;
     switch (this.props.timeline.eventOrdering) {
       case "reverse":
         return events.sort((x, y) => y.ms - x.ms);
       case "forward":
-        return events.sort((x, y) => x.ms - y.ms);
+        events = events.sort((x, y) => x.ms - y.ms);
+        return events;
       case "year-reverse":
-        let groups = []
-        let group = []
-        let curYear = events[0] ? events[0].y : null;
+        groups = []
+        group = []
+        curYear = events[0] ? events[0].y : null;
         events.forEach(e => {
           if (e.y === curYear) {
             group.push(e)
@@ -45,6 +50,7 @@ export class TimelineDisplay extends Component {
           }
         })
         groups.push(group);
+        groups = groups.map(g => g.sort((x, y) => (!!x.m+!!x.d) - (!!y.m+!!y.d)));
         return _.flatten(_.reverse(groups));
       default:
         throw new Error("unsupported chronological ordering");
@@ -85,6 +91,7 @@ export class TimelineDisplay extends Component {
     var gridItems = [];
     // Layout descriptors for each element in gridItems
     var layout = [];
+    var mobileLayout = [];
     // Marker for current year
     var curYear = null;
     // Marker for current month
@@ -93,6 +100,7 @@ export class TimelineDisplay extends Component {
     var yInd = 0;
     var mInd = 0;
     var dInd = 0;
+    var mobileInd = 0;
 
     this.getEvents().forEach((event, ind) => {
       // Use ID as key
@@ -103,7 +111,16 @@ export class TimelineDisplay extends Component {
       let numRows = this.determineRowSize(event);
       // This item's layout descriptor
       let itemLayout = {};
+      let itemMobileLayout = {};
 
+      // MOBILE
+      if (event.y !== curYear) {
+        mobileLayout.push({i: event.y+"gi", x: 0, y: mobileInd, w:1, h:2, static: true});
+        mobileInd += 2;
+      } 
+      itemMobileLayout = {i: key, x: 0, y: mobileInd, w: 1, h: numRows, static: true};
+      mobileInd += numRows;
+      // DESKTOP
       // Handle Year
       if (event.d === "" && event.m === "") {
         curMonth = null;
@@ -164,22 +181,29 @@ export class TimelineDisplay extends Component {
         }
         curMonth = event.m;
       }
+      mobileLayout.push(itemMobileLayout);
       layout.push(itemLayout);
       gridItems.push(
         <div key={key}>
           <TimelineEvent event={event} key={event.id} />
         </div>);
     })
-    return [layout, gridItems];
+    return [layout, mobileLayout, gridItems];
   }
 
   render() {
     let info = this.buildIndex();
-    let layout = info[0], items = info[1];
+    let layout = info[0], mobileLayout = info[1], items = info[2];
+    // console.log(layout)
+    // console.log(mobileLayout);
     return (
-      <ReactGridLayout cols={3} rowHeight={45} layout={layout}>
+      <ResponsiveGridLayout
+          breakpoints={{normal:950,condensed:0}}
+          cols={{normal:3,condensed:1}}s
+          rowHeight={45}
+          layouts={{normal:layout,condensed:mobileLayout}}>
         {items}
-      </ReactGridLayout>
+      </ResponsiveGridLayout>
     );
   }
 }

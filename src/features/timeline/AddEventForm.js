@@ -187,23 +187,23 @@ export class AddEventForm extends Component {
     }
     var date = new Date();
     if (d === "" && m === "") {
-      date.setFullYear(parseInt(y, 10)+1);
+      date.setFullYear(parseInt(y, 10));
       date.setMonth(0);
-      date.setDate(0);
-      date.setHours(23);
-      date.setMinutes(59);
+      date.setDate(1);
+      date.setHours(0);
+      date.setMinutes(0);
     } else if (d === "") {
       date.setFullYear(parseInt(y, 10));
-      date.setMonth(MONTHS[m])
-      date.setDate(0);
-      date.setHours(23);
+      date.setMonth(MONTHS[m]-1)
+      date.setDate(1);
+      date.setHours(1);
       date.setMinutes(0);
     } else {
       date.setFullYear(parseInt(y, 10));
       date.setMonth(MONTHS[m]-1);
       date.setDate(parseInt(d, 10));
       date.setHours(1);
-      date.setMinutes(0);
+      date.setMinutes(1);
     }
     return date.getTime();
   }
