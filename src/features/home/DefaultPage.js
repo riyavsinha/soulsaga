@@ -129,8 +129,8 @@ export class DefaultPage extends Component {
         <Typography variant="display4" align="center" className="landing-page__motto">
           Your space<br/>your story
         </Typography>
-        {this.generateTimelineInfoEvents()}
         {this.renderTimelineButton()}
+        {this.generateTimelineInfoEvents()}
         <this.TermsNotification />
       </div>
     );
