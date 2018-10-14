@@ -15,7 +15,7 @@ export function reducer(state, action) {
     case TIMELINE_SET_EVENT_TAG_FILTERS:
       return {
         ...state,
-        eventFilters: action.data,
+        eventTagFilters: action.data,
       };
 
     default:
