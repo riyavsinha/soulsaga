@@ -155,9 +155,7 @@ export class TitleBar extends Component {
           <Toolbar>
             <NavigationMenu menuButtonClassName="title-bar__menu-icon" />
             <div className="title-bar__app-bar-text">
-              <Typography variant="title" color="inherit">
-                SoulSaga
-              </Typography>
+              <img alt="logo" src="logotext.png" height={36}/>
             </div>
             {this.renderProfileButton()}
           </Toolbar>

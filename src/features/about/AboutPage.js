@@ -61,6 +61,8 @@ export class AboutPage extends Component {
           the tools I plan to provide here.
         </Typography>
 
+        <img alt="logo" src="SoulSagaLogo.png" width={100} className="about-about-page__logo-img" />
+
         <Typography variant="display1" className="about-about-page__d2">
           FAQ
         </Typography>
