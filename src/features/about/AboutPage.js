@@ -53,13 +53,18 @@ export class AboutPage extends Component {
           normal timeline with events spaced out relative to
           time. I wanted it to feel natural, as if you were literally
           writing down your life on cards and arranging them on a wall
-          or on the floor.
+          or on the floor. I want this to help see your journey as
+          a whole, the big picture from above, rather than what little
+          you can see while you're in the maze of life. And hopefully,
+          it'll help find yourself, the core of who you are :)
         </Typography>
         <Typography className="about-about-page__p">
           So here we are! It's a work in progress, but I hope many
           of you will resonate with my mission, and benefit from
           the tools I plan to provide here.
         </Typography>
+
+        <img alt="logo" src="SoulSagaLogo.png" width={100} className="about-about-page__logo-img" />
 
         <Typography variant="display1" className="about-about-page__d2">
           FAQ
