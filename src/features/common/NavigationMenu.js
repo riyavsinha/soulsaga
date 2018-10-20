@@ -7,6 +7,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import MenuIcon from '@material-ui/icons/Menu';
+import { LightbulbIcon } from 'mdi-react';
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import {
@@ -53,6 +54,12 @@ export default class NavigationMenu extends Component {
             <ChartLineVariantIcon />
           </ListItemIcon>
           <ListItemText>Timeline</ListItemText>
+        </ListItem>
+        <ListItem button component={Link} to="/goal-discovery">
+          <ListItemIcon>
+            <LightbulbIcon />
+          </ListItemIcon>
+          <ListItemText>Goal Discovery</ListItemText>
         </ListItem>
         <Divider/>
         <ListSubheader>
