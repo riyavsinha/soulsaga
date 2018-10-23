@@ -1,12 +1,30 @@
 @import '../../styles/mixins';
 
 .goal-discovery-goal-column {
-
-}
-
-.gd-goal-column__title {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-width: 330px;
+  border: 1px solid rgba(0, 0, 0, .18);
+  margin-right: 24px;
   margin-bottom: 24px;
+}
+
+.gd-goal-column__title-section {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.gd-goal-column__title-section:after {
+    content: ""; 
+    display: block; 
+    margin: 0 auto; 
+    width: 80%;
+    border-bottom: 1px solid rgba(0, 0, 0, .18);
+}
+
+.gd-goal-column__subtitle {
+  padding-bottom: 16px;
 }
