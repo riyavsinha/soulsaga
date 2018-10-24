@@ -1,6 +1,26 @@
 @import '../../styles/mixins';
 
-.goal-discovery-goal-item {
-  margin-top: 24px;
-  margin-bottom: 24px;
+.gd-goal-item {
+  position: relative;
+  height: 48px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gd-goal-item__icon {
+  margin-right: 24px;
+  opacity: .72;
+}
+
+.gd-goal-item__text {
+  flex: 1;
+  margin-right: 56px;
+}
+
+.gd-goal-item__options-button {
+  position: absolute;
+  right: 0;
 }

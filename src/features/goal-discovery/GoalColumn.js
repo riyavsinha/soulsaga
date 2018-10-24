@@ -15,18 +15,21 @@ export class GoalColumn extends Component {
 
   render() {
     return (
-      <div className="goal-discovery-goal-column">
-        <div className="gd-goal-column__title-section">
-          <Typography variant="headline">
-            {this.props.title}
-          </Typography>
-          <Typography variant="subheading"
-              className="gd-goal-column__subtitle">
-            {this.props.subtitle}
-          </Typography>
+      <div className="gd-goal-column">
+        <div className="gd-goal-column__wrapper">
+          <div className="gd-goal-column__title-section">
+            <Typography variant="headline">
+              {this.props.title}
+            </Typography>
+            <Typography variant="subheading"
+                className="gd-goal-column__subtitle">
+              {this.props.subtitle}
+            </Typography>
+          </div>
+        
+          <GoalItem title="Swim with dolphins" />
+          <GoalItem title="Swim with dolphinsasdfasdfasdfasdfa s dfjkadkls;f jaslkdfj alsdkjf alsdkjf" />
         </div>
-      
-        <GoalItem title="Swim with dolphins" />
       </div>
     );
   }
