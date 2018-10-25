@@ -56,7 +56,6 @@ export function reducer(state, action) {
 
     case GOAL_DISCOVERY_SAVE_GOAL_SUCCESS:
       // The request is success
-      console.log(action.data);
       let column;
       let columnName;
       switch (action.data.t) {

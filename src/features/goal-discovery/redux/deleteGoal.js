@@ -17,8 +17,7 @@ export function deleteGoal(goal) {
         (res) => {
           dispatch({
             type: GOAL_DISCOVERY_DELETE_GOAL_SUCCESS,
-            col: goal.type,
-            id: goal.id,
+            data: goal
           });
           resolve(res);
         },
@@ -59,7 +58,7 @@ export function reducer(state, action) {
       // The request is success
       let column;
       let columnName;
-      switch (action.col) {
+      switch (action.data.t) {
         case "EXP":
           columnName = "experienceGoals";
           column = state.experienceGoals;
@@ -75,8 +74,7 @@ export function reducer(state, action) {
         default:
           throw new Error('Not a valid column.');
       }
-      let ind = column.findIndex(g => g.id === action.id);
-      console.log({[columnName]: 1})
+      let ind = column.findIndex(g => g.id === action.data.id);
       return {
         ...state,
         [columnName]: [
