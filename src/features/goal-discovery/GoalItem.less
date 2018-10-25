@@ -2,15 +2,16 @@
 
 .gd-goal-item {
   position: relative;
-  height: 48px;
-  margin-top: 16px;
-  margin-bottom: 16px;
+  min-height: 48px;
+  margin-top: 8px;
+  margin-bottom: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .gd-goal-item__icon {
+  flex: 0 0 auto;
   margin-right: 24px;
   opacity: .72;
 }
@@ -23,4 +24,13 @@
 .gd-goal-item__options-button {
   position: absolute;
   right: 0;
+}
+
+.gd-goal-item__category-select {
+  margin-right: 24px;
+}
+
+.gd-goal-item__text-edit-field {
+  position: relative;
+  bottom: 3px;
 }

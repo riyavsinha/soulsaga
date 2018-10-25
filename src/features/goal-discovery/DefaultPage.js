@@ -15,7 +15,6 @@ export class DefaultPage extends Component {
   render() {
     return (
       <div className="goal-discovery-default-page">
-        <Timer />
         <GoalColumns />
       </div>
     );

@@ -1,8 +1,12 @@
 import Divider from '@material-ui/core/Divider';
 import GoalItem from './GoalItem';
+import GoalProto from 'proto/GoalProto';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
+import { PlusIcon } from 'mdi-react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
@@ -12,6 +16,12 @@ export class GoalColumn extends Component {
     goalDiscovery: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
   };
+
+  handleAddItem = () => {
+    let g = new GoalProto(null, this.props.type);
+    g.id = Date.now();
+    this.props.actions.addGoal(g);
+  }; 
 
   render() {
     return (
@@ -26,9 +36,17 @@ export class GoalColumn extends Component {
               {this.props.subtitle}
             </Typography>
           </div>
-        
-          <GoalItem title="Swim with dolphins" />
-          <GoalItem title="Swim with dolphinsasdfasdfasdfasdfa s dfjkadkls;f jaslkdfj alsdkjf alsdkjf" />
+          {this.props.data.map(g => 
+            <GoalItem data={g} displayMode={!!g.g} key={g.id+"k"}/>
+          )}
+          <Button 
+              className="gd-goal-column__add-item-button"
+              variant="outlined"
+              color="primary"
+              onClick={this.handleAddItem}>
+            <PlusIcon className="gd-goal-column__add-item-plus-icon"/>
+            Add Goal
+          </Button>
         </div>
       </div>
     );

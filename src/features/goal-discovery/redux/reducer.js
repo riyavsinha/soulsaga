@@ -7,8 +7,14 @@
 // https://medium.com/@nate_wang/a-new-approach-for-managing-redux-actions-91c26ce8b5da.
 
 import initialState from './initialState';
+import { reducer as deleteGoalReducer } from './deleteGoal';
+import { reducer as addGoalReducer } from './addGoal';
+import { reducer as saveGoalReducer } from './saveGoal';
 
 const reducers = [
+  deleteGoalReducer,
+  addGoalReducer,
+  saveGoalReducer,
 ];
 
 export default function reducer(state = initialState, action) {
