@@ -38,6 +38,7 @@ class GoalItem extends Component {
 
   state = {
     goalText: this.props.data.g,
+    goalCategory: this.props.data.c,
     displayMode: this.props.displayMode !== null ? this.props.displayMode : true,
     isHovering: false,
     optionsAnchorEl: null
@@ -47,18 +48,22 @@ class GoalItem extends Component {
 
   handleMouseHoverOut = () => this.setState({isHovering: false});
 
-  handleMenuOpen = e => this.setState({optionsAnchorEl: e.currentTarget})
+  handleMenuOpen = e => this.setState({optionsAnchorEl: e.currentTarget});
 
-  handleMenuClose = () => this.setState({optionsAnchorEl: null, isHovering: false})
+  handleMenuClose = () => this.setState({optionsAnchorEl: null, isHovering: false});
 
   handleToEdit = () => this.setState({optionsAnchorEl: null, displayMode: false });
 
-  onCategoryChange = () => {}
+  onCategoryChange = e => this.setState({goalCategory: e.target.value});
 
-  onTextChange = e => this.setState({goalText: e.target.value})
+  onTextChange = e => this.setState({goalText: e.target.value});
 
   handleSaveGoal = () => {
-    this.props.actions.saveGoal({...this.props.data, g: this.state.goalText});
+    this.props.actions.saveGoal({
+      ...this.props.data,
+      g: this.state.goalText,
+      c: this.state.goalCategory
+    });
     this.setState({displayMode: true})
   };
 
@@ -113,8 +118,8 @@ class GoalItem extends Component {
             [
               <TextField
                 select
-                value={this.props.category}
-                onChange={this.props.onCategoryChange}
+                value={this.state.goalCategory}
+                onChange={this.onCategoryChange}
                 margin="normal"
                 className="gd-goal-item__category-select"
                 SelectProps={{
@@ -122,8 +127,18 @@ class GoalItem extends Component {
                     className: "timeline-category-select__menu",
                   },
                 }}
+                InputProps={{
+                  classes: {
+                    input: "gd-goal-item__category-input"
+                  }
+                }}
               >
-                <MenuItem value="Other"><em>Other</em></MenuItem>
+                <MenuItem value="Other">
+                  <ListItemIcon>
+                    <svg width={24} height={24}/>
+                  </ListItemIcon>
+                  <ListItemText inset primary="Other" />
+                </MenuItem>
                 {Object.keys(CATEGORY_ICON_MAP).map(c => (
                   <MenuItem key={c} value={c}>
                     <ListItemIcon>
@@ -186,7 +201,6 @@ function categoryIconDisplayMap(cat, id) {
     "Other": <svg height={24} width={24} className="gd-goal-item__icon" key={id+"icon"}/>,
     "Personal": <AccountIcon className="gd-goal-item__icon" key={id+"icon"}/>,
     "Science": <AtomIcon className="gd-goal-item__icon" key={id+"icon"}/>,
-    "Security": <LockIcon className="gd-goal-item__icon" key={id+"icon"}/>,
     "Social": <AccountGroupIcon className="gd-goal-item__icon" key={id+"icon"}/>,
     "Spiritual": <CreationIcon className="gd-goal-item__icon" key={id+"icon"}/>,
     "Travel": <EarthIcon className="gd-goal-item__icon" key={id+"icon"}/>,
@@ -209,7 +223,6 @@ const CATEGORY_ICON_MAP = {
   "Nature": <PineTreeIcon/>,
   "Personal": <AccountIcon/>,
   "Science": <AtomIcon/>,
-  "Security": <LockIcon/>,
   "Social": <AccountGroupIcon/>,
   "Spiritual": <CreationIcon/>,
   "Travel": <EarthIcon/>,

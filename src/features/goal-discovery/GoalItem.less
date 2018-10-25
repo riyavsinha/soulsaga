@@ -13,7 +13,7 @@
 .gd-goal-item__icon {
   flex: 0 0 auto;
   margin-right: 24px;
-  opacity: .72;
+  opacity: .54;
 }
 
 .gd-goal-item__text {
@@ -27,10 +27,25 @@
 }
 
 .gd-goal-item__category-select {
-  margin-right: 24px;
+  margin: 0 24px 0 0;
+  width: 36px;
+  position: relative;
+  // bottom: 1px;
+  // height: 32px;
+}
+
+.gd-goal-item__category-select > div > div > svg {
+  display: none;
+}
+
+.gd-goal-item__category-input {
+  padding-right: 0;
+  display: flex;
+  overflow: hidden;
 }
 
 .gd-goal-item__text-edit-field {
   position: relative;
-  bottom: 3px;
+  top: 1px;
+  margin: 0;
 }
