@@ -10,11 +10,13 @@ import initialState from './initialState';
 import { reducer as deleteGoalReducer } from './deleteGoal';
 import { reducer as addGoalReducer } from './addGoal';
 import { reducer as saveGoalReducer } from './saveGoal';
+import { reducer as fetchGoalsReducer } from './fetchGoals';
 
 const reducers = [
   deleteGoalReducer,
   addGoalReducer,
   saveGoalReducer,
+  fetchGoalsReducer,
 ];
 
 export default function reducer(state = initialState, action) {

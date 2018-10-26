@@ -58,8 +58,8 @@ class GoalItem extends Component {
 
   onTextChange = e => this.setState({goalText: e.target.value});
 
-  handleSaveGoal = () => {
-    this.props.actions.saveGoal({
+  handleSaveGoal = async () => {
+    await this.props.actions.saveGoal({
       ...this.props.data,
       g: this.state.goalText,
       c: this.state.goalCategory
@@ -69,6 +69,7 @@ class GoalItem extends Component {
 
   handleToDelete = () => {
     this.props.actions.deleteGoal(this.props.data);
+    this.handleMenuClose();
   }
 
   render() {
@@ -122,6 +123,7 @@ class GoalItem extends Component {
                 onChange={this.onCategoryChange}
                 margin="normal"
                 className="gd-goal-item__category-select"
+                key={this.props.data.id+"categoryEditField"}
                 SelectProps={{
                   MenuProps: {
                     className: "timeline-category-select__menu",

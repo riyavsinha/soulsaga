@@ -4,16 +4,26 @@ import {
   GOAL_DISCOVERY_DELETE_GOAL_FAILURE,
   GOAL_DISCOVERY_DELETE_GOAL_DISMISS_ERROR,
 } from './constants';
+import {database, GOALS} from 'common/firebase';
 
 export function deleteGoal(goal) {
-  return (dispatch) => { // optionally you can have getState as the second argument
+  return (dispatch, getState) => {
     dispatch({
       type: GOAL_DISCOVERY_DELETE_GOAL_BEGIN,
     });
 
     const promise = new Promise((resolve, reject) => {
-      const doRequest = Promise.resolve();
-      doRequest.then(
+      let reqPromise;
+      if (getState().common.goalsConsent) {
+        if (goal.ref === "") {
+          throw new Error("ref required when data storage setting on.");
+        }
+        const dbref = database.ref(GOALS).child(getState().common.user.uid);
+        reqPromise = dbref.child(goal.ref).remove();
+      } else {
+        reqPromise = Promise.resolve();
+      }
+      reqPromise.then(
         (res) => {
           dispatch({
             type: GOAL_DISCOVERY_DELETE_GOAL_SUCCESS,

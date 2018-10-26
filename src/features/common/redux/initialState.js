@@ -13,6 +13,7 @@ const initialState = {
   storeUserData: null,
   privacyTermsConsent: null,
   timelineConsent: null,
+  goalsConsent: true,
 
   dataSaveSuccessSnackbarOpen: false,
   dataSaveFailureSnackbarOpen: false,

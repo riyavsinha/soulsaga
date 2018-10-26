@@ -6,6 +6,7 @@
 
 // NOTE: initialState constant is necessary so that Rekit could auto add initial state when creating async actions.
 const initialState = {
+  hasLoadedGoals: false,
   experienceGoals: [
     {
       id: 1,
@@ -26,6 +27,8 @@ const initialState = {
   deleteGoalError: null,
   saveGoalPending: false,
   saveGoalError: null,
+  fetchGoalsPending: false,
+  fetchGoalsError: null,
 };
 
 export default initialState;

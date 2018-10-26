@@ -2,6 +2,7 @@ import GoalColumn from './GoalColumn';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
+import { auth } from 'common/firebase';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
@@ -12,6 +13,16 @@ class GoalColumns extends Component {
     goalDiscovery: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
   };
+
+  componentDidMount = () => {
+    auth.onAuthStateChanged((user) => {
+      if (user && 
+          this.props.common.goalsConsent && 
+          !this.props.goalDiscovery.hasLoadedGoals) {
+        this.props.actions.fetchGoals();
+      }
+    });
+  }
 
   render() {
     return (
@@ -39,6 +50,7 @@ class GoalColumns extends Component {
 /* istanbul ignore next */
 function mapStateToProps(state) {
   return {
+    common: state.common,
     goalDiscovery: state.goalDiscovery,
   };
 }
