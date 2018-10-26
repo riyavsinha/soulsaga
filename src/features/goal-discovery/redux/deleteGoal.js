@@ -14,7 +14,7 @@ export function deleteGoal(goal) {
 
     const promise = new Promise((resolve, reject) => {
       let reqPromise;
-      if (getState().common.goalsConsent) {
+      if (goal.g && getState().common.goalsConsent) {
         if (goal.ref === "") {
           throw new Error("ref required when data storage setting on.");
         }

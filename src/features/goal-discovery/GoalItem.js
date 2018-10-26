@@ -59,6 +59,10 @@ class GoalItem extends Component {
   onTextChange = e => this.setState({goalText: e.target.value});
 
   handleSaveGoal = async () => {
+    if (!this.state.goalText) {
+      this.handleToDelete();
+      return;
+    }
     await this.props.actions.saveGoal({
       ...this.props.data,
       g: this.state.goalText,
