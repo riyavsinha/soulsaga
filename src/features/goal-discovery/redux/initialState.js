@@ -16,6 +16,8 @@ const initialState = {
   saveGoalError: null,
   fetchGoalsPending: false,
   fetchGoalsError: null,
+  deleteUserGoalsPending: false,
+  deleteUserGoalsError: null,
 };
 
 export default initialState;
