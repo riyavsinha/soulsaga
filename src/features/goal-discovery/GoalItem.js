@@ -58,6 +58,12 @@ class GoalItem extends Component {
 
   onTextChange = e => this.setState({goalText: e.target.value});
 
+  onTextEnter = e => {
+    if (e.key === 'Enter') {
+      this.handleSaveGoal();
+    }
+  }
+
   handleSaveGoal = async () => {
     if (!this.state.goalText) {
       this.handleToDelete();
@@ -160,6 +166,7 @@ class GoalItem extends Component {
                 margin="normal"
                 fullWidth
                 onChange={this.onTextChange}
+                onKeyDown={this.onTextEnter}
                 value={this.state.goalText}/>,
               <IconButton
                   onClick={this.handleSaveGoal}
