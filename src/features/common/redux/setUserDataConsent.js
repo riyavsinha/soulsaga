@@ -4,7 +4,13 @@ import {
   COMMON_SET_USER_DATA_CONSENT_FAILURE,
   COMMON_SET_USER_DATA_CONSENT_DISMISS_ERROR,
 } from './constants';
-import {database, DATA_CONSENT} from 'common/firebase';
+import {
+  database,
+  DATA_CONSENT,
+  GOALS_CONSENT,
+  PRIVACY_CONSENT,
+  TIMELINE_CONSENT
+} from 'common/firebase';
 
 export function setUserDataConsent(user, consentType, state, texts) {
   return (dispatch) => { // optionally you can have getState as the second argument
@@ -67,19 +73,26 @@ export function reducer(state, action) {
 
     case COMMON_SET_USER_DATA_CONSENT_SUCCESS:
       // The request is success
-      if (action.consentType === "privacyTerms") {
+      if (action.consentType === PRIVACY_CONSENT) {
         return {
           ...state,
           setUserDataConsentPending: false,
           setUserDataConsentError: null,
           privacyTermsConsent: action.state,
         };
-      } else if (action.consentType === "timeline") {
+      } else if (action.consentType === TIMELINE_CONSENT) {
         return {
           ...state,
           setUserDataConsentPending: false,
           setUserDataConsentError: null,
           timelineConsent: action.state,
+        };
+      } else if (action.consentType === GOALS_CONSENT) {
+        return {
+          ...state,
+          setUserDataConsentPending: false,
+          setUserDataConsentError: null,
+          goalsConsent: action.state,
         };
       }
       break;

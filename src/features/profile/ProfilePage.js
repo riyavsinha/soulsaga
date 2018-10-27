@@ -1,5 +1,6 @@
 import AccountPanel from './AccountPanel';
 import Avatar from '@material-ui/core/Avatar';
+import GoalSettingsPanel from './GoalSettingsPanel';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TimelineSettingsPanel from './TimelineSettingsPanel';
@@ -39,6 +40,7 @@ export class ProfilePage extends Component {
             </Typography>
           </div>
           <TimelineSettingsPanel />
+          <GoalSettingsPanel />
           <AccountPanel />
         </div>
       </div>
