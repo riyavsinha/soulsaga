@@ -32,13 +32,13 @@ export class ProfilePage extends Component {
             src={this.props.common.user.photoURL}
             className="profile-profile-page__avatar"
           />
-        </div>
-        <div className="profile-profile-page__data-section">
           <div className="profile-profile-page__name-container">
             <Typography variant="display2" className="profile-profile-page__name">
               {this.props.common.user.displayName}
             </Typography>
           </div>
+        </div>
+        <div className="profile-profile-page__data-section">
           <TimelineSettingsPanel />
           <GoalSettingsPanel />
           <AccountPanel />

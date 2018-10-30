@@ -12,8 +12,9 @@ const initialState = {
   signInState: null,
   storeUserData: null,
   privacyTermsConsent: null,
+  genericDataConsent: null,
   timelineConsent: null,
-  goalsConsent: true,
+  goalsConsent: null,
 
   dataSaveSuccessSnackbarOpen: false,
   dataSaveFailureSnackbarOpen: false,

@@ -13,15 +13,16 @@ export default class Panel extends Component {
   render() {
     return (
       <ExpansionPanel className="library-panel" >
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography
-                variant="title"
-                className="library-panel__title">
-              {this.props.title}
-            </Typography>
-            <Typography variant="subheading">
-              {this.props.settingText}
-            </Typography>
+        <ExpansionPanelSummary className="library-panel__summary-section"
+            expandIcon={<ExpandMoreIcon />}>
+          <Typography
+              variant="title"
+              className="library-panel__title">
+            {this.props.title}
+          </Typography>
+          <Typography variant="subheading">
+            {this.props.settingText}
+          </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className="library-panel__details">
           {this.props.children}

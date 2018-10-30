@@ -6,29 +6,28 @@ import {
 } from './constants';
 import {
   database,
-  DATA_CONSENT,
-  PRIVACY_CONSENT,
-  TIMELINE_CONSENT,
+  DATA_CONSENT
 } from 'common/firebase';
+const _ = require('lodash');
 
 export function fetchDataConsent() {
-  return (dispatch, getState) => { // optionally you can have getState as the second argument
+  return (dispatch, getState) => { 
     dispatch({
       type: COMMON_FETCH_DATA_CONSENT_BEGIN,
     });
 
     const promise = new Promise((resolve, reject) => {
       const db = database.ref(DATA_CONSENT).child(getState().common.user.uid)
-      const privacyConsentPromise = 
-          db.child(PRIVACY_CONSENT).child('currentState').once("value");
-      const timelineConsentPromise =
-          db.child(TIMELINE_CONSENT).child('currentState').once("value");
-      Promise.all([privacyConsentPromise, timelineConsentPromise]).then(
+      const consentPromise = db.once("value");
+      consentPromise.then(
         (res) => {
+          let val = res.val();
           dispatch({
             type: COMMON_FETCH_DATA_CONSENT_SUCCESS,
-            privacyConsent: res[0].val(),
-            timelineConsent: res[1].val(),
+            privacyConsent: _.get(val, 'privacyTerms.currentState', null),
+            genericConsent: _.get(val, 'general.currentState', null),
+            timelineConsent: _.get(val, 'timeline.currentState', null),
+            goalsConsent: _.get(val, 'goalDiscovery.currentState', null)
           });
           resolve(res);
         },
@@ -67,12 +66,15 @@ export function reducer(state, action) {
 
     case COMMON_FETCH_DATA_CONSENT_SUCCESS:
       // The request is success
+      console.log(action);
       return {
         ...state,
         fetchDataConsentPending: false,
         fetchDataConsentError: null,
         privacyTermsConsent: action.privacyConsent,
         timelineConsent: action.timelineConsent,
+        genericDataConsent: action.genericConsent,
+        goalsConsent: action.goalsConsent
       };
 
     case COMMON_FETCH_DATA_CONSENT_FAILURE:

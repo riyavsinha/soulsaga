@@ -9,7 +9,8 @@ import {
   DATA_CONSENT,
   GOALS_CONSENT,
   PRIVACY_CONSENT,
-  TIMELINE_CONSENT
+  TIMELINE_CONSENT,
+  GENERIC_DATA_CONSENT
 } from 'common/firebase';
 
 export function setUserDataConsent(user, consentType, state, texts) {
@@ -27,7 +28,7 @@ export function setUserDataConsent(user, consentType, state, texts) {
         shownTexts: texts,
         timestamp: Date.now(),
       }
-      const db = database.ref(DATA_CONSENT + user.uid).child(consentType);
+      const db = database.ref(DATA_CONSENT).child(user.uid).child(consentType);
       Promise.all([db.push(dataLoad), db.child('currentState').set(state)])
         .then(
           (res) => {
@@ -93,6 +94,13 @@ export function reducer(state, action) {
           setUserDataConsentPending: false,
           setUserDataConsentError: null,
           goalsConsent: action.state,
+        };
+      } else if (action.consentType === GENERIC_DATA_CONSENT) {
+        return {
+          ...state,
+          setUserDataConsentPending: false,
+          setUserDataConsentError: null,
+          genericDataConsent: action.state,
         };
       }
       break;
