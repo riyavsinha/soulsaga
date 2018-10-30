@@ -9,7 +9,13 @@ import { GENERIC_DATA_CONSENT } from 'common/firebase';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { deleteUserEvents, resetTimelineData } from 'features/timeline/redux/actions';
-import { deleteUser, deleteUserDataConsent } from 'features/common/redux/actions';
+import { 
+  dataOperationSnackbarFailed,
+  dataOperationSnackbarSucceeded,
+  deleteUser,
+  deleteUserDataConsent,
+  setUserDataConsent
+} from 'features/common/redux/actions';
 import { provider } from 'common/firebase';
 import * as actions from './redux/actions';
 
@@ -80,7 +86,7 @@ export class AccountPanel extends Component {
         <SwitchSetting
             title={this.state.generalDataSettingTitle}
             subtitle={this.state.generalDataSettingSubtitle}
-            checked={this.props.common.goalsConsent}
+            checked={this.props.common.genericDataConsent}
             onChange={this.handleDataSettingChange}
             value="timelineDataConsent" />
         <Button
@@ -123,9 +129,12 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({ 
       ...actions,
+      dataOperationSnackbarFailed,
+      dataOperationSnackbarSucceeded,
       deleteUser,
       deleteUserEvents,
       deleteUserDataConsent,
+      setUserDataConsent,
       resetTimelineData }, dispatch)
   };
 }
