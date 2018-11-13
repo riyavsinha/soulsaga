@@ -23,7 +23,7 @@ export class DefaultPage extends Component {
     }
 
     return (
-      <div className="goal-discovery-default-page">
+      <div className="gd-default-page">
         <SaveLoadSection />
         <GoalColumns />
       </div>

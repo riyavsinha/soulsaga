@@ -1,5 +1,4 @@
 import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -40,7 +39,7 @@ export class SaveLoadSection extends Component {
   }
 
   // https://gist.github.com/liabru/11263260
-  saveEvents = () => {
+  saveGoals = () => {
     var goals = 
       [
         ...this.props.goalDiscovery.experienceGoals.map(
@@ -64,7 +63,7 @@ export class SaveLoadSection extends Component {
     return g;
   }
 
-  readEvents = e => {
+  readGoals = e => {
     const reader = new FileReader();
     reader.addEventListener('load', () => {
         try {
@@ -74,7 +73,7 @@ export class SaveLoadSection extends Component {
           if (this.hasEvents()) {
             this.setState({ uploadConfirmDialogOpen: true});
           } else {
-            this.commitEvents()
+            this.commitGoals()
                 .then(() => this.setState({ writingGoals: false }));
           }
         } catch (err) {
@@ -87,7 +86,7 @@ export class SaveLoadSection extends Component {
     e.target.value = null;
   }
 
-  commitEvents = () => {
+  commitGoals = () => {
     if (this.state.stageGoals === null) {
       throw new Error("no goals to add")
     }
@@ -101,19 +100,11 @@ export class SaveLoadSection extends Component {
 
   confirmOverwrite = () => {
     this.props.actions.deleteUserGoals()
-      .then(() => this.commitEvents())
+      .then(() => this.commitGoals())
       .then(() => {
         this.handleDialogClose();
         this.setState({ writingGoals: false });
       });
-  }
-
-  renderLoadingCircle = () => {
-    if (this.state.writingGoals) {
-      return (
-        <CircularProgress
-            className="timeline-save-load-section__overwrite-progress" />);
-    }
   }
 
   hasEvents = () => {
@@ -124,22 +115,22 @@ export class SaveLoadSection extends Component {
 
   render() {
     let disableDownload = !this.hasEvents();
-    let topClass = this.props.className ? this.props.className : "";
+    let topClass = this.props.className ? this.props.className : "gd-save-load-section";
     return (
       <div className={topClass}>
         <Button 
             variant="contained"
             color="primary"
-            onClick={this.saveEvents}
+            onClick={this.saveGoals}
             disabled={disableDownload}>
           Download
-          <DownloadIcon className="timeline-save-load-section__icon"/>
+          <DownloadIcon className="gd-save-load-section__icon"/>
         </Button>
         <UploadButton
-            className="timeline-save-load-section__upload"
-            onChange={this.readEvents}>
+            className="gd-save-load-section__upload"
+            onChange={this.readGoals}>
           Upload
-          <UploadIcon className="timeline-save-load-section__icon"/>
+          <UploadIcon className="gd-save-load-section__icon"/>
         </UploadButton>
 
         <Snackbar
@@ -174,7 +165,6 @@ export class SaveLoadSection extends Component {
               Yes
             </Button>
           </DialogActions>
-          {this.renderLoadingCircle()}
         </Dialog>
       </div>
     );

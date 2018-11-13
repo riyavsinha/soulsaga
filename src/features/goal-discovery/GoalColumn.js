@@ -1,8 +1,6 @@
-import Divider from '@material-ui/core/Divider';
 import GoalItem from './GoalItem';
 import GoalProto from 'proto/GoalProto';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
