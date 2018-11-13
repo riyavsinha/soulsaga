@@ -1,20 +1,14 @@
 @import '../../styles/mixins';
 
 .profile-profile-page {
-  display: flex;
   margin: 16px;
 }
 
 .profile-profile-page__metadata-section {
-  flex: .2;
-  flex-direction: column;
   display: flex;
   align-items: center;
-  max-width: 300px;
-}
-
-.profile-profile-page__data-section {
-  flex: .75;
+  flex-wrap: wrap;
+  max-width: 1000px;
 }
 
 .profile-profile-page__avatar {
@@ -22,15 +16,37 @@
   width: 200px;
   max-width: 200px;
   margin-right: 24px;
+  margin-bottom: 16px;
 }
 
+
+@media (max-width: 567px) {
+  .profile-profile-page__metadata-section {
+    justify-content: center;
+  }
+
+  .profile-profile-page__avatar {
+    height: 150px;
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 440px) {
+  .profile-profile-page__avatar {
+    margin-right: 0;
+  }
+}
+
+@media (min-width: 850px) {
+  .profile-profile-page__data-section {
+    margin-left: 224px;
+  }
+}
+
+
 .profile-profile-page__name-container {
-  height: 200px;
-  position: relative;
   margin-bottom: 16px;
 }
 
 .profile-profile-page__name {
-  position: absolute;
-  bottom: 25%;
 }

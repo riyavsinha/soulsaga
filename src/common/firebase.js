@@ -32,11 +32,14 @@ export const storage = firebase.storage().ref();
 export const userStorage = storage.child("users");
 
 /** REALTIME DATABASE */
-export const DATA_CONSENT = 'dataConsent/';
 export const PRIVACY_CONSENT = "privacyTerms";
+export const DATA_CONSENT = "dataConsent";
+export const GENERIC_DATA_CONSENT = "general";
 export const TIMELINE_CONSENT = "timeline";
+export const GOALS_CONSENT = "goalDiscovery";
 
 export const TIMELINE = "timeline/";
+export const GOALS = "goalDiscovery";
 export const database  = firebase.database();
 
 export default firebase;

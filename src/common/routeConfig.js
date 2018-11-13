@@ -6,6 +6,7 @@ import timelineRoute from '../features/timeline/route';
 import profileRoute from '../features/profile/route';
 import aboutRoute from '../features/about/route';
 import libraryRoute from '../features/library/route';
+import goalDiscoveryRoute from '../features/goal-discovery/route';
 
 // NOTE: DO NOT CHANGE the 'childRoutes' name and the declaration pattern.
 // This is used for Rekit cmds to register routes config for new features, and remove config when remove features, etc.
@@ -16,6 +17,7 @@ const childRoutes = [
   profileRoute,
   aboutRoute,
   libraryRoute,
+  goalDiscoveryRoute,
 ];
 
 const routes = [{

@@ -23,9 +23,11 @@ export class DefaultPage extends Component {
     const e = new EventProto({
       c: "Spiritual",
       t: "Visualize your life",
-      de: `SoulSaga lets you build beautiful events to visualize
-        your life, so you can remember and reflect on every step of your
-        journey.`,
+      de: `SoulSaga provides tools for you to reflect on your life.
+        We currently offer two tools: a timeline to build beautiful
+        events and remember every step of your journey, and a
+        goal discovery tool for you to holistically materialize your
+        future.`,
       m: "",
       y: "2018",
       ref: "asdf",
@@ -93,13 +95,21 @@ export class DefaultPage extends Component {
   renderTimelineButton = () => {
     if (this.props.common.user) {
       return (
-        <div className="landing-page__timeline_button">
+        <div className="landing-page__button-section">
           <Button
               variant="contained"
               color="primary"
               component={Link}
-              to="/timeline">
-            Go to my timeline
+              to="/timeline"
+              className="landing-page__nav-button">
+            Timeline
+          </Button>
+          <Button
+              variant="contained"
+              color="primary"
+              component={Link}
+              to="/goal-discovery">
+            Goal Discovery
           </Button>
         </div>
       );

@@ -1,0 +1,51 @@
+@import '../../styles/mixins';
+
+.gd-goal-item {
+  position: relative;
+  min-height: 48px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gd-goal-item__icon {
+  flex: 0 0 auto;
+  margin-right: 24px;
+  opacity: .54;
+}
+
+.gd-goal-item__text {
+  flex: 1;
+  margin-right: 56px;
+  word-break: break-word;
+}
+
+.gd-goal-item__options-button {
+  position: absolute;
+  right: 0;
+}
+
+.gd-goal-item__category-select {
+  margin: 0 24px 0 0;
+  width: 36px;
+  position: relative;
+}
+
+.gd-goal-item__category-select > div > div > svg {
+  display: none;
+}
+
+.gd-goal-item__category-input {
+  padding-right: 0;
+  display: flex;
+  overflow: hidden;
+}
+
+.gd-goal-item__text-edit-field {
+  position: relative;
+  top: 1px;
+  right: 4px;
+  margin: 0;
+}

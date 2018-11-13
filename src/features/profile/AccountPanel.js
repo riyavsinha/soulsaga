@@ -4,10 +4,18 @@ import Panel from 'features/library/Panel';
 import PropTypes from 'prop-types';
 import SimpleDialog from 'features/library/SimpleDialog';
 import SimpleSnackbar from 'features/library/SimpleSnackbar';
+import SwitchSetting from './SwitchSetting';
+import { GENERIC_DATA_CONSENT } from 'common/firebase';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { deleteUserEvents, resetTimelineData } from 'features/timeline/redux/actions';
-import { deleteUser, deleteUserDataConsent } from 'features/common/redux/actions';
+import { 
+  dataOperationSnackbarFailed,
+  dataOperationSnackbarSucceeded,
+  deleteUser,
+  deleteUserDataConsent,
+  setUserDataConsent
+} from 'features/common/redux/actions';
 import { provider } from 'common/firebase';
 import * as actions from './redux/actions';
 
@@ -20,6 +28,11 @@ export class AccountPanel extends Component {
   state = { 
     deleteAccountConfirmDialogOpen: false,
     deleteFailedSnackbarOpen: false,
+    generalDataSettingTitle: "New Tools",
+    generalDataSettingSubtitle: `
+      When new tools are released, initialize them to
+      save my data for me
+    `
   }
 
   onDeleteButtonClick =
@@ -31,6 +44,19 @@ export class AccountPanel extends Component {
   onDeleteFail = () => this.setState({ deleteFailedSnackbarOpen: true });
 
   onSnackbarClose = () => this.setState({ deleteFailedSnackbarOpen: false });
+
+  handleDataSettingChange = e => {
+    this.props.actions.setUserDataConsent(
+      this.props.common.user,
+      GENERIC_DATA_CONSENT,
+      e.target.checked,
+      [
+        this.state.generalDataSettingTitle,
+        this.state.generalDataSettingSubtitle
+      ])
+        .then(() => this.props.actions.dataOperationSnackbarSucceeded())
+        .catch(() => this.props.actions.dataOperationSnackbarFailed());
+  } 
 
   deleteUser = async () => {
     await this.props.common.user.reauthenticateWithPopup(provider);
@@ -57,6 +83,12 @@ export class AccountPanel extends Component {
         </span>);
     return (
       <Panel title="My Account">
+        <SwitchSetting
+            title={this.state.generalDataSettingTitle}
+            subtitle={this.state.generalDataSettingSubtitle}
+            checked={this.props.common.genericDataConsent}
+            onChange={this.handleDataSettingChange}
+            value="timelineDataConsent" />
         <Button
             color="primary"
             className="profile-account-panel__delete-button"
@@ -97,9 +129,12 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({ 
       ...actions,
+      dataOperationSnackbarFailed,
+      dataOperationSnackbarSucceeded,
       deleteUser,
       deleteUserEvents,
       deleteUserDataConsent,
+      setUserDataConsent,
       resetTimelineData }, dispatch)
   };
 }
