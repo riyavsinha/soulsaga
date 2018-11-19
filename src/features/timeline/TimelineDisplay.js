@@ -70,7 +70,7 @@ export class TimelineDisplay extends Component {
     if (e.i !== "") { 
       numRows += 3
     }
-    if (e.tg.length) {
+    if (e.tg && e.tg.length) {
         numRows += 1;
     }
     if (e.de.length > 90) { 

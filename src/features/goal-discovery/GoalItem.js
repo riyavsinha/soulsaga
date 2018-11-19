@@ -120,7 +120,6 @@ class GoalItem extends Component {
             >
               <MenuItem onClick={this.handleToEdit}>Edit</MenuItem>
               <MenuItem onClick={this.handleToDelete}>Delete</MenuItem>
-              <MenuItem>Submit</MenuItem>
             </Menu>]) :
 
           ///////////////
