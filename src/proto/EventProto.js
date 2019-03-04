@@ -1,7 +1,7 @@
 var _ = require('lodash');
 
 export default class EventProto {
-
+  // Keep minimal to reduce bytes sent/stored in DB
   static MAIN_KEYS = [
     // Category. Type of event
     'c',
@@ -24,12 +24,12 @@ export default class EventProto {
     // Id. Unique identifier, usually creation timestamp
     'id',
     // Ms. Millisecond date of event, using Y/M/D
-    'ms'
+    'ms',
   ];
 
   static ALL_KEYS = EventProto.MAIN_KEYS.concat([
     // Cloud reference key, only if user data being stored
-    'ref'
+    'ref',
   ]);
 
   /**
@@ -37,40 +37,43 @@ export default class EventProto {
    */
   constructor(e = null) {
     if (e === null) {
-      this.c = "Other";
+      this.c = 'Other';
       this.t = [];
-      this.de = "";
-      this.tg = "";
-      this.y = "";
-      this.m = "";
-      this.d = "";
-      this.i = "";
+      this.de = '';
+      this.tg = '';
+      this.y = '';
+      this.m = '';
+      this.d = '';
+      this.i = '';
       this.hi = false;
-      this.id = "";
-      this.ref = "";
+      this.id = '';
+      this.ref = '';
       this.ms = 0;
       return;
     }
 
     if (!EventProto.isEvent(e)) {
-      throw new Error("Invalid EventProto");
+      throw new Error('Invalid EventProto');
     }
 
-    this.c = e.c || "Other";
-    this.t = e.t || "";
-    this.de = e.de || "";
-    this.tg = typeof(e.tg) === "string" ? (e.tg.length ? e.tg.split(',') : []) : e.tg;
+    this.c = e.c || 'Other';
+    this.t = e.t || '';
+    this.de = e.de || '';
+    // Legacy mistake - migrated to list for tags, but some still
+    // are represented as strings. Convert to list.
+    this.tg =
+      typeof e.tg === 'string' ? (e.tg.length ? e.tg.split(',') : []) : e.tg;
     this.y = e.y;
     this.m = e.m;
     this.d = e.d;
-    this.i = e.i || "";
+    this.i = e.i || '';
     this.hi = e.hi || false;
     this.id = e.id;
     this.ms = e.ms;
     if (e.hasOwnProperty('ref')) {
       this.ref = e.ref;
     } else {
-      this.ref = "";
+      this.ref = '';
     }
   }
 
