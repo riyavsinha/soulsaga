@@ -13,83 +13,98 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 
+/**
+ * The main card generated for each timeline event. 
+ */
 export class TimelineEvent extends Component {
   static propTypes = {
-    timeline: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
+    common: PropTypes.object.isRequired,
+    event: PropTypes.object.isRequired,
+    onClick: PropTypes.func,
+    timeline: PropTypes.object.isRequired,
   };
 
   handleViewEvent = () => {
     this.props.actions.setViewingEvent(this.props.event);
-  }
-
-  renderTags() {
-    let isEnd = !this.props.event.de && !this.props.event.i ?
-      " timeline-timeline-event__tag-container__end" : "";
-    if (this.props.event.tg.length) {
-      return (
-        <div className={"timeline-timeline-event__tag-container"+isEnd}>
-          {this.props.event.tg.map(t =>
-            <Chip
-              label={(<div key={this.props.event.id+t+"ChipLabel"}>{t}</div>)}
-              className="timeline-timeline-event__tag"
-              key={this.props.event.id+t+"Chip"} />)}
-        </div>
-      )
-    }
-  }
-
-  renderImg() {
-    if (this.props.event.i) {
-      return (
-        <CardMedia
-          className="timeline-timeline-event__media"
-          image={this.props.event.i}/>);
-    }
-  }
-
-  renderDesc() {
-    let limitLength = this.props.isDisplay ? "" : "timeline-timeline-event__desc";
-    if (this.props.event.de) {
-      return (
-        <CardContent className="timeline-timeline-event__desc-container">
-          <Typography component="p" className={limitLength}>
-            {this.props.event.de}
-          </Typography>
-        </CardContent>);
-    }
-  }
+  };
 
   render() {
     let dateString = buildDateString(
-        this.props.event.d,
-        this.props.event.m,
-        this.props.event.y);
-    let titleClass = this.props.event.tg && this.props.event.tg.length ?
-        "timeline-timeline-event__header-container" : "";
+      this.props.event.d,
+      this.props.event.m,
+      this.props.event.y,
+    );
+    let titleClass =
+      this.props.event.tg && this.props.event.tg.length
+        ? 'timeline-timeline-event__header-container'
+        : '';
     return (
       <Card
-          className="timeline-timeline-event__card"
-          onClick={this.props.onClick ? this.props.onClick : this.handleViewEvent}>
+        className="timeline-timeline-event__card"
+        onClick={this.props.onClick || this.handleViewEvent}
+      >
         <CardHeader
           className={titleClass}
           avatar={
             <Avatar className="timeline-timeline-event__avatar">
-              {this.props.event.c === "Other" ?
-                  this.props.common.user.displayName.slice(0, 1).toUpperCase() :
-                  CATEGORY_ICON_MAP[this.props.event.c]}
+              {this.props.event.c === 'Other'
+                ? this.props.common.user.displayName.slice(0, 1).toUpperCase()
+                : CATEGORY_ICON_MAP[this.props.event.c]}
             </Avatar>
           }
           title={this.props.event.t}
           subheader={dateString}
         />
-        {this.renderTags()}
-        {this.renderImg()}
-        {this.renderDesc()}
+        <EventTags event={this.props.event} />
+        <EventImg img={this.props.event.i} />
+        <EventDesc desc={this.props.event.de} />
       </Card>
     );
   }
 }
+
+/** EventTags functional component */
+function EventTags({ event }) {
+  if (!event.tg.length) {
+    return null;
+  }
+  // Need to add padding on end if nothing else after tags
+  let isEnd =
+    !event.de && !event.i ? ' timeline-timeline-event__tag-container__end' : '';
+  return (
+    <div className={'timeline-timeline-event__tag-container' + isEnd}>
+      {event.tg.map(t => (
+        <Chip
+          label={<div key={event.id + t + 'ChipLabel'}>{t}</div>}
+          className="timeline-timeline-event__tag"
+          key={event.id + t + 'Chip'}
+        />
+      ))}
+    </div>
+  );
+}
+EventTags.propTypes = { event: PropTypes.object.isRequired };
+
+/** EventDesc functional component */
+function EventDesc({ desc }) {
+  return desc ? (
+    <CardContent className="timeline-timeline-event__desc-container">
+      <Typography component="p" className="timeline-timeline-event__desc">
+        {desc}
+      </Typography>
+    </CardContent>
+  ) : null;
+}
+EventDesc.propTypes = { desc: PropTypes.string };
+
+/** EvengImg functional component */
+function EventImg({ img }) {
+  return img ? (
+    <CardMedia className="timeline-timeline-event__media" image={img} />
+  ) : null;
+}
+EventImg.propTypes = { img: PropTypes.string };
 
 /* istanbul ignore next */
 function mapStateToProps(state) {
@@ -102,11 +117,11 @@ function mapStateToProps(state) {
 /* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ ...actions }, dispatch)
+    actions: bindActionCreators({ ...actions }, dispatch),
   };
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(TimelineEvent);

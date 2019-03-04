@@ -1,0 +1,373 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`timeline/TimelineEvent renders proper structure based on event: category is transformed to icon 1`] = `
+<div
+  className="MuiPaper-root-2 MuiPaper-elevation1-5 MuiPaper-rounded-3 MuiCard-root-1 timeline-timeline-event__card"
+  onClick={[Function]}
+>
+  <div
+    className="MuiCardHeader-root-29"
+  >
+    <div
+      className="MuiCardHeader-avatar-30"
+    >
+      <div
+        className="MuiAvatar-root-35 MuiAvatar-colorDefault-36 timeline-timeline-event__avatar"
+      >
+        <svg
+          className="mdi-icon "
+          fill="currentColor"
+          height={24}
+          viewBox="0 0 24 24"
+          width={24}
+        >
+          <path
+            d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z"
+          />
+        </svg>
+      </div>
+    </div>
+    <div
+      className="MuiCardHeader-content-32"
+    >
+      <span
+        className="MuiTypography-root-38 MuiTypography-body2-46 MuiCardHeader-title-33"
+      >
+        testTitle
+      </span>
+      <span
+        className="MuiTypography-root-38 MuiTypography-body2-46 MuiTypography-colorTextSecondary-61 MuiCardHeader-subheader-34"
+      >
+        April 2, 2010
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`timeline/TimelineEvent renders proper structure based on event: with tag and no desc/image, container-end class is appended 1`] = `
+<div
+  className="MuiPaper-root-2 MuiPaper-elevation1-5 MuiPaper-rounded-3 MuiCard-root-1 timeline-timeline-event__card"
+  onClick={[Function]}
+>
+  <div
+    className="MuiCardHeader-root-29 timeline-timeline-event__header-container"
+  >
+    <div
+      className="MuiCardHeader-avatar-30"
+    >
+      <div
+        className="MuiAvatar-root-35 MuiAvatar-colorDefault-36 timeline-timeline-event__avatar"
+      >
+        N
+      </div>
+    </div>
+    <div
+      className="MuiCardHeader-content-32"
+    >
+      <span
+        className="MuiTypography-root-38 MuiTypography-body2-46 MuiCardHeader-title-33"
+      >
+        testTitle
+      </span>
+      <span
+        className="MuiTypography-root-38 MuiTypography-body2-46 MuiTypography-colorTextSecondary-61 MuiCardHeader-subheader-34"
+      >
+        April 2, 2010
+      </span>
+    </div>
+  </div>
+  <div
+    className="timeline-timeline-event__tag-container timeline-timeline-event__tag-container__end"
+  >
+    <div
+      className="MuiChip-root-66 timeline-timeline-event__tag"
+      onKeyDown={[Function]}
+      role="button"
+      tabIndex={-1}
+    >
+      <span
+        className="MuiChip-label-79"
+      >
+        <div>
+          testTag1
+        </div>
+      </span>
+    </div>
+    <div
+      className="MuiChip-root-66 timeline-timeline-event__tag"
+      onKeyDown={[Function]}
+      role="button"
+      tabIndex={-1}
+    >
+      <span
+        className="MuiChip-label-79"
+      >
+        <div>
+          testTag2
+        </div>
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`timeline/TimelineEvent renders proper structure based on event: with title and description, has CardHeader and CardContent 1`] = `
+<div
+  className="MuiPaper-root-2 MuiPaper-elevation1-5 MuiPaper-rounded-3 MuiCard-root-1 timeline-timeline-event__card"
+  onClick={[Function]}
+>
+  <div
+    className="MuiCardHeader-root-29"
+  >
+    <div
+      className="MuiCardHeader-avatar-30"
+    >
+      <div
+        className="MuiAvatar-root-35 MuiAvatar-colorDefault-36 timeline-timeline-event__avatar"
+      >
+        N
+      </div>
+    </div>
+    <div
+      className="MuiCardHeader-content-32"
+    >
+      <span
+        className="MuiTypography-root-38 MuiTypography-body2-46 MuiCardHeader-title-33"
+      >
+        testTitle
+      </span>
+      <span
+        className="MuiTypography-root-38 MuiTypography-body2-46 MuiTypography-colorTextSecondary-61 MuiCardHeader-subheader-34"
+      >
+        April 2, 2010
+      </span>
+    </div>
+  </div>
+  <div
+    className="MuiCardContent-root-63 timeline-timeline-event__desc-container"
+  >
+    <p
+      className="MuiTypography-root-38 MuiTypography-body1-47 timeline-timeline-event__desc"
+    >
+      testDescription
+    </p>
+  </div>
+</div>
+`;
+
+exports[`timeline/TimelineEvent renders proper structure based on event: with title and image, has CardHeader and CardMedia 1`] = `
+<div
+  className="MuiPaper-root-2 MuiPaper-elevation1-5 MuiPaper-rounded-3 MuiCard-root-1 timeline-timeline-event__card"
+  onClick={[Function]}
+>
+  <div
+    className="MuiCardHeader-root-29"
+  >
+    <div
+      className="MuiCardHeader-avatar-30"
+    >
+      <div
+        className="MuiAvatar-root-35 MuiAvatar-colorDefault-36 timeline-timeline-event__avatar"
+      >
+        N
+      </div>
+    </div>
+    <div
+      className="MuiCardHeader-content-32"
+    >
+      <span
+        className="MuiTypography-root-38 MuiTypography-body2-46 MuiCardHeader-title-33"
+      >
+        testTitle
+      </span>
+      <span
+        className="MuiTypography-root-38 MuiTypography-body2-46 MuiTypography-colorTextSecondary-61 MuiCardHeader-subheader-34"
+      >
+        April 2, 2010
+      </span>
+    </div>
+  </div>
+  <div
+    className="MuiCardMedia-root-64 timeline-timeline-event__media"
+    style={
+      Object {
+        "backgroundImage": "url(\\"testImg\\")",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`timeline/TimelineEvent renders proper structure based on event: with title, description and image, has CardHeader, CardContent
+        and CardMedia 1`] = `
+<div
+  className="MuiPaper-root-2 MuiPaper-elevation1-5 MuiPaper-rounded-3 MuiCard-root-1 timeline-timeline-event__card"
+  onClick={[Function]}
+>
+  <div
+    className="MuiCardHeader-root-29"
+  >
+    <div
+      className="MuiCardHeader-avatar-30"
+    >
+      <div
+        className="MuiAvatar-root-35 MuiAvatar-colorDefault-36 timeline-timeline-event__avatar"
+      >
+        N
+      </div>
+    </div>
+    <div
+      className="MuiCardHeader-content-32"
+    >
+      <span
+        className="MuiTypography-root-38 MuiTypography-body2-46 MuiCardHeader-title-33"
+      >
+        testTitle
+      </span>
+      <span
+        className="MuiTypography-root-38 MuiTypography-body2-46 MuiTypography-colorTextSecondary-61 MuiCardHeader-subheader-34"
+      >
+        April 2, 2010
+      </span>
+    </div>
+  </div>
+  <div
+    className="MuiCardMedia-root-64 timeline-timeline-event__media"
+    style={
+      Object {
+        "backgroundImage": "url(\\"testImg\\")",
+      }
+    }
+  />
+  <div
+    className="MuiCardContent-root-63 timeline-timeline-event__desc-container"
+  >
+    <p
+      className="MuiTypography-root-38 MuiTypography-body1-47 timeline-timeline-event__desc"
+    >
+      testDescription
+    </p>
+  </div>
+</div>
+`;
+
+exports[`timeline/TimelineEvent renders proper structure based on event: with title, only has CardHeader 1`] = `
+<div
+  className="MuiPaper-root-2 MuiPaper-elevation1-5 MuiPaper-rounded-3 MuiCard-root-1 timeline-timeline-event__card"
+  onClick={[Function]}
+>
+  <div
+    className="MuiCardHeader-root-29"
+  >
+    <div
+      className="MuiCardHeader-avatar-30"
+    >
+      <div
+        className="MuiAvatar-root-35 MuiAvatar-colorDefault-36 timeline-timeline-event__avatar"
+      >
+        N
+      </div>
+    </div>
+    <div
+      className="MuiCardHeader-content-32"
+    >
+      <span
+        className="MuiTypography-root-38 MuiTypography-body2-46 MuiCardHeader-title-33"
+      >
+        testTitle
+      </span>
+      <span
+        className="MuiTypography-root-38 MuiTypography-body2-46 MuiTypography-colorTextSecondary-61 MuiCardHeader-subheader-34"
+      >
+        April 2, 2010
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`timeline/TimelineEvent renders proper structure based on event: with title, tags, description and image, has CardHeader, Chips,
+        CardContent and CardMedia 1`] = `
+<div
+  className="MuiPaper-root-2 MuiPaper-elevation1-5 MuiPaper-rounded-3 MuiCard-root-1 timeline-timeline-event__card"
+  onClick={[Function]}
+>
+  <div
+    className="MuiCardHeader-root-29 timeline-timeline-event__header-container"
+  >
+    <div
+      className="MuiCardHeader-avatar-30"
+    >
+      <div
+        className="MuiAvatar-root-35 MuiAvatar-colorDefault-36 timeline-timeline-event__avatar"
+      >
+        N
+      </div>
+    </div>
+    <div
+      className="MuiCardHeader-content-32"
+    >
+      <span
+        className="MuiTypography-root-38 MuiTypography-body2-46 MuiCardHeader-title-33"
+      >
+        testTitle
+      </span>
+      <span
+        className="MuiTypography-root-38 MuiTypography-body2-46 MuiTypography-colorTextSecondary-61 MuiCardHeader-subheader-34"
+      >
+        April 2, 2010
+      </span>
+    </div>
+  </div>
+  <div
+    className="timeline-timeline-event__tag-container"
+  >
+    <div
+      className="MuiChip-root-66 timeline-timeline-event__tag"
+      onKeyDown={[Function]}
+      role="button"
+      tabIndex={-1}
+    >
+      <span
+        className="MuiChip-label-79"
+      >
+        <div>
+          testTag1
+        </div>
+      </span>
+    </div>
+    <div
+      className="MuiChip-root-66 timeline-timeline-event__tag"
+      onKeyDown={[Function]}
+      role="button"
+      tabIndex={-1}
+    >
+      <span
+        className="MuiChip-label-79"
+      >
+        <div>
+          testTag2
+        </div>
+      </span>
+    </div>
+  </div>
+  <div
+    className="MuiCardMedia-root-64 timeline-timeline-event__media"
+    style={
+      Object {
+        "backgroundImage": "url(\\"testImg\\")",
+      }
+    }
+  />
+  <div
+    className="MuiCardContent-root-63 timeline-timeline-event__desc-container"
+  >
+    <p
+      className="MuiTypography-root-38 MuiTypography-body1-47 timeline-timeline-event__desc"
+    >
+      testDescription
+    </p>
+  </div>
+</div>
+`;
