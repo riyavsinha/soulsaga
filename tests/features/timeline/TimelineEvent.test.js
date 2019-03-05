@@ -24,6 +24,14 @@ describe('timeline/TimelineEvent', () => {
     };
   });
 
+  it('sets event as main viewing event when clicked', () => {
+    props.onClick = jest.fn();
+    const wrapper = shallow(<TimelineEvent {...props} />);
+
+    wrapper.simulate('click');
+    expect(props.onClick.mock.calls.length).toBe(1);
+  }); 
+
   describe('renders proper structure based on event:', () => {
     it('with title, only has CardHeader', () => {
       const renderedComponent = renderer
