@@ -92,7 +92,7 @@ describe('timeline/TimelineDisplay', () => {
     });
   });
 
-  describe('[Forward Chronology] places events in proper row order', () => {  
+  describe('[Forward Chronology] places events in proper row order', () => {
     let wrapper;
     let layoutObj;
     let mobileLayoutObj;
@@ -103,6 +103,7 @@ describe('timeline/TimelineDisplay', () => {
       // 2012 represents dense year
       // 2013 represents sparse but 'complete' year with all types of dates
       // Other years represent sparse and incomplete years
+      // prettier-ignore
       props.timeline.events = [
         // 2012 header                   // 0 0 0
         buildEvent(2012),                // 1 0 2
@@ -171,22 +172,96 @@ describe('timeline/TimelineDisplay', () => {
     });
 
     it('[Mobile] places in order all the way through', () => {
-      let expectedY = 2;
-      // 2012
-      for (let i = 1; i < 14; i++) {
-        expect(mobileLayoutObj[i].y).toBe(expectedY);
-        expectedY += 2;
+      for (let i = 1; i < props.timeline.events.length; i++) {
+        expect(mobileLayoutObj[i].y).toBe(i*2);
       }
+    });
+  });
+
+  describe('[Reverse Chronology] places events in proper row order', () => {
+    let wrapper;
+    let layoutObj;
+    let mobileLayoutObj;
+    beforeEach(() => {
+      // Comments reprent expected: index,col(x),row(y), default height 2
+      // for desktop layout
+      // Also factor in year headings with height 2
+      // 2012 represents dense year
+      // 2013 represents sparse but 'complete' year with all types of dates
+      // Other years represent sparse and incomplete years
+      // prettier-ignore
+      props.timeline.events = [
+        // 2018 header                   // 0 0 0
+        buildEvent(2018, 'May', 2),      // 1 0 2
+        // 2015 header                   // 2 0 4
+        buildEvent(2015, 'March'),       // 3 1 6
+        // 2014 header                   // 4 0 8
+        buildEvent(2014),                // 5 0 10
+        // 2013 header                   // 6 0 12
+        buildEvent(2013, 'August', 9),   // 7 2 14
+        buildEvent(2013, 'August'),      // 8 1 14
+        buildEvent(2013),                // 9 0 14
+        // 2012 header                   // 10 0 16
+        buildEvent(2012, 'April', 6),    // 11 2 18
+        buildEvent(2012, 'April', 3),    // 12 2 20
+        buildEvent(2012, 'April'),       // 13 1 18
+        buildEvent(2012, 'April'),       // 14 1 20
+        buildEvent(2012, 'March', 22),   // 15 2 22
+        buildEvent(2012, 'March', 5),    // 16 2 24
+        buildEvent(2012, 'March', 3),    // 17 1 26
+        buildEvent(2012, 'March'),       // 18 1 22
+        buildEvent(2012, 'March'),       // 19 1 24
+        buildEvent(2012),                // 20 0 18
+        buildEvent(2012),                // 21 0 20
+        buildEvent(2012),                // 22 0 22
+        buildEvent(2012),                // 23 0 24
+      ];
+      props.timeline.eventOrdering = 'reverse'
+      wrapper = shallow(<TimelineDisplay {...props} />);
+      layoutObj = wrapper.props().layouts.normal;
+      mobileLayoutObj = wrapper.props().layouts.condensed;
+    });
+
+    it('[Desktop] puts first year, month and day in same row', () => {
       // 2013
-      expect(mobileLayoutObj[15].y).toBe(30);
-      expect(mobileLayoutObj[16].y).toBe(32);
-      expect(mobileLayoutObj[17].y).toBe(34);
-      // 2014
-      expect(mobileLayoutObj[19].y).toBe(38);
-      // 2015
-      expect(mobileLayoutObj[21].y).toBe(42);
-      // 2018  
-      expect(mobileLayoutObj[23].y).toBe(46);    
+      expect(layoutObj[7].y).toBe(14);
+      expect(layoutObj[8].y).toBe(14);
+      expect(layoutObj[9].y).toBe(14);
+      // 2012
+      expect(layoutObj[11].y).toBe(18);
+      expect(layoutObj[13].y).toBe(18);
+      expect(layoutObj[20].y).toBe(18);
+    });
+
+    it('[Desktop] puts months of same year in consecutive rows', () => {
+      // April 2012
+      expect(layoutObj[13].y).toBe(18);
+      expect(layoutObj[14].y).toBe(20);
+      // March 2012
+      expect(layoutObj[18].y).toBe(22);
+      expect(layoutObj[19].y).toBe(24);
+    });
+
+    it('[Desktop] puts days of same month,year in consecutive rows', () => {
+      // April 2012
+      expect(layoutObj[11].y).toBe(18);
+      expect(layoutObj[12].y).toBe(20);
+      // March 2012
+      expect(layoutObj[15].y).toBe(22);
+      expect(layoutObj[16].y).toBe(24);
+      expect(layoutObj[17].y).toBe(26);
+    });
+
+    it('[Desktop] cascades different years + date types into diagonal', () => {
+      expect(layoutObj[1].y).toBe(2);
+      expect(layoutObj[3].y).toBe(6);
+      expect(layoutObj[5].y).toBe(10);
+    });
+
+    it('[Mobile] places in order all the way through', () => {
+      for (let i = 1; i < props.timeline.events.length; i++) {
+        expect(mobileLayoutObj[i].y).toBe(i*2);
+      }
     });
   });
 });
