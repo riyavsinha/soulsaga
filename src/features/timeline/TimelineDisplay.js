@@ -1,85 +1,88 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Responsive, WidthProvider } from "react-grid-layout";
+import { Responsive, WidthProvider } from 'react-grid-layout';
 import TimelineEvent from './TimelineEvent';
 import Typography from '@material-ui/core/Typography';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
-import 'react-grid-layout/css/styles.css' 
-import 'react-resizable/css/styles.css' 
+import 'react-grid-layout/css/styles.css';
+import 'react-resizable/css/styles.css';
 var _ = require('lodash');
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 export class TimelineDisplay extends Component {
-  
   static propTypes = {
-
+    timeline: PropTypes.object.isRequired,
   };
 
   getEvents = () => {
     let events = [...this.props.timeline.events];
     if (this.props.timeline.eventTagFilters.length > 0) {
       events = events.filter(e => {
-        return _.intersection(e.tg, this.props.timeline.eventTagFilters).length > 0})
+        return (
+          _.intersection(e.tg, this.props.timeline.eventTagFilters).length > 0
+        );
+      });
     }
     if (this.props.timeline.eventCategoryFilters.length > 0) {
       events = events.filter(e => {
-        return this.props.timeline.eventCategoryFilters.includes(e.c)})
+        return this.props.timeline.eventCategoryFilters.includes(e.c);
+      });
     }
     switch (this.props.timeline.eventOrdering) {
-      case "forward":
+      case 'forward':
         return events.sort((x, y) => x.ms - y.ms);
-      case "reverse":
+      case 'reverse':
         return events.sort((x, y) => y.ms - x.ms);
-      case "year-reverse":
-        let groups = []
-        let group = []
+      case 'year-reverse':
+        let groups = [];
+        let group = [];
         let curYear = events[0] ? events[0].y : null;
         events.forEach(e => {
           if (e.y === curYear) {
-            group.push(e)
+            group.push(e);
           } else {
             curYear = e.y;
             groups.push(group);
             group = [e];
           }
-        })
+        });
         groups.push(group);
         return _.flatten(_.reverse(groups));
       default:
-        throw new Error("unsupported chronological ordering");
+        throw new Error('unsupported chronological ordering');
     }
-  }
+  };
 
   newYearEncountered = (year, layout, gridItems, yInd) => {
-    let headerKey = year + "gi";
-    layout.push({i: headerKey, x: 0, y: yInd, w:1, h:2, static: true});
+    let headerKey = year + 'gi';
+    layout.push({ i: headerKey, x: 0, y: yInd, w: 1, h: 2, static: true });
     gridItems.push(
       <div key={headerKey} className="timeline-timeline-display__year-header">
-        <Typography variant="display2">
-          {year}
-        </Typography>
-      </div>);
+        <Typography variant="display2">{year}</Typography>
+      </div>,
+    );
     yInd += 2;
     return yInd;
-  }
+  };
 
   determineRowSize = e => {
     let numRows = 2;
-    if (e.i !== "") { 
-      numRows += 3
+    if (e.i !== '') {
+      numRows += 3;
     }
     if (e.tg && e.tg.length) {
-        numRows += 1;
+      numRows += 1;
     }
-    if (e.de.length > 90) { 
-      numRows += 2 
+    if (e.de.length > 90) {
+      numRows += 2;
     } else if (e.de.length > 0) {
-      numRows += 1
+      numRows += 1;
     }
     return numRows;
-  }
+  };
 
   buildIndex = () => {
     // Items in grid display
@@ -99,9 +102,9 @@ export class TimelineDisplay extends Component {
 
     this.getEvents().forEach((event, ind) => {
       // Use ID as key
-      let key = event.id.toString() + "gi";
+      let key = event.id.toString() + 'gi';
       // Boolean sum of present fields
-      let col = parseInt((event.d !== "") + (event.m !== ""), 10);
+      let col = parseInt((event.d !== '') + (event.m !== ''), 10);
       // Height of grid item according to content.
       let numRows = this.determineRowSize(event);
       // This item's layout descriptor
@@ -110,31 +113,63 @@ export class TimelineDisplay extends Component {
 
       // MOBILE
       if (event.y !== curYear) {
-        mobileLayout.push({i: event.y+"gi", x: 0, y: mobileInd, w:1, h:2, static: true});
+        mobileLayout.push({
+          i: event.y + 'gi',
+          x: 0,
+          y: mobileInd,
+          w: 1,
+          h: 2,
+          static: true,
+        });
         mobileInd += 2;
-      } 
-      itemMobileLayout = {i: key, x: 0, y: mobileInd, w: 1, h: numRows, static: true};
+      }
+      itemMobileLayout = {
+        i: key,
+        x: 0,
+        y: mobileInd,
+        w: 1,
+        h: numRows,
+        static: true,
+      };
       mobileInd += numRows;
       // DESKTOP
       // Handle Year
-      if (event.d === "" && event.m === "") {
+      if (event.d === '' && event.m === '') {
         curMonth = null;
         // If in same year bloc, simply add on and increment columns
         if (event.y === curYear) {
-          itemLayout = {i: key, x: col, y: yInd, w: 1, h: numRows, static: true};
+          itemLayout = {
+            i: key,
+            x: col,
+            y: yInd,
+            w: 1,
+            h: numRows,
+            static: true,
+          };
           yInd += numRows;
-        // Otherwise reset year bloc and all indices to next bloc index
+          // Otherwise reset year bloc and all indices to next bloc index
         } else {
           curYear = event.y;
           let next = this.newYearEncountered(
-              event.y, layout, gridItems, Math.max(yInd, mInd, dInd));
-          itemLayout = {i: key, x: col, y: next, w: 1, h: numRows, static: true};
-          yInd = next+numRows;
+            event.y,
+            layout,
+            gridItems,
+            Math.max(yInd, mInd, dInd),
+          );
+          itemLayout = {
+            i: key,
+            x: col,
+            y: next,
+            w: 1,
+            h: numRows,
+            static: true,
+          };
+          yInd = next + numRows;
           mInd = next;
           dInd = next;
         }
-      // Handle Month
-      } else if (event.d === "") {
+        // Handle Month
+      } else if (event.d === '') {
         // If in different month bloc, fast-forward month/day indices
         if (event.m !== curMonth) {
           let nextMonthInd = Math.max(mInd, dInd);
@@ -143,19 +178,37 @@ export class TimelineDisplay extends Component {
         }
         // If same year add on, else reset year bloc and all indices
         if (event.y === curYear) {
-          itemLayout = {i: key, x: col, y: mInd, w: 1, h: numRows, static: true};
+          itemLayout = {
+            i: key,
+            x: col,
+            y: mInd,
+            w: 1,
+            h: numRows,
+            static: true,
+          };
           mInd += numRows;
         } else {
           curYear = event.y;
           let next = this.newYearEncountered(
-              event.y, layout, gridItems, Math.max(yInd, mInd, dInd));
-          itemLayout = {i: key, x: col, y: next, w: 1, h: numRows, static: true};
+            event.y,
+            layout,
+            gridItems,
+            Math.max(yInd, mInd, dInd),
+          );
+          itemLayout = {
+            i: key,
+            x: col,
+            y: next,
+            w: 1,
+            h: numRows,
+            static: true,
+          };
           yInd = next;
-          mInd = next+numRows;
+          mInd = next + numRows;
           dInd = next;
         }
         curMonth = event.m;
-      // Handle Day
+        // Handle Day
       } else {
         if (event.m !== curMonth) {
           let nextMonthInd = Math.max(mInd, dInd);
@@ -163,16 +216,34 @@ export class TimelineDisplay extends Component {
           dInd = nextMonthInd;
         }
         if (event.y === curYear) {
-          itemLayout = {i: key, x: col, y: dInd, w: 1, h: numRows, static: true};
+          itemLayout = {
+            i: key,
+            x: col,
+            y: dInd,
+            w: 1,
+            h: numRows,
+            static: true,
+          };
           dInd += numRows;
         } else {
           curYear = event.y;
           let next = this.newYearEncountered(
-              event.y, layout, gridItems, Math.max(yInd, mInd, dInd));
-          itemLayout = {i: key, x: col, y: next, w: 1, h: numRows, static: true};
+            event.y,
+            layout,
+            gridItems,
+            Math.max(yInd, mInd, dInd),
+          );
+          itemLayout = {
+            i: key,
+            x: col,
+            y: next,
+            w: 1,
+            h: numRows,
+            static: true,
+          };
           yInd = next;
           mInd = next;
-          dInd = next+numRows;
+          dInd = next + numRows;
         }
         curMonth = event.m;
       }
@@ -181,20 +252,25 @@ export class TimelineDisplay extends Component {
       gridItems.push(
         <div key={key}>
           <TimelineEvent event={event} key={event.id} />
-        </div>);
-    })
+        </div>,
+      );
+    });
     return [layout, mobileLayout, gridItems];
-  }
+  };
 
   render() {
     let info = this.buildIndex();
-    let layout = info[0], mobileLayout = info[1], items = info[2];
+    let layout = info[0],
+      mobileLayout = info[1],
+      items = info[2];
     return (
       <ResponsiveGridLayout
-          breakpoints={{normal:950,condensed:0}}
-          cols={{normal:3,condensed:1}}s
-          rowHeight={45}
-          layouts={{normal:layout,condensed:mobileLayout}}>
+        breakpoints={{ normal: 950, condensed: 0 }}
+        cols={{ normal: 3, condensed: 1 }}
+        s
+        rowHeight={45}
+        layouts={{ normal: layout, condensed: mobileLayout }}
+      >
         {items}
       </ResponsiveGridLayout>
     );
@@ -204,7 +280,6 @@ export class TimelineDisplay extends Component {
 /* istanbul ignore next */
 function mapStateToProps(state) {
   return {
-    common: state.common,
     timeline: state.timeline,
   };
 }
@@ -212,11 +287,11 @@ function mapStateToProps(state) {
 /* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ ...actions }, dispatch)
+    actions: bindActionCreators({ ...actions }, dispatch),
   };
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(TimelineDisplay);
