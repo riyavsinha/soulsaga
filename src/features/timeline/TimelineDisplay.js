@@ -37,6 +37,7 @@ export class TimelineDisplay extends Component {
       case 'reverse':
         return events.sort((x, y) => y.ms - x.ms);
       case 'year-reverse':
+        events.sort((x, y) => x.ms - y.ms);
         let groups = [];
         let group = [];
         let curYear = events[0] ? events[0].y : null;
