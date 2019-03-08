@@ -36,7 +36,7 @@ exports[`timeline/TimelineEvent renders proper structure based on event: categor
         testTitle
       </span>
       <span
-        className="MuiTypography-root-38 MuiTypography-body2-46 MuiTypography-colorTextSecondary-61 MuiCardHeader-subheader-34"
+        className="MuiTypography-root-38 MuiTypography-body2-46 MuiTypography-colorTextSecondary-71 MuiCardHeader-subheader-34"
       >
         April 2, 2010
       </span>
@@ -71,7 +71,7 @@ exports[`timeline/TimelineEvent renders proper structure based on event: with ta
         testTitle
       </span>
       <span
-        className="MuiTypography-root-38 MuiTypography-body2-46 MuiTypography-colorTextSecondary-61 MuiCardHeader-subheader-34"
+        className="MuiTypography-root-38 MuiTypography-body2-46 MuiTypography-colorTextSecondary-71 MuiCardHeader-subheader-34"
       >
         April 2, 2010
       </span>
@@ -81,13 +81,14 @@ exports[`timeline/TimelineEvent renders proper structure based on event: with ta
     className="timeline-timeline-event__tag-container timeline-timeline-event__tag-container__end"
   >
     <div
-      className="MuiChip-root-66 timeline-timeline-event__tag"
+      className="MuiChip-root-77 timeline-timeline-event__tag"
       onKeyDown={[Function]}
+      onKeyUp={[Function]}
       role="button"
       tabIndex={-1}
     >
       <span
-        className="MuiChip-label-79"
+        className="MuiChip-label-96"
       >
         <div>
           testTag1
@@ -95,13 +96,14 @@ exports[`timeline/TimelineEvent renders proper structure based on event: with ta
       </span>
     </div>
     <div
-      className="MuiChip-root-66 timeline-timeline-event__tag"
+      className="MuiChip-root-77 timeline-timeline-event__tag"
       onKeyDown={[Function]}
+      onKeyUp={[Function]}
       role="button"
       tabIndex={-1}
     >
       <span
-        className="MuiChip-label-79"
+        className="MuiChip-label-96"
       >
         <div>
           testTag2
@@ -138,14 +140,14 @@ exports[`timeline/TimelineEvent renders proper structure based on event: with ti
         testTitle
       </span>
       <span
-        className="MuiTypography-root-38 MuiTypography-body2-46 MuiTypography-colorTextSecondary-61 MuiCardHeader-subheader-34"
+        className="MuiTypography-root-38 MuiTypography-body2-46 MuiTypography-colorTextSecondary-71 MuiCardHeader-subheader-34"
       >
         April 2, 2010
       </span>
     </div>
   </div>
   <div
-    className="MuiCardContent-root-63 timeline-timeline-event__desc-container"
+    className="MuiCardContent-root-74 timeline-timeline-event__desc-container"
   >
     <p
       className="MuiTypography-root-38 MuiTypography-body1-47 timeline-timeline-event__desc"
@@ -182,14 +184,14 @@ exports[`timeline/TimelineEvent renders proper structure based on event: with ti
         testTitle
       </span>
       <span
-        className="MuiTypography-root-38 MuiTypography-body2-46 MuiTypography-colorTextSecondary-61 MuiCardHeader-subheader-34"
+        className="MuiTypography-root-38 MuiTypography-body2-46 MuiTypography-colorTextSecondary-71 MuiCardHeader-subheader-34"
       >
         April 2, 2010
       </span>
     </div>
   </div>
   <div
-    className="MuiCardMedia-root-64 timeline-timeline-event__media"
+    className="MuiCardMedia-root-75 timeline-timeline-event__media"
     style={
       Object {
         "backgroundImage": "url(\\"testImg\\")",
@@ -226,14 +228,14 @@ exports[`timeline/TimelineEvent renders proper structure based on event: with ti
         testTitle
       </span>
       <span
-        className="MuiTypography-root-38 MuiTypography-body2-46 MuiTypography-colorTextSecondary-61 MuiCardHeader-subheader-34"
+        className="MuiTypography-root-38 MuiTypography-body2-46 MuiTypography-colorTextSecondary-71 MuiCardHeader-subheader-34"
       >
         April 2, 2010
       </span>
     </div>
   </div>
   <div
-    className="MuiCardMedia-root-64 timeline-timeline-event__media"
+    className="MuiCardMedia-root-75 timeline-timeline-event__media"
     style={
       Object {
         "backgroundImage": "url(\\"testImg\\")",
@@ -241,7 +243,7 @@ exports[`timeline/TimelineEvent renders proper structure based on event: with ti
     }
   />
   <div
-    className="MuiCardContent-root-63 timeline-timeline-event__desc-container"
+    className="MuiCardContent-root-74 timeline-timeline-event__desc-container"
   >
     <p
       className="MuiTypography-root-38 MuiTypography-body1-47 timeline-timeline-event__desc"
@@ -278,7 +280,7 @@ exports[`timeline/TimelineEvent renders proper structure based on event: with ti
         testTitle
       </span>
       <span
-        className="MuiTypography-root-38 MuiTypography-body2-46 MuiTypography-colorTextSecondary-61 MuiCardHeader-subheader-34"
+        className="MuiTypography-root-38 MuiTypography-body2-46 MuiTypography-colorTextSecondary-71 MuiCardHeader-subheader-34"
       >
         April 2, 2010
       </span>
@@ -314,7 +316,7 @@ exports[`timeline/TimelineEvent renders proper structure based on event: with ti
         testTitle
       </span>
       <span
-        className="MuiTypography-root-38 MuiTypography-body2-46 MuiTypography-colorTextSecondary-61 MuiCardHeader-subheader-34"
+        className="MuiTypography-root-38 MuiTypography-body2-46 MuiTypography-colorTextSecondary-71 MuiCardHeader-subheader-34"
       >
         April 2, 2010
       </span>
@@ -324,13 +326,14 @@ exports[`timeline/TimelineEvent renders proper structure based on event: with ti
     className="timeline-timeline-event__tag-container"
   >
     <div
-      className="MuiChip-root-66 timeline-timeline-event__tag"
+      className="MuiChip-root-77 timeline-timeline-event__tag"
       onKeyDown={[Function]}
+      onKeyUp={[Function]}
       role="button"
       tabIndex={-1}
     >
       <span
-        className="MuiChip-label-79"
+        className="MuiChip-label-96"
       >
         <div>
           testTag1
@@ -338,13 +341,14 @@ exports[`timeline/TimelineEvent renders proper structure based on event: with ti
       </span>
     </div>
     <div
-      className="MuiChip-root-66 timeline-timeline-event__tag"
+      className="MuiChip-root-77 timeline-timeline-event__tag"
       onKeyDown={[Function]}
+      onKeyUp={[Function]}
       role="button"
       tabIndex={-1}
     >
       <span
-        className="MuiChip-label-79"
+        className="MuiChip-label-96"
       >
         <div>
           testTag2
@@ -353,7 +357,7 @@ exports[`timeline/TimelineEvent renders proper structure based on event: with ti
     </div>
   </div>
   <div
-    className="MuiCardMedia-root-64 timeline-timeline-event__media"
+    className="MuiCardMedia-root-75 timeline-timeline-event__media"
     style={
       Object {
         "backgroundImage": "url(\\"testImg\\")",
@@ -361,7 +365,7 @@ exports[`timeline/TimelineEvent renders proper structure based on event: with ti
     }
   />
   <div
-    className="MuiCardContent-root-63 timeline-timeline-event__desc-container"
+    className="MuiCardContent-root-74 timeline-timeline-event__desc-container"
   >
     <p
       className="MuiTypography-root-38 MuiTypography-body1-47 timeline-timeline-event__desc"
