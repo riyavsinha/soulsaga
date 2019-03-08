@@ -24,7 +24,6 @@
 database.rules.json
 firebase.json
 /config
-.prettierrc
 cors.json
 storage.rules
 
