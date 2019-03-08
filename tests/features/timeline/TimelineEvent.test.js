@@ -1,8 +1,5 @@
 import React from 'react';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Chip from '@material-ui/core/Chip';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import { TimelineEvent } from '../../../src/features/timeline/TimelineEvent';
 import renderer from 'react-test-renderer';
 import EventProto from 'proto/EventProto.js';
@@ -23,6 +20,14 @@ describe('timeline/TimelineEvent', () => {
       actions: {},
     };
   });
+
+  it('sets event as main viewing event when clicked', () => {
+    props.onClick = jest.fn();
+    const wrapper = shallow(<TimelineEvent {...props} />);
+
+    wrapper.simulate('click');
+    expect(props.onClick.mock.calls.length).toBe(1);
+  }); 
 
   describe('renders proper structure based on event:', () => {
     it('with title, only has CardHeader', () => {
