@@ -260,10 +260,7 @@ export class TimelineDisplay extends Component {
   };
 
   render() {
-    let info = this.buildIndex();
-    let layout = info[0],
-      mobileLayout = info[1],
-      items = info[2];
+    let [layout, mobileLayout, items] = this.buildIndex();
     return (
       <ResponsiveGridLayout
         breakpoints={{ normal: 950, condensed: 0 }}

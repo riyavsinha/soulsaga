@@ -1,5 +1,6 @@
 import EventProto from 'proto/EventProto';
 import React from 'react';
+import renderer from 'react-test-renderer';
 import { buildDateTime } from 'features/timeline/util';
 import { shallow } from 'enzyme';
 import { TimelineDisplay } from 'features/timeline/TimelineDisplay';
@@ -352,6 +353,149 @@ describe('timeline/TimelineDisplay', () => {
       }
     });
   });
+
+  describe('Event heights / row sizes are determined correctly', () => {
+    it('Image adds 3 height units, and next event starts after', () => {
+      props.timeline.events = [
+        buildEvent(2004),
+        buildEvent(2004, 'March', '', [EventFeatures.IMG]),
+        buildEvent(2004, 'March'),
+      ];
+      let wrapper = shallow(<TimelineDisplay {...props} />);
+      let layoutObj = wrapper.props().layouts.normal;
+      expect(layoutObj[2].h).toBe(5);
+      expect(layoutObj[3].y).toBe(7);
+    });
+
+    it('Image+Tags adds 4 height units, and next event starts after', () => {
+      props.timeline.events = [
+        buildEvent(2004),
+        buildEvent(2004, 'March', '', [EventFeatures.IMG, EventFeatures.TG]),
+        buildEvent(2004, 'March'),
+      ];
+      let wrapper = shallow(<TimelineDisplay {...props} />);
+      let layoutObj = wrapper.props().layouts.normal;
+      expect(layoutObj[2].h).toBe(6);
+      expect(layoutObj[3].y).toBe(8);
+    });
+
+    it('Image+Tags+Desc adds 5 height units, and next event starts after', () => {
+      props.timeline.events = [
+        buildEvent(2004),
+        buildEvent(2004, 'March', '', [
+          EventFeatures.IMG,
+          EventFeatures.TG,
+          EventFeatures.DESC,
+        ]),
+        buildEvent(2004, 'March'),
+      ];
+      let wrapper = shallow(<TimelineDisplay {...props} />);
+      let layoutObj = wrapper.props().layouts.normal;
+      expect(layoutObj[2].h).toBe(7);
+      expect(layoutObj[3].y).toBe(9);
+    });
+
+    it('Image+Tags+LongDesc adds 6 height units, and next event starts after', () => {
+      props.timeline.events = [
+        buildEvent(2004),
+        buildEvent(2004, 'March', '', [
+          EventFeatures.IMG,
+          EventFeatures.TG,
+          EventFeatures.LONG_DESC,
+        ]),
+        buildEvent(2004, 'March'),
+      ];
+      let wrapper = shallow(<TimelineDisplay {...props} />);
+      let layoutObj = wrapper.props().layouts.normal;
+      expect(layoutObj[2].h).toBe(8);
+      expect(layoutObj[3].y).toBe(10);
+    });
+  });
+
+  describe('Events are sorted properly', () => {
+    beforeEach(() => {
+      props.timeline.events = [
+        buildEvent(2015, 'March'), // 0
+        buildEvent(2013), // 1
+        buildEvent(2012, 'April', 6),
+        buildEvent(2012, 'March', 22),
+        buildEvent(2012),
+        buildEvent(2012, 'March'),
+        buildEvent(2012),
+        buildEvent(2012, 'April', 3),
+        buildEvent(2012, 'April'),
+        buildEvent(2012),
+        buildEvent(2012, 'March', 5),
+        buildEvent(2013, 'August', 9),
+        buildEvent(2018, 'May', 2),
+        buildEvent(2012, 'March'),
+        buildEvent(2013, 'August'),
+        buildEvent(2012),
+        buildEvent(2012, 'April'),
+        buildEvent(2014),
+        buildEvent(2012, 'March', 3),
+      ];
+    });
+
+    it('Sorts properly for forward chronology', () => {
+      let wrapper = shallow(<TimelineDisplay {...props} />);
+      let layoutIds = wrapper
+        .props()
+        .layouts.normal.map(o => parseInt(o.i.slice(0, -2), 10));
+      // Events are in increasing ms
+      let eventIds = layoutIds
+        .filter(o => o < 2000)
+        .map(o => o - props.timeline.events[0].id);
+      for (var i = 0; i < eventIds.length - 1; i++) {
+        expect(props.timeline.events[eventIds[i]].ms).toBeLessThanOrEqual(
+          props.timeline.events[eventIds[i + 1]].ms,
+        );
+      }
+      // Headers are in increasing years
+      let headerIds = layoutIds.filter(o => o > 2000);
+      expect(headerIds).toMatchObject([2012, 2013, 2014, 2015, 2018]);
+    });
+
+    it('Sorts properly for reverse chronology', () => {
+      props.timeline.eventOrdering = 'reverse';
+      let wrapper = shallow(<TimelineDisplay {...props} />);
+      let layoutIds = wrapper
+        .props()
+        .layouts.normal.map(o => parseInt(o.i.slice(0, -2), 10));
+      // Events are in decreasing ms
+      let eventIds = layoutIds
+        .filter(o => o < 2000)
+        .map(o => o - props.timeline.events[0].id);
+      for (var i = 0; i < eventIds.length - 1; i++) {
+        expect(props.timeline.events[eventIds[i]].ms).toBeGreaterThanOrEqual(
+          props.timeline.events[eventIds[i + 1]].ms,
+        );
+      }
+      // Headers are in decreasing years
+      let headerIds = layoutIds.filter(o => o > 2000);
+      expect(headerIds).toMatchObject([2018, 2015, 2014, 2013, 2012]);
+    });
+
+    it('Sorts properly for year-reverse chronology', () => {
+      props.timeline.eventOrdering = 'year-reverse';
+      let wrapper = shallow(<TimelineDisplay {...props} />);
+      let layoutIds = wrapper
+        .props()
+        .layouts.normal.map(o => parseInt(o.i.slice(0, -2), 10));
+      // Headers are in decreasing years
+      let headerIds = layoutIds.filter(o => o > 2000);
+      expect(headerIds).toMatchObject([2018, 2015, 2014, 2013, 2012]);
+      // Events are in increasing ms in each year (just check 2012)
+      let eventIds = layoutIds
+        .slice(layoutIds.indexOf(2012) + 1)
+        .map(o => o - props.timeline.events[0].id);
+      for (var i = 0; i < eventIds.length - 1; i++) {
+        expect(props.timeline.events[eventIds[i]].ms).toBeLessThanOrEqual(
+          props.timeline.events[eventIds[i + 1]].ms,
+        );
+      }
+    });
+  });
 });
 
 function buildEvent(y, m = '', d = '', features = null) {
@@ -363,17 +507,17 @@ function buildEvent(y, m = '', d = '', features = null) {
   e.ms = buildDateTime(d, m, y);
   id += 1;
   if (features) {
-    if (features.contains(EventFeatures.LONG_DESC)) {
+    if (features.includes(EventFeatures.LONG_DESC)) {
       e.de = `This is a very long description intended to 
         trigger the rule for events with long descriptions
         being of greater height`;
-    } else if (features.contains(EventFeatures.DESC)) {
+    } else if (features.includes(EventFeatures.DESC)) {
       e.de = 'testDesc';
     }
-    if (features.contains(EventFeatures.IMG)) {
+    if (features.includes(EventFeatures.IMG)) {
       e.i = 'testImg';
     }
-    if (features.contains(EventFeatures.TG)) {
+    if (features.includes(EventFeatures.TG)) {
       e.tg = ['testTag1', 'testTag2'];
     }
   }
