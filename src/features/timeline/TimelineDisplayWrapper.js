@@ -8,21 +8,25 @@ import * as actions from './redux/actions';
 
 export class TimelineDisplayWrapper extends Component {
   static propTypes = {
-    timeline: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
+    common: PropTypes.object.isRequired,
+    timeline: PropTypes.object.isRequired,
   };
 
-  componentDidMount = () => {
-    auth.onAuthStateChanged((user) => {
-      if (user && this.props.common.timelineConsent && 
-          !this.props.timeline.hasLoadedEvents) {
+  componentDidMount() {
+    auth.onAuthStateChanged(user => {
+      if (
+        user &&
+        this.props.common.timelineConsent &&
+        !this.props.timeline.hasLoadedEvents
+      ) {
         this.props.actions.fetchEvents();
       }
     });
   }
 
   render() {
-    return <TimelineDisplay />
+    return <TimelineDisplay />;
   }
 }
 
@@ -37,11 +41,11 @@ function mapStateToProps(state) {
 /* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ ...actions }, dispatch)
+    actions: bindActionCreators({ ...actions }, dispatch),
   };
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(TimelineDisplayWrapper);
