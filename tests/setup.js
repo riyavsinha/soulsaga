@@ -5,7 +5,7 @@ import httpAdapter from 'axios/lib/adapters/http';
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-configure({ adapter: new Adapter(), disableLifecycleMethods: true });
+configure({ adapter: new Adapter() });
 
 if (process.env.NODE_ENV === 'test') {
   axios.defaults.baseURL = 'http://localhost';
