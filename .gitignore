@@ -20,7 +20,6 @@
 /.firebase
 .firebaserc
 .editorconfig
-.babelrc
 database.rules.json
 firebase.json
 /config
