@@ -16,13 +16,11 @@
 .env.test.local
 .env.production.local
 
-.env
 /.firebase
 .firebaserc
 .editorconfig
 database.rules.json
 firebase.json
-/config
 cors.json
 storage.rules
 
