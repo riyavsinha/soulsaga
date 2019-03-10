@@ -6,7 +6,15 @@ import {
   TIMELINE_SET_VIEWING_EVENT,
 } from './constants';
 
-export function setViewingEvent(e) {
+/**
+ * Action used to set a specific event as the main viewing event,
+ * opening an expanded view of the event.
+ * 
+ * Setting to null indicates that there is no set viewing event.
+ * 
+ * @param {?EventProto=}
+ */
+export function setViewingEvent(e = null) {
   return {
     type: TIMELINE_SET_VIEWING_EVENT,
     event: e
