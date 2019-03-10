@@ -1,7 +1,6 @@
 import GoalColumns from './GoalColumns';
 import React, { Component } from 'react';
 import SaveLoadSection from './SaveLoadSection';
-import Timer from './Timer';
 import PropTypes from 'prop-types';
 import { Redirect } from "react-router-dom";
 import { bindActionCreators } from 'redux';

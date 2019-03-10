@@ -11,7 +11,6 @@ import PrivacyTermsAgreementDialog from './PrivacyTermsAgreementDialog';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import { Link } from "react-router-dom";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -108,11 +107,10 @@ export class TitleBar extends Component {
     return (
       <div className="title-bar__user-info">
         {this.renderSetupDialog()}
-        <IconButton>
+        <IconButton onClick={this.handleMenuOpen}>
           <Avatar 
             src={this.props.common.user.photoURL}
-            className="title-bar__user-info-avatar"
-            onClick={this.handleMenuOpen} />
+            className="title-bar__user-info-avatar" />
         </IconButton>
         <Menu
           id="menu-appbar"

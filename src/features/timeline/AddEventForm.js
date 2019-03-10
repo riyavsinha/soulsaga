@@ -7,6 +7,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Cropper from 'react-cropper';
 import Dialog from '@material-ui/core/Dialog';
 import EventProto from '../../proto/EventProto.js';
+import Fab from '@material-ui/core/Fab';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import IconButton from '@material-ui/core/IconButton';
@@ -224,14 +225,13 @@ export class AddEventForm extends Component {
     return (
       <div>
         {/** Floating '+' action button */}
-        <Button
-          variant="fab"
+        <Fab
           color="primary"
           className="timeline-add-event-fab"
           onClick={this.handleClickOpen}
         >
           <AddIcon />
-        </Button>
+        </Fab>
 
         {/** Fullscreen add event dialog */}
         <Dialog

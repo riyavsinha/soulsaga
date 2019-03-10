@@ -13,7 +13,6 @@ import {
   HeartIcon,
   HomeIcon,
   HospitalIcon,
-  LockIcon,
   PaletteIcon,
   PineTreeIcon,
   SchoolIcon,
@@ -26,7 +25,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
-import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';

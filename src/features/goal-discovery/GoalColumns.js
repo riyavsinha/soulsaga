@@ -1,7 +1,6 @@
 import GoalColumn from './GoalColumn';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
 import { auth } from 'common/firebase';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';

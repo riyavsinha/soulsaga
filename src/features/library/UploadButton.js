@@ -7,7 +7,7 @@ export default class UploadButton extends Component {
   };
 
   render() {
-    let variant = this.props.variant ? this.props.variant : "raised";
+    let variant = this.props.variant ? this.props.variant : "contained";
     return (
       <Button
             variant={variant}

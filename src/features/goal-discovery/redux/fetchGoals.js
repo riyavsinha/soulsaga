@@ -7,7 +7,6 @@ import {
 import GoalProto from 'proto/GoalProto';
 import { database, CRAL, GOALS} from 'common/firebase';
 import { ab2str } from 'common/util/strbuffer';
-const _ = require('lodash');
 
 export function fetchGoals(args = {}) {
   return (dispatch, getState) => {
