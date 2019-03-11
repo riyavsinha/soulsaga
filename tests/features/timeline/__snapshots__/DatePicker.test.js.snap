@@ -1,0 +1,380 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`timeline/DatePicker renders renders empty 1`] = `
+<div
+  className="MuiFormControl-root-1"
+>
+  <div>
+    <div
+      className="MuiFormControl-root-1 MuiFormControl-marginNormal-2 timeline-date-picker__month timeline-date-picker__field"
+    >
+      <label
+        className="MuiFormLabel-root-16 MuiInputLabel-root-5 MuiInputLabel-formControl-10 MuiInputLabel-animated-13"
+        data-shrink={false}
+      >
+        Month
+      </label>
+      <div
+        className="MuiInputBase-root-43 MuiInput-root-30 MuiInput-underline-34 MuiInputBase-formControl-44 MuiInput-formControl-31"
+        onClick={[Function]}
+      >
+        <div
+          className="MuiSelect-root-23"
+        >
+          <div
+            aria-haspopup="true"
+            aria-pressed="false"
+            className="MuiSelect-select-24 MuiSelect-selectMenu-27 MuiInputBase-input-53 MuiInput-input-38"
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={0}
+          >
+            <span
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "&#8203;",
+                }
+              }
+            />
+          </div>
+          <input
+            type="hidden"
+            value=""
+          />
+          <svg
+            aria-hidden="true"
+            className="MuiSvgIcon-root-60 MuiSelect-icon-29"
+            focusable="false"
+            role="presentation"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M7 10l5 5 5-5z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiFormControl-root-1 MuiFormControl-marginNormal-2 timeline-date-picker__field"
+    >
+      <label
+        className="MuiFormLabel-root-16 MuiInputLabel-root-5 MuiInputLabel-formControl-10 MuiInputLabel-animated-13 MuiInputLabel-shrink-12"
+        data-shrink={true}
+      >
+        Day
+      </label>
+      <div
+        className="MuiInputBase-root-43 MuiInput-root-30 MuiInput-underline-34 MuiInputBase-formControl-44 MuiInput-formControl-31"
+        onClick={[Function]}
+      >
+        <input
+          aria-invalid={false}
+          className="MuiInputBase-input-53 MuiInput-input-38 MuiInputBase-inputType-56 MuiInput-inputType-41"
+          disabled={false}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          required={false}
+          type="number"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
+    >
+      <label
+        className="MuiFormLabel-root-16 MuiFormLabel-error-19 MuiInputLabel-error-8 MuiFormLabel-required-21 MuiInputLabel-required-9 MuiInputLabel-root-5 MuiInputLabel-formControl-10 MuiInputLabel-animated-13 MuiInputLabel-shrink-12"
+        data-shrink={true}
+      >
+        Year
+        <span
+          className="MuiFormLabel-asterisk-22 MuiFormLabel-error-19 MuiInputLabel-error-8"
+        >
+           *
+        </span>
+      </label>
+      <div
+        className="MuiInputBase-root-43 MuiInput-root-30 MuiInput-underline-34 MuiInputBase-error-49 MuiInput-error-35 MuiInputBase-formControl-44 MuiInput-formControl-31"
+        onClick={[Function]}
+      >
+        <input
+          aria-invalid={true}
+          className="MuiInputBase-input-53 MuiInput-input-38 MuiInputBase-inputType-56 MuiInput-inputType-41"
+          disabled={false}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          required={true}
+          type="number"
+          value=""
+        />
+      </div>
+      <p
+        className="MuiFormHelperText-root-73 MuiFormHelperText-error-74 MuiFormHelperText-required-80"
+      >
+        This field is required
+      </p>
+    </div>
+  </div>
+  <p
+    className="MuiFormHelperText-root-73 timeline-date-picker__date-error--hidden"
+  >
+    Please enter a valid date
+  </p>
+</div>
+`;
+
+exports[`timeline/DatePicker renders renders with date 1`] = `
+<div
+  className="MuiFormControl-root-1"
+>
+  <div>
+    <div
+      className="MuiFormControl-root-1 MuiFormControl-marginNormal-2 timeline-date-picker__month timeline-date-picker__field"
+    >
+      <label
+        className="MuiFormLabel-root-16 MuiFormLabel-filled-20 MuiInputLabel-root-5 MuiInputLabel-formControl-10 MuiInputLabel-animated-13 MuiInputLabel-shrink-12"
+        data-shrink={true}
+      >
+        Month
+      </label>
+      <div
+        className="MuiInputBase-root-43 MuiInput-root-30 MuiInput-underline-34 MuiInputBase-formControl-44 MuiInput-formControl-31"
+        onClick={[Function]}
+      >
+        <div
+          className="MuiSelect-root-23"
+        >
+          <div
+            aria-haspopup="true"
+            aria-pressed="false"
+            className="MuiSelect-select-24 MuiSelect-selectMenu-27 MuiInputBase-input-53 MuiInput-input-38"
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={0}
+          >
+            January
+          </div>
+          <input
+            type="hidden"
+            value="January"
+          />
+          <svg
+            aria-hidden="true"
+            className="MuiSvgIcon-root-60 MuiSelect-icon-29"
+            focusable="false"
+            role="presentation"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M7 10l5 5 5-5z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiFormControl-root-1 MuiFormControl-marginNormal-2 timeline-date-picker__field"
+    >
+      <label
+        className="MuiFormLabel-root-16 MuiFormLabel-filled-20 MuiInputLabel-root-5 MuiInputLabel-formControl-10 MuiInputLabel-animated-13 MuiInputLabel-shrink-12"
+        data-shrink={true}
+      >
+        Day
+      </label>
+      <div
+        className="MuiInputBase-root-43 MuiInput-root-30 MuiInput-underline-34 MuiInputBase-formControl-44 MuiInput-formControl-31"
+        onClick={[Function]}
+      >
+        <input
+          aria-invalid={false}
+          className="MuiInputBase-input-53 MuiInput-input-38 MuiInputBase-inputType-56 MuiInput-inputType-41"
+          disabled={false}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          required={false}
+          type="number"
+          value="5"
+        />
+      </div>
+    </div>
+    <div
+      className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
+    >
+      <label
+        className="MuiFormLabel-root-16 MuiFormLabel-filled-20 MuiFormLabel-required-21 MuiInputLabel-required-9 MuiInputLabel-root-5 MuiInputLabel-formControl-10 MuiInputLabel-animated-13 MuiInputLabel-shrink-12"
+        data-shrink={true}
+      >
+        Year
+        <span
+          className="MuiFormLabel-asterisk-22"
+        >
+           *
+        </span>
+      </label>
+      <div
+        className="MuiInputBase-root-43 MuiInput-root-30 MuiInput-underline-34 MuiInputBase-formControl-44 MuiInput-formControl-31"
+        onClick={[Function]}
+      >
+        <input
+          aria-invalid={false}
+          className="MuiInputBase-input-53 MuiInput-input-38 MuiInputBase-inputType-56 MuiInput-inputType-41"
+          disabled={false}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          required={true}
+          type="number"
+          value="2010"
+        />
+      </div>
+      
+    </div>
+  </div>
+  <p
+    className="MuiFormHelperText-root-73 timeline-date-picker__date-error--hidden"
+  >
+    Please enter a valid date
+  </p>
+</div>
+`;
+
+exports[`timeline/DatePicker renders renders with invalid date 1`] = `
+<div
+  className="MuiFormControl-root-1"
+>
+  <div>
+    <div
+      className="MuiFormControl-root-1 MuiFormControl-marginNormal-2 timeline-date-picker__month timeline-date-picker__field"
+    >
+      <label
+        className="MuiFormLabel-root-16 MuiInputLabel-root-5 MuiInputLabel-formControl-10 MuiInputLabel-animated-13"
+        data-shrink={false}
+      >
+        Month
+      </label>
+      <div
+        className="MuiInputBase-root-43 MuiInput-root-30 MuiInput-underline-34 MuiInputBase-formControl-44 MuiInput-formControl-31"
+        onClick={[Function]}
+      >
+        <div
+          className="MuiSelect-root-23"
+        >
+          <div
+            aria-haspopup="true"
+            aria-pressed="false"
+            className="MuiSelect-select-24 MuiSelect-selectMenu-27 MuiInputBase-input-53 MuiInput-input-38"
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={0}
+          >
+            <span
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "&#8203;",
+                }
+              }
+            />
+          </div>
+          <input
+            type="hidden"
+            value=""
+          />
+          <svg
+            aria-hidden="true"
+            className="MuiSvgIcon-root-60 MuiSelect-icon-29"
+            focusable="false"
+            role="presentation"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M7 10l5 5 5-5z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiFormControl-root-1 MuiFormControl-marginNormal-2 timeline-date-picker__field"
+    >
+      <label
+        className="MuiFormLabel-root-16 MuiFormLabel-filled-20 MuiInputLabel-root-5 MuiInputLabel-formControl-10 MuiInputLabel-animated-13 MuiInputLabel-shrink-12"
+        data-shrink={true}
+      >
+        Day
+      </label>
+      <div
+        className="MuiInputBase-root-43 MuiInput-root-30 MuiInput-underline-34 MuiInputBase-formControl-44 MuiInput-formControl-31"
+        onClick={[Function]}
+      >
+        <input
+          aria-invalid={false}
+          className="MuiInputBase-input-53 MuiInput-input-38 MuiInputBase-inputType-56 MuiInput-inputType-41"
+          disabled={false}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          required={false}
+          type="number"
+          value="5"
+        />
+      </div>
+    </div>
+    <div
+      className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
+    >
+      <label
+        className="MuiFormLabel-root-16 MuiFormLabel-filled-20 MuiFormLabel-required-21 MuiInputLabel-required-9 MuiInputLabel-root-5 MuiInputLabel-formControl-10 MuiInputLabel-animated-13 MuiInputLabel-shrink-12"
+        data-shrink={true}
+      >
+        Year
+        <span
+          className="MuiFormLabel-asterisk-22"
+        >
+           *
+        </span>
+      </label>
+      <div
+        className="MuiInputBase-root-43 MuiInput-root-30 MuiInput-underline-34 MuiInputBase-formControl-44 MuiInput-formControl-31"
+        onClick={[Function]}
+      >
+        <input
+          aria-invalid={false}
+          className="MuiInputBase-input-53 MuiInput-input-38 MuiInputBase-inputType-56 MuiInput-inputType-41"
+          disabled={false}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          required={true}
+          type="number"
+          value="2010"
+        />
+      </div>
+      
+    </div>
+  </div>
+  <p
+    className="MuiFormHelperText-root-73 MuiFormHelperText-error-74"
+  >
+    Please enter a valid date
+  </p>
+</div>
+`;
