@@ -12,6 +12,8 @@ const EventFeatures = {
   DESC: 'Desc',
   IMG: 'Img',
   TG: 'Tg',
+  CAT_EDU: 'CatEdu',
+  CAT_MED: 'CatMed',
 };
 
 let id = 1;
@@ -496,6 +498,75 @@ describe('timeline/TimelineDisplay', () => {
       }
     });
   });
+
+  describe('Filters events', () => {
+    it('includes event if at tag filters are subset of event tags', () => {
+      props.timeline.eventTagFilters = ['testTag1'];
+      props.timeline.events = [
+        buildEvent(2000),
+        buildEvent(2000, '', '', [EventFeatures.TG]),
+        buildEvent(2002, 'February', 4, [EventFeatures.TG]),
+      ];
+      let wrapper = shallow(<TimelineDisplay {...props} />);
+
+      // 2 year-headers and 2 events
+      expect(wrapper.children().length).toBe(4);
+    });
+
+    it('includes event if intersection of tags and filters is nonempty', () => {
+      props.timeline.eventTagFilters = ['testTag1', 'testTag3'];
+      props.timeline.events = [
+        buildEvent(2000),
+        buildEvent(2000, '', '', [EventFeatures.TG]),
+        buildEvent(2002, 'February', 4, [EventFeatures.TG]),
+      ];
+      let wrapper = shallow(<TimelineDisplay {...props} />);
+
+      // 2 year-headers and 2 events
+      expect(wrapper.children().length).toBe(4);
+    });
+
+    it('includes event if category is in singular filter', () => {
+      props.timeline.eventCategoryFilters = ['Education'];
+      props.timeline.events = [
+        buildEvent(2000),
+        buildEvent(2000, '', '', [EventFeatures.CAT_EDU]),
+        buildEvent(2002, 'February', 4, [EventFeatures.CAT_MED]),
+      ];
+      let wrapper = shallow(<TimelineDisplay {...props} />);
+
+      // 1 year-header and 1 event
+      expect(wrapper.children().length).toBe(2);
+    });
+
+    it('includes event if category is subset of filters', () => {
+      props.timeline.eventCategoryFilters = ['Education', "Medical"];
+      props.timeline.events = [
+        buildEvent(2000),
+        buildEvent(2000, '', '', [EventFeatures.CAT_EDU]),
+        buildEvent(2002, 'February', 4, [EventFeatures.CAT_MED]),
+      ];
+      let wrapper = shallow(<TimelineDisplay {...props} />);
+
+      // 2 year-headers and 2 events
+      expect(wrapper.children().length).toBe(4);
+    });
+
+    it('includes event if category is in filters AND tag in filters', () => {
+      props.timeline.eventTagFilters = ['testTag1'];
+      props.timeline.eventCategoryFilters = ['Education', "Medical"];
+      props.timeline.events = [
+        buildEvent(2000),
+        buildEvent(2000, '', '', [EventFeatures.CAT_EDU]),
+        buildEvent(2002, 'February', 4, [EventFeatures.CAT_MED, EventFeatures.TG]),
+        buildEvent(2002, 'February', 4, [EventFeatures.TG]),
+      ];
+      let wrapper = shallow(<TimelineDisplay {...props} />);
+
+      // 1 year-header and 1 event
+      expect(wrapper.children().length).toBe(2);
+    });
+  });
 });
 
 function buildEvent(y, m = '', d = '', features = null) {
@@ -519,6 +590,11 @@ function buildEvent(y, m = '', d = '', features = null) {
     }
     if (features.includes(EventFeatures.TG)) {
       e.tg = ['testTag1', 'testTag2'];
+    }
+    if (features.includes(EventFeatures.CAT_EDU)) {
+      e.c = "Education";
+    } else if (features.includes(EventFeatures.CAT_MED)) {
+      e.c = "Medical";
     }
   }
   return e;
