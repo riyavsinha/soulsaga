@@ -2,7 +2,6 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import DatePicker from 'features/timeline/DatePicker';
-import Input from '@material-ui/core/Input';
 
 const NO_YEAR_EROR = 'This field is required';
 const INVALID_DATE_HIDDEN_CLASS = 'timeline-date-picker__date-error--hidden';
