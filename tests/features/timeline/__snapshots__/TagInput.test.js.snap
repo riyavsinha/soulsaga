@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`timeline/TagInput snapshot tests renders empty 1`] = `
+<div
+  className="timeline-tag-input"
+>
+  <div
+    aria-expanded={false}
+    aria-haspopup="listbox"
+    aria-labelledby="downshift-0-label"
+    aria-owns={null}
+    className=""
+    role="combobox"
+  >
+    <div
+      className="MuiFormControl-root-1 timeline-tag-input__text-field"
+    >
+      <label
+        className="MuiFormLabel-root-16 MuiInputLabel-root-5 MuiInputLabel-formControl-10 MuiInputLabel-animated-13"
+        data-shrink={false}
+      >
+        Tags
+      </label>
+      <div
+        aria-activedescendant={null}
+        aria-autocomplete="list"
+        aria-controls={null}
+        aria-labelledby="downshift-0-label"
+        className="MuiInputBase-root-36 MuiInput-root-23 MuiInput-underline-27 MuiInputBase-formControl-37 MuiInput-formControl-24"
+        onClick={[Function]}
+      >
+        <input
+          aria-invalid={false}
+          autoComplete="off"
+          className="MuiInputBase-input-46 MuiInput-input-31"
+          disabled={false}
+          id="downshift-0-input"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          required={false}
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`timeline/TagInput snapshot tests renders with tags and available tags, available tags hidden 1`] = `
+<div
+  className="timeline-tag-input"
+>
+  <div
+    aria-expanded={false}
+    aria-haspopup="listbox"
+    aria-labelledby="downshift-1-label"
+    aria-owns={null}
+    className=""
+    role="combobox"
+  >
+    <div
+      className="timeline-tag-input__tag-chip-section"
+    >
+      <div
+        className="MuiChip-root-53 MuiChip-deletable-59 timeline-tag-input__tag-chip"
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        role="button"
+        tabIndex={0}
+      >
+        <span
+          className="MuiChip-label-72"
+        >
+          testEventTag1
+        </span>
+        <svg
+          aria-hidden="true"
+          className="MuiSvgIcon-root-78 MuiChip-deleteIcon-73"
+          focusable="false"
+          onClick={[Function]}
+          role="presentation"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"
+          />
+        </svg>
+      </div>
+      <div
+        className="MuiChip-root-53 MuiChip-deletable-59 timeline-tag-input__tag-chip"
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        role="button"
+        tabIndex={0}
+      >
+        <span
+          className="MuiChip-label-72"
+        >
+          testEventTag2
+        </span>
+        <svg
+          aria-hidden="true"
+          className="MuiSvgIcon-root-78 MuiChip-deleteIcon-73"
+          focusable="false"
+          onClick={[Function]}
+          role="presentation"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"
+          />
+        </svg>
+      </div>
+    </div>
+    <div
+      className="MuiFormControl-root-1 timeline-tag-input__text-field"
+    >
+      <label
+        className="MuiFormLabel-root-16 MuiInputLabel-root-5 MuiInputLabel-formControl-10 MuiInputLabel-animated-13"
+        data-shrink={false}
+      >
+        Tags
+      </label>
+      <div
+        aria-activedescendant={null}
+        aria-autocomplete="list"
+        aria-controls={null}
+        aria-labelledby="downshift-1-label"
+        className="MuiInputBase-root-36 MuiInput-root-23 MuiInput-underline-27 MuiInputBase-formControl-37 MuiInput-formControl-24"
+        onClick={[Function]}
+      >
+        <input
+          aria-invalid={false}
+          autoComplete="off"
+          className="MuiInputBase-input-46 MuiInput-input-31"
+          disabled={false}
+          id="downshift-1-input"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          required={false}
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
