@@ -36,11 +36,4 @@ jobs:
       # run tests! For now, only run tests that have been updated
       - run: 
           name: Test
-          command: >
-          npm test
-          tests/features/timeline/CategorySelect.test.js
-          tests/features/timeline/DatePicker.test.js
-          tests/features/timeline/TagInput.test.js
-          tests/features/timeline/TimelineEvent.test.js
-          tests/features/timeline/TimelineDisplay.test.js
-          tests/features/timeline/TimelineDisplayWrapper.test.js
+          command: npm test tests/features/timeline/CategorySelect.test.js tests/features/timeline/DatePicker.test.js tests/features/timeline/TagInput.test.js tests/features/timeline/TimelineEvent.test.js tests/features/timeline/TimelineDisplay.test.js tests/features/timeline/TimelineDisplayWrapper.test.js
